@@ -1,7 +1,8 @@
 .card {
     margin-top:30px;
   }
-  .card__list {
+  
+.card__list {
     display: grid;
     justify-content:center;
     grid-template-columns:repeat(auto-fit, 282px);
