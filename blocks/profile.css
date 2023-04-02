@@ -10,8 +10,6 @@
   grid-template-areas:
     "title button"
     "description description";
-  grid-template-columns: minmax(auto, 373px) auto;
-  grid-gap: 9px 17px;
   align-items: center;
 }
 
@@ -92,7 +90,6 @@
 
   .profile__title {
     font-size: 22px;
-    margin-bottom: 15px;
     max-width: 196px;
   }
   .profile__description {
