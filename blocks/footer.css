@@ -5,6 +5,7 @@
   font-size: 18px;
   line-height: 22px;
   color: #545454;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 @media screen and (max-width: 320px) {
@@ -14,6 +15,5 @@
     padding-bottom: 36px;
     font-size: 14px;
     line-height: 17px;
-    font-family: "Inter", Arial, sans-serif;
   }
 }
