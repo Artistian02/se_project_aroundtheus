@@ -107,6 +107,7 @@
     width: 100%;
     margin-top: 25px;
     margin-bottom: 35px;
+    grid-template-columns: 216px;
   }
 
   .profile__title {
