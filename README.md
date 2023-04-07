@@ -1,10 +1,10 @@
-# Around The U.S.
+# Project Name: Around The U.S.
 
 # Overview
 
--Introduction
--Project features
--Future of the project
+1. Introduction
+2. Project features
+3. Future of the project
 
 # Introduction
 
@@ -14,7 +14,8 @@ This is the third project of the Web Development program at Practicum. It was cr
 
 -Semantic HTML 
 -Media queries
- -Responsive Web design -Interactive page -Grid Layout -Flat BEM -Figma design: url(../images/figma-design.jpg)
+-Responsive Web design 
+-Interactive page -Grid Layout -Flat BEM -Figma design: url(../images/figma-design.jpg)
 
 # Future of the project
 
