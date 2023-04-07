@@ -1,18 +1,12 @@
-Project 3: Around The U.S.
-Overview
-Intro
-Figma
-Images
-Intro
+Around The U.S.
+This is my third project of the Web Development program at Practicum. It was created using HTML and CSS, based on a Figma design template. This project has a responsive design and will scale to 3 different screen sizes, Desktop, Tablet, and Mobile.
 
-This project is made so all the elements are displayed correctly on popular screen sizes. Breakpoints for responsiveness were coded at 620px and 900px screen widths.
-
-Figma
-
-Link to the project on Figma
-
-HTML and CSS were created using this design brief via Figma
-
-Images
-
-Site is live at https://stvloza.github.io/se_project_aroundtheus/
+Project Features
+Semantic HTML5
+Flexbox
+Grid
+Positioning
+Media Queries
+Responsive Design
+GitHub Pages Link
+https://github.com/Artistian02/se_project_aroundtheus.git
