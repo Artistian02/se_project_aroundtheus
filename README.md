@@ -1,4 +1,4 @@
-# Project name: Around The U.S.
+# Around The U.S.
 
 # Overview
 
