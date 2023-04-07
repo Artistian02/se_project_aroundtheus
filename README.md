@@ -2,7 +2,9 @@
 
 # Overview
 
--Introduction -Project features -Future of the project
+-Introduction
+-Project features
+-Future of the project
 
 Introduction
 
@@ -10,7 +12,9 @@ This is the third project of the Web Development program at Practicum. It was cr
 
 # Project Features
 
--Semantic HTML -Media queries -Responsive Web design -Interactive page -Grid Layout -Flat BEM -Figma design: url(../images/figma-design.jpg)
+-Semantic HTML 
+-Media queries
+ -Responsive Web design -Interactive page -Grid Layout -Flat BEM -Figma design: url(../images/figma-design.jpg)
 
 # Future of the project
 
