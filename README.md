@@ -6,7 +6,7 @@
 -Project features
 -Future of the project
 
-Introduction
+# Introduction
 
 This is the third project of the Web Development program at Practicum. It was created using HTML and CSS based on a Figma design.
 
