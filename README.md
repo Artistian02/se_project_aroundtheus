@@ -1,4 +1,4 @@
-Around The U.S.
+# Project Name: Around The U.S.
 This is my third project of the Web Development program at Practicum. It was created using HTML and CSS, based on a Figma design template. This project has a responsive design and will scale to 3 different screen sizes, Desktop, Tablet, and Mobile.
 
 Project Features
