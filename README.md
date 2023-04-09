@@ -22,4 +22,4 @@ This is the third project of the Web Development program at Practicum. It was cr
 This is Stage 1 of a series of development activities for this project.
 
 Link to GitHub Pages
-https://github.com/Artistian02/se_project_aroundtheus
+https://artistian02.github.io/se_project_aroundtheus/
