@@ -122,49 +122,41 @@
     </div>
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__button-exit" type="button"></button>
-             <h2 class="modal__heading">Edit profile</h2>
-        <form class="modal__form form" name="profilemodalform">
-          <input
-            type="text"
-            class="form__input"
-            id="form-input-name"
-            name="name"
-            placeholder="Name"
-            required
-          />
-          <input
-            type="text"
-            class="form__input"
-            id="form-input-description"
-            name="description"
-            placeholder="About Me"
-            required
-          />
-          <button
-            class="form__button-submit"
-            type="submit"
-            id="form-submit-button"
-          >
-            Save
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <template id="card-template">
-      <li class="card">
-        <img src="" class="card__image" alt="" />
-        <div class="card__description">
-          <h2 class="card__title"></h2>
-          <button
-            class="card__like-button"
-            type="button"
-            aria-label="like"
-          ></button>
+        <div class="modal__box">
+             <h2 class="modal__box-title">Edit profile</h2>
+             <form name="modal-form" class="modal__form">
+              <fieldset class="modal__form-fieldset">
+                <input
+                  type="text"
+                  class="modal__form-input"
+                  id="profile-title-input"
+                  placeholder="name"
+                  required
+                  name="profile-title-input"
+                />
+                <input
+                  type="text"
+                  class="modal__form-input"
+                  id="profile-description-input"
+                  placeholder="description"
+                  name="profile-description-input"
+                />
+              </fieldset>
+              <button type="submit" class="modal__form-button">Save</button>
+            </form>
+          </div>
+          <button type="button" class="modal__container-close"></button>
         </div>
-      </li>
-    </template>
-    <script src="./scripts/index.js"></script>
-  </body>
-</html>
+      </section>
+      <template id="card-template">
+        <li class="gallery__card">
+          <img class="gallery__card-image" src="" alt="" />
+          <div class="gallery__card-description">
+            <h2 class="gallery__card-title"></h2>
+            <button class="gallery__card-button" type="button"></button>
+          </div>
+        </li>
+      </template>
+      <script src="./scripts/index.js"></script>
+    </body>
+  </html>
