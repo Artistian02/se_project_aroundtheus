@@ -25,7 +25,21 @@ const initialCards = [
     },
   ];
 
+  
+// elements //
   const profileEditButton = document.querySelector("#profile-edit-button");
   const profileEditModal = document.querySelector("#profile-edit-modal");
-  const editCloseButton = document.querySelector("#edit-close-button");
-  const profileTitle = document.querySelector(".profile__title");
+  const profileEditCloseButton = profileEditModal.querySelector(".modal__close");
+  const profileTitle = document.querySelector('.profile__title');
+  const profileDescription = document.querySelector('.profile__description');
+  const profileTitleInput = document.querySelector("#profile-title-input");
+  const profileDescriptionInput = document.querySelector("#profile-description-input")
+
+
+  profileEditButton.addEventListener("click", () => {
+  profileEditModal.classList.add("modal_opened");
+  });
+
+  profileEditButton.addEventListener("click", () => {
+    profileEditModal.classList.add("modal_opened");
+  });
