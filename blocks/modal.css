@@ -15,6 +15,15 @@
     visibility:  visible;
   }
   
+  .modal__overlay {
+    opacity: 0.5;
+    background-color: black;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
   .modal__container {
     max-width: 430px;
     width: 100%;
@@ -24,11 +33,6 @@
     justify-content: flex-start;
     align-items: flex-end;
     padding: 0 19px;
-  }
-
-  .modal__container-close:hover{
-    cursor: pointer;
-    opacity: 0.6;
   }
 
   .modal__box {
@@ -60,10 +64,7 @@
     top: -40px;
     right: -20px;
   }
-  .modal__container-close:hover{
-    cursor: pointer;
-    opacity: 0.6;
-  }
+
   .modal__form {
     display: flex;
     flex-direction: column;
