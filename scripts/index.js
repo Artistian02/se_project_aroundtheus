@@ -27,22 +27,26 @@ const initialCards = [
 
 // elements//
 const profileEditButton = document.querySelector("#profile__edit-button");
+const profileModal = document.querySelector("#profile-edit-modal");
 const modalContainerClose = document.querySelector(".modal__container-close");
 const modalEditCloseButton = document.querySelector(".modal__close");
 const profileTitle = document.querySelector("#profile__title");
 const profileDescription = document.querySelector("#profile__description");
-const profileTitleInput = document.querySelector("#profile-title-input");
-const profileDescriptionInput = document.querySelector(
+const modalTitleInput = document.querySelector("#profile-title-input");
+const modalDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
 //functions//
 
-function handleModalClose() {
- profileEditModal.classList.remove("modal_opened");
+function openPopup(popup) {
+  popup.classList.add("modal_opened");
 }
 
-function getCardElement(cardData) {
+function closePopup(popup) {
+  popup.classList.remove("modal_opened");
+}
+const getCardElement = (cardData) => {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
@@ -50,8 +54,13 @@ function getCardElement(cardData) {
   cardImageEl.alt = cardTitleEl.textContent;
   cardImageEl.src = cardData.link;
   return cardElement;
-
 }
+
+initialCards.forEach((cardData) => {
+  const cardElement = getCardElement(cardData);
+  // do something with the cardElement
+});
+
 
 // Event Handlers //
 function handleProfileEditSubmit(e) {
