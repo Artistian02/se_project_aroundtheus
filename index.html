@@ -122,16 +122,14 @@
     </div>
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <div class="modal__box">
-             <h2 class="modal__box-title">Edit profile</h2>
-             <form name="modal-form" class="modal__form">
-              <fieldset class="modal__form-fieldset">
+        <div class="modal__container-close">
+             <h2 class="modal__title">Edit profile</h2>
+             <form class="modal__form">
                 <input
                   type="text"
                   class="modal__form-input"
                   id="profile-title-input"
                   placeholder="Jacques Cousteau"
-
                   name="title"
                 />
                 <input
@@ -142,21 +140,18 @@
                   name="description"
                 />
               </fieldset>
-              <button type="submit" class="modal__form-button">Save</button>
+              <button type="button" class="modal__form-button">Save</button>
             </form>
             </div>
           </div>
-          <div class="modal__overlay">
-        </div>
       </div>
       
-
       <template id="card-template">
-        <li class="gallery__card">
-          <img class="gallery__card-image" src="" alt="" />
-          <div class="gallery__card-description">
-            <h2 class="gallery__card-title"></h2>
-            <button class="gallery__card-button" type="button"></button>
+        <li class="card">
+          <img class="card__image" src="" alt="" />
+          <div class="card__description">
+            <h2 class="card__title"></h2>
+            <button class="card__like-button" type="button"></button>
           </div>
         </li>
       </template>
