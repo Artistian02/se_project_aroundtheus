@@ -26,7 +26,6 @@ const initialCards = [
 ];
 
 // elements//
-
 const profileEditButton = document.querySelector("#profile__edit-button");
 const modalContainerClose = document.querySelector(".modal__container-close");
 const modalEditCloseButton = document.querySelector(".modal__close");
@@ -63,10 +62,12 @@ function handleProfileEditSubmit(e) {
 }
 
 // Event Listeners //
-
 function handleEditClick(event) {
-console.log("we are in edit click function");
-profileEditModal.classList.add("modal_opened");
+  console.log("Button Clicked!");
+  profileEditModal.classList.add("modal_opened");
   modalTitleInput.value = profileTitle.textContent;
   modalDescriptionInput.value = profileDescription.textContent;
 }
+
+const modalFormButton = document.getElementById("modal__form-button");
+modalFormButton.addEventListener("click", handleEditClick);
