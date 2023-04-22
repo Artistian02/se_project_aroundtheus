@@ -122,38 +122,39 @@
     </div>
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__container-close" id="profile-close-button"></button>
-             <h2 class="modal__title">Edit profile</h2>
-             <form class="modal__form">
-                <input
-                  type="text"
-                  class="modal__form-input"
-                  id="profile-title-input"
-                  placeholder="Jacques Cousteau"
-                  name="title"
-                />
-                <input
-                  type="text"
-                  class="modal__form-input"
-                  id="profile-description-input"
-                  placeholder="explorer"
-                  name="description"
-                />
-              </fieldset>
-              <button type="submit" id="modal__form-button">Save</button>
-            </form>
-            </div>
-          </div>
+        <button
+          class="modal__container-close"
+          id="profile-close-button"
+        ></button>
+        <h2 class="modal__title">Edit profile</h2>
+        <form class="modal__form">
+          <input
+            type="text"
+            class="modal__form-input"
+            id="profile-title-input"
+            placeholder="Jacques Cousteau"
+            name="title"
+          />
+          <input
+            type="text"
+            class="modal__form-input"
+            id="profile-description-input"
+            placeholder="explorer"
+            name="description"
+          />
+          <button type="submit" id="modal__form-button">Save</button>
+        </form>
       </div>
-      <script src="./scripts/index.js"></script>
-      <template id="card-template">
-        <li class="card">
-          <img class="card__image" src="" alt="" />
-          <div class="card__description">
-            <h2 class="card__title"></h2>
-            <button class="card__like-button" type="button"></button>
-          </div>
-        </li>
-      </template>
-    </body>
-  </html>
+    </div>
+    <script src="scripts/index.js"></script>
+    <template id="card-template">
+      <li class="card">
+        <img class="card__image" src="" alt="" />
+        <div class="card__description">
+          <h2 class="card__title"></h2>
+          <button class="card__like-button" type="button"></button>
+        </div>
+      </li>
+    </template>
+  </body>
+</html>
