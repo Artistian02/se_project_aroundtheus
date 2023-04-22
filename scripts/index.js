@@ -25,13 +25,7 @@ const initialCards = [
   },
 ];
 document.addEventListener("DOMContentLoaded", () => {
-  const cardsGrid = document.querySelector(".cards__grid");
-  if (!cardsGrid) return;
-
-  initialCards.forEach((cardData) => {
-    const cardElement = getCardElement(cardData);
-    cardsGrid.append(cardElement);
-  });
+  const cardsGrid = document.querySelector(".cards__list");
 
   // elements//
   const cardTemplate = document.querySelector("#card-template");
@@ -45,16 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTitleInput = document.querySelector("#profile-title-input");
   const modalContainerClose = document.querySelector(".modal__container-close");
 
-  //functions//
-
-  function openPopup(popup) {
-    popup.classList.add("modal_opened");
-  }
-
-  function closePopup(popup) {
-    popup.classList.remove("modal_opened");
-  }
-
   const getCardElement = (cardData) => {
     const cardElement = cardTemplate.content
       .querySelector(".card")
@@ -66,6 +50,21 @@ document.addEventListener("DOMContentLoaded", () => {
     cardImageEl.src = cardData.link;
     return cardElement;
   };
+
+  initialCards.forEach((cardData) => {
+    const cardElement = getCardElement(cardData);
+    cardsGrid.append(cardElement);
+  });
+
+  //functions//
+
+  function openPopup(popup) {
+    popup.classList.add("modal_opened");
+  }
+
+  function closePopup(popup) {
+    popup.classList.remove("modal_opened");
+  }
 
   // Event Handlers //
   function handleProfileEditSubmit(e) {
