@@ -27,33 +27,7 @@ const initialCards = [
   },
 ];
 
-initialCards.forEach((cardData) => {
-  const cardElement = getCardElement(cardData);
-  cardsGrid.append(cardElement);
-});
-
-// Elements//
-
-const profileEditButton = document.querySelector("#profile__edit-button");
-const modalDescriptionInput = document.querySelector(
-  "#profile-description-input"
-);
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const profileEditForm = profileEditModal.querySelector(".modal__form");
-const modalEditCloseButton = document.querySelector(".modal__edit-close");
-const profileTitle = document.querySelector(".profile__title");
-const modalTitleInput = document.querySelector("#profile-title-input");
-const modalContainerClose = document.querySelector(".modal__container-close");
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-
-//functions//
-
-function closePopup(popup) {
-  popup.classList.remove("modal_opened");
-}
-
-const getCardElement = (cardData) => {
+function getCardElement(cardData) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
     .cloneNode(true);
@@ -63,7 +37,25 @@ const getCardElement = (cardData) => {
   cardImageEl.alt = cardData.name;
   cardImageEl.src = cardData.link;
   return cardElement;
-};
+}
+
+// Elements//
+const profile = document.querySelector("#profile");
+const profileTitle = document.querySelector("#profile__title");
+const profileEditButton = document.querySelector("#profile__edit-button");
+const profileEditModal = document.querySelector("#profile-edit-modal");
+const profileCloseButton = document.querySelector("profile-close-button");
+const profileTitleInput = document.querySelector("#profile-title-input");
+const profileDescriptionInput = document.querySelector("#profile-description-input");
+const modalFormButton = document.querySelector(".modal__form-button");
+const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
+
+
+//functions//
+
+function closePopup(popup) {
+  popup.classList.remove("modal_opened");
+}
 
 // Event Handlers //
 
@@ -81,8 +73,8 @@ profileEditButton.addEventListener("click", () => {
   profileEditModal.classList.add("modal__opened");
 });
 
-modalEditCloseButton.addEventListener("click", () => {
-  closePopup(profileEditModal);
+modalContainerClose.addEventListener("click", () => {
+  closePopup(profileCloseButton);
 });
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
