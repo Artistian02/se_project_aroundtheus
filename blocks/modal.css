@@ -12,7 +12,7 @@
   }
   
   .modal_opened {
-    visibility:  visible;
+    display: flex;
   }
   
   .modal__overlay {
@@ -35,13 +35,6 @@
     padding: 0 19px;
   }
 
-  .modal__box {
-    width: 100%;
-    height: auto;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    padding: 36px;
-  }
   .modal__title {
     color: black;
     font-weight: 900;
