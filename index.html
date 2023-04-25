@@ -39,80 +39,6 @@
         </section>
         <section class="cards page__section">
           <ul class="cards__list">
-            <li class="card">
-              <img
-                src="./image/yosemite-valley.png"
-                alt="yosemite valley"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Yosemite Valley</h2>
-                <button
-                  type="button"
-                  aria-label="like"
-                  class="card__like-button"
-                ></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./image/lake-louise.png"
-                alt="lake louise"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Lake Louise</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./image/bald-mountains.png"
-                alt="bald mountain"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Bald Mountains</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./image/latemar.png"
-                alt="latemar"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Latemar</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./image/vanoise-national-park.png"
-                alt="national park"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Vanoise National Park</h2>
-                <button type="button" class="card__like-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-                src="./image/lago-di-braies.png"
-                alt="lago di braies"
-                class="card__image"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Lago di Braies</h2>
-                <button
-                  type="button"
-                  aria-label="like"
-                  class="card__like-button"
-                ></button>
-              </div>
-            </li>
           </ul>
         </section>
       </main>
@@ -122,31 +48,38 @@
     </div>
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button
-          class="modal__container-close"
-          id="profile-close-button"
-        ></button>
-        <h2 class="modal__title">Edit profile</h2>
+        <button class="modal__close" id="modal-close-button"></button>
+        <p class="modal__heading">Edit Profile</p>
         <form class="modal__form">
           <input
             type="text"
-            class="modal__form-input"
-            id="profile-title-input"
-            placeholder="Jacques Cousteau"
             name="title"
+            class="modal__form-title"
+            placeholder="Jacques Cousteau"
+            id="profile-title-input"
           />
           <input
             type="text"
-            class="modal__form-input"
-            id="profile-description-input"
-            placeholder="explorer"
             name="description"
+            class="modal__form-description"
+            placeholder="Explorer"
+            id="profile-description-input"
           />
-          <button type="submit" id="modal__form-button">Save</button>
+          <button class="modal__button">Save</button>
         </form>
       </div>
-    </div> 
-    <template id="card-template"></template>
-    <script src="scripts/index.js"></script>
+      <div class="modal__overlay"></div>
+    </div>
+
+    <template id="card-template">
+      <li class="card">
+        <img src="" alt="" class="card__image" />
+        <div class="card__description">
+          <h2 class="card__title"></h2>
+          <button class="card__like-button" type="button"></button>
+        </div>
+      </li>
+    </template>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
