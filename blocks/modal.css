@@ -137,15 +137,35 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 620px) {
-  .modal__container {
-    width: 282px;
-    padding-bottom: 25px;
-  }
-
+@media screen and (max-width: 630px) {
   .modal__close {
     width: 26px;
     height: 26px;
-    right: 0px;
+    top: -45px;
+    right: -5px;
+  }
+
+  .modal__heading {
+    width: 100%;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .modal__container {
+    width: 282px;
+    height: 322px;
+    padding-left: 19px;
+    padding-right: 19px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .modal__form {
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .modal__button {
+    font-size: 14px;
   }
 }
