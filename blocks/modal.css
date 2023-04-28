@@ -45,8 +45,8 @@
   background-color: white;
   padding: 36px;
   border-radius: 10px;
+  margin: 0;
   width: 358px;
-  box-sizing: border-box;
 }
 
 .modal__form {
@@ -77,8 +77,8 @@
   background-image: url("../image/Close\ Icon.svg");
   border: none;
   background-color: transparent;
-  width: 40px;
-  height: 40px;
+  width: 26px;
+  height: 26px;
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
@@ -87,29 +87,12 @@
   cursor: pointer;
 }
 
-.modal__form-title {
+.modal__input {
   max-width: 100%;
-  border: 1px solid #000;
-  padding-top: 15px;
-  padding-bottom: 19px;
-  margin-bottom: 16px;
-  font-family: "Inter", "Arial", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-}
-
-.modal__form-description {
-  max-width: 100%;
-  padding-top: 16px;
-  padding-bottom: 18px;
+  padding-bottom: 10px;
   border: 1px solid #000;
   margin-bottom: 43px;
-  font-family: "Inter";
+  font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -124,27 +107,24 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 768px) {
   .modal__close {
-    width: 26px;
     height: 26px;
+    width: 26px;
     top: -45px;
-    right: -5px;
+    right: -45px;
   }
 
   .modal__heading {
-    width: 100%;
     font-size: 18px;
-    line-height: 22px;
+    margin-bottom: 75px;
+    padding: 3px;
+    line-height: 21.7px;
   }
 
   .modal__container {
+    padding: 19px;
     width: 282px;
-    height: 322px;
-    padding-left: 19px;
-    padding-right: 19px;
-    padding-top: 0;
-    padding-bottom: 0;
   }
 
   .modal__form {
@@ -153,6 +133,9 @@
   }
 
   .modal__button {
+    padding: 25px;
+    margin-top: 45px;
     font-size: 14px;
+    line-height: 16.94px;
   }
 }
