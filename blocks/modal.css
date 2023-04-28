@@ -17,7 +17,6 @@
   display: flex;
   justify-content: flex-start;
   max-width: 330px;
-  height: 23px;
   color: black;
   font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
@@ -48,16 +47,6 @@
   border-radius: 10px;
   width: 358px;
   box-sizing: border-box;
-}
-
-.modal__title {
-  color: black;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 29px;
-  max-width: 100%;
-  height: auto;
-  margin: 0 0 24px;
 }
 
 .modal__form {
@@ -99,7 +88,6 @@
 }
 
 .modal__form-title {
-  height: 14px;
   max-width: 100%;
   border: 1px solid #000;
   padding-top: 15px;
@@ -116,7 +104,6 @@
 }
 
 .modal__form-description {
-  height: 14px;
   max-width: 100%;
   padding-top: 16px;
   padding-bottom: 18px;
