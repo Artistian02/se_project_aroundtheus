@@ -53,6 +53,14 @@ function getCardElement(cardData) {
   cardImageEl.alt = cardData.name;
   return cardElement;
 }
+
+function openPopup() {
+  const popup = document.getElementById("profile-edit-modal");
+  popup.classList.add("popup_opened");
+  profileTitleInput.value = profileTitle.textContent.trim();
+  profileDescriptionInput.value = profileDescriptionInput.textContent.trim();
+}
+
 function closePopup() {
   profileEditModal.classList.remove("modal_opened");
 }
@@ -61,9 +69,6 @@ function closePopup() {
 
 function handleProfileEditSubmit(e) {
   e.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closePopup();
 }
 
 /// Event Listeners /////
@@ -73,6 +78,8 @@ profileEditButton.addEventListener("click", () => {
   profileDescriptionInput.value = profileDescription.textContent.trim();
   profileEditModal.classList.add("modal_opened");
 });
+
+profileEditButton.addEventListener("click", openPopup);
 
 profileEditCloseButton.addEventListener("click", closePopup);
 
