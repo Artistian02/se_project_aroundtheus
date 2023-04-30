@@ -55,6 +55,8 @@ function getCardElement(cardData) {
 }
 
 function openPopup() {
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
   profileEditModal.classList.add("modal_opened");
 }
 
