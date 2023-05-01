@@ -29,9 +29,10 @@ const initialCards = [
 
 const profileEditButton = document.querySelector("#profile__edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
-const profileEditCloseButton = profileEditModal.querySelector(
-  "#modal-close-button"
-);
+const addCardModal = document.querySelector("#add-card-modal");
+const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
+const addNewcardButton = document.querySelector(".profile__add-button");
+
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -54,14 +55,18 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
-function openPopup() {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-  profileEditModal.classList.add("modal_opened");
+//function openPopup() {
+// profileTitleInput.value = profileTitle.textContent;
+//  profileDescriptionInput.value = profileDescription.textContent;
+//  profileEditModal.classList.add("modal_opened");
+//}
+
+function openPopup(modal) {
+  modal.classList.add("modal_opened");
 }
 
-function closePopup() {
-  profileEditModal.classList.remove("modal_opened");
+function closePopup(modal) {
+  modal.classList.remove("modal_opened");
 }
 
 //// Event Handlers  //////
@@ -75,11 +80,12 @@ function handleProfileEditSubmit(e) {
 
 /// Event Listeners /////
 
-profileEditButton.addEventListener("click", openPopup);
-
-profileEditCloseButton.addEventListener("click", closePopup);
-
+profileEditButton.addEventListener("click", () => openPopup(profileEditModal));
+profileModalCloseButton.addEventListener("click", () =>
+  closePopup(profileEditModal)
+);
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+addNewcardButton.addEventListener("click", () => openPopup(addCardModal));
 
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
