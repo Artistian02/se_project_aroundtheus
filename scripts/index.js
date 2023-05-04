@@ -50,6 +50,12 @@ function getCardElement(cardData) {
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
   cardTitleEl.textContent = cardData.name.trim();
+  const likeButton = cardElement.querySelector(".card__like-button");
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button_active");
+  });
+
   cardImageEl.src = cardData.link;
   cardImageEl.alt = cardData.name;
   return cardElement;
@@ -84,6 +90,7 @@ profileEditButton.addEventListener("click", () => openPopup(profileEditModal));
 profileModalCloseButton.addEventListener("click", () =>
   closePopup(profileEditModal)
 );
+
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addNewcardButton.addEventListener("click", () => openPopup(addCardModal));
 
