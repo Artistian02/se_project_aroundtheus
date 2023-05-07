@@ -69,7 +69,10 @@ function getCardElement(cardData) {
   });
 
   deleteButton.addEventListener("click", () => {
-    deleteButton.classList.toggle(".cards__list");
+    const card = deleteButton.closest(".card");
+    if (card) {
+      card.remove();
+    }
   });
 
   cardImageEl.src = cardData.link;
@@ -114,9 +117,12 @@ function handleAddCardFormSubmit(evt) {
 profileFormElement.addEventListener("submit", handleProfileEditSubmit);
 addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
 
+const nameInput = document.getElementById("profile-title-input");
+const jobInput = document.getElementById("profile-description-input");
+
 profileEditButton.addEventListener("click", () => {
-  nameInput.vaule = profileTitle.textContent;
-  jobInput.vaule = profileDescription.textContent;
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
   openPopup(profileEditModal);
 });
 
