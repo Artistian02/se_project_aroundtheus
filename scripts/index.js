@@ -42,6 +42,7 @@ const cardURLInput = addCardModal.querySelector(".modal__input");
 const addCardTitle = addCardForm.querySelector("add-card-input");
 const addCardLink = addCardForm.querySelector("add-card-input");
 
+const imagePreviewModal = document.querySelector("#image-preview-modal");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -55,6 +56,9 @@ const cardTemplate = document.querySelector("#card-template");
 const cardListEl = document.querySelector(".cards__list");
 
 /////  Functions ////
+function handlePreviewPicture(cardData) {
+  openPopup(imagePreviewModal);
+}
 
 function getCardElement(cardData) {
   const cardElement = cardTemplate.content.firstElementChild.cloneNode(true);
@@ -63,6 +67,15 @@ function getCardElement(cardData) {
   cardTitleEl.textContent = cardData.name.trim();
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
+
+  function showPreviewImage({ name, link }) {
+    openPopup(cardImageModal);
+    const imageElement = document.querySelector(".modal__card-image-preview");
+    imageElement.src = link;
+    imageElement.alt = name;
+  }
+  cardImageEl.addEventListener("click", () => {});
+  showPreviewImage(cardData);
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");

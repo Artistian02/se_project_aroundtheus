@@ -50,6 +50,22 @@
   box-sizing: border-box;
 }
 
+.modal__image-container {
+  background-color: #fff;
+  position: relative;
+  padding: 36px;
+  border-radius: 10px;
+  margin: 0;
+  max-width: 430px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal__card-image-preview {
+  display: flex;
+  justify-content: center;
+}
+
 .modal__form {
   display: flex;
   flex-direction: column;
