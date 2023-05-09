@@ -41,29 +41,36 @@
 
 .modal__container {
   position: relative;
-  background-color: white;
+  background-color: #fff;
   padding: 36px;
   border-radius: 10px;
   margin: 0;
   max-width: 430px;
   width: 100%;
   box-sizing: border-box;
+  border: none;
 }
 
 .modal__image-container {
-  background-color: #fff;
   position: relative;
-  padding: 36px;
-  border-radius: 10px;
-  margin: 0;
-  max-width: 430px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .modal__card-image-preview {
+  min-height: 55vh;
+  min-width: 50vw;
+  max-height: 75vh;
+  max-width: 75vw;
+  z-index: 110;
+}
+
+.modal__image-close {
+  position: relative;
   display: flex;
-  justify-content: center;
+  background-position: 100%;
+  left: 40px;
+  width: 100%;
+  z-index: 120;
+  top: -10px;
 }
 
 .modal__form {

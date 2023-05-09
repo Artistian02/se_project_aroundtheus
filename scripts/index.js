@@ -42,13 +42,16 @@ const cardURLInput = addCardModal.querySelector(".modal__input");
 const addCardTitle = addCardForm.querySelector("add-card-input");
 const addCardLink = addCardForm.querySelector("add-card-input");
 
-const imagePreviewModal = document.querySelector("#image-preview-modal");
+const imageModal = document.querySelector("#image-preview-modal");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
+const imageEnlarge = imageModal.querySelector("img");
+const imageCaption = imageModal.querySelector("p");
+const enlargeCloseButton = imageModal.querySelector(".modal__image-close");
 
 const cardTitleInput = addCardFormElement.querySelector(".modal__input");
 const profileFormElement = profileEditModal.querySelector(".modal__form");
@@ -57,7 +60,7 @@ const cardListEl = document.querySelector(".cards__list");
 
 /////  Functions ////
 function handlePreviewPicture(cardData) {
-  openPopup(imagePreviewModal);
+  openPopup(imageModal);
 }
 
 function getCardElement(cardData) {
@@ -83,7 +86,7 @@ function getCardElement(cardData) {
   });
 
   function showPreviewImage({ name, link }) {
-    openPopup(imagePreviewModal);
+    openPopup(imageModal);
     const imageElement = document.querySelector(".modal__card-image-preview");
     imageElement.src = link;
     imageElement.alt = name;
@@ -143,6 +146,10 @@ profileEditButton.addEventListener("click", () => {
 profileModalCloseButton.addEventListener("click", () =>
   closePopup(profileEditModal)
 );
+
+enlargeCloseButton.addEventListener("click", () => {
+  closePopup(imageModal);
+});
 
 // Add New Card //
 
