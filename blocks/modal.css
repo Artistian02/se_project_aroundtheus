@@ -1,4 +1,8 @@
 .modal {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -27,7 +31,10 @@
 }
 
 .modal_opened {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+  transition: visibility 0s, opacity 0.5s linear;
 }
 
 .modal__overlay {
