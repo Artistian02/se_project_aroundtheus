@@ -1,5 +1,5 @@
 .modal {
-  visibility: hidden;
+  visibility: none;
   opacity: 0;
   pointer-events: none;
   transition: visibility 0s 0.5s, opacity 0.5s linear;
@@ -12,7 +12,7 @@
   min-width: 100%;
   z-index: 2;
   box-sizing: border-box;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
