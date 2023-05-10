@@ -46,8 +46,14 @@ const imageModal = document.querySelector("#image-preview-modal");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
-const profileDescriptionInput = document.querySelector(
+
+const profileDescriptionImage = document.querySelector(
   "#profile-description-input"
+);
+const profileTitleImage = document.querySelector("#profile-title-image");
+
+const profileDescriptionInput = document.querySelector(
+  "#profile-description-image"
 );
 const imageEnlarge = imageModal.querySelector("img");
 const imageCaption = imageModal.querySelector("p");
