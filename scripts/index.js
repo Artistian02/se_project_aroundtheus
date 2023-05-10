@@ -88,13 +88,13 @@ function getCardElement(cardData) {
   });
 
   function showPreviewImage({ name, link }) {
+    imageCaption.textContent = name;
     openPopup(imageModal);
     imageElement.src = link;
     imageElement.alt = name;
   }
 
   function handleCardClick(data) {
-    imageCaption.textContent = data.name;
     imageModal.src = data.link;
     imageModal.alt = data.name;
 
