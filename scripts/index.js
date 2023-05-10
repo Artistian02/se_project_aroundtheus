@@ -51,6 +51,7 @@ const profileDescriptionInput = document.querySelector(
 );
 const imageEnlarge = imageModal.querySelector("img");
 const imageCaption = imageModal.querySelector("p");
+const imageElement = document.querySelector(".modal__card-image-preview");
 const enlargeCloseButton = imageModal.querySelector(".modal__image-close");
 
 const cardTitleInput = addCardFormElement.querySelector(".modal__input");
@@ -88,9 +89,16 @@ function getCardElement(cardData) {
 
   function showPreviewImage({ name, link }) {
     openPopup(imageModal);
-    const imageElement = document.querySelector(".modal__card-image-preview");
     imageElement.src = link;
     imageElement.alt = name;
+  }
+
+  function handleCardClick(data) {
+    imageCaption.textContent = data.name;
+    imageModal.src = data.link;
+    imageModal.alt = data.name;
+
+    openPopup(showPreviewImage);
   }
 
   cardImageEl.src = cardData.link;
