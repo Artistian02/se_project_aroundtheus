@@ -31,9 +31,8 @@ const profileEditButton = document.querySelector("#profile__edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
-const addCardModalCloseButton = addCardModal.querySelector(
-  "#modal-close-button"
-);
+const addCardModalCloseButton =
+  addCardModal.querySelector("#modal-close-image");
 const addNewcardButton = document.querySelector(".profile__add-button");
 
 const addCardForm = addCardModal.querySelector(".modal__input");
