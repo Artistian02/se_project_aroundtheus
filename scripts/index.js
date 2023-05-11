@@ -54,7 +54,7 @@ const imageElement = document.querySelector(".modal__card-image-preview");
 const enlargeCloseButton = imageModal.querySelector(".modal__image-close ");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 
-const cardTitleInput = addCardFormElement.querySelector(
+const cardDescriptionInput = addCardFormElement.querySelector(
   "#profile-description-input"
 );
 const profileFormElement = profileEditModal.querySelector(".modal__form");
@@ -79,9 +79,7 @@ function getCardElement(cardData) {
     likeButton.classList.toggle("card__like-button_active");
   });
 
-  deleteButton.addEventListener("click", () => {
-    const card = deleteButton.closest(".card");
-  });
+  deleteButton.addEventListener("click", () => {});
 
   function showPreviewImage({ name, link }) {
     imageCaption.textContent = name;
@@ -120,17 +118,19 @@ function handleProfileEditSubmit(evt) {
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const titleVaule = cardTitleInput.value;
+  const titleVaule = cardDescriptionInput.value;
   const urlVaule = cardUrlInput.value;
   const newCardData = {
     name: titleValue,
     link: urlValue,
   };
-  initialCards.push(newCardData);
+
+  const updatedCards = [...initialCards, newCardData];
+
   const newCardElement = getCardElement(newCardData);
   cardListEl.prepend(newCardElement);
   closePopup(addCardModal);
-  addCardForm.reset(); // Reset the form fields
+  addCardForm.reset();
 }
 
 /// Event Listeners /////
@@ -141,7 +141,7 @@ const nameInput = document.getElementById("profile-title-input");
 
 profileEditButton.addEventListener("click", () => {
   nameInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
+  profileDescriptionInput.value = profileDescription.innerText;
   openPopup(profileEditModal);
 });
 
