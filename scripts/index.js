@@ -43,7 +43,7 @@ const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
 
-const profileTitleImage = document.querySelector("#profile-title-image");
+const cardTitleInput = document.querySelector("#card-title-input");
 
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
@@ -126,8 +126,8 @@ function handleAddCardFormSubmit(event) {
 
   const newCardData = {
     title: titleValue,
-    imageUrl: imageUrlValue,
-    linkUrl: linkUrlValue,
+    name: cardTitleInput.value,
+    link: linkUrlValue,
   };
 
   const newCardElement = getCardElement(newCardData);
