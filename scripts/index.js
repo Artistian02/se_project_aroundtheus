@@ -117,13 +117,17 @@ function handleProfileEditSubmit(evt) {
   closePopup(profileEditModal);
 }
 
-function handleAddCardFormSubmit(evt) {
-  evt.preventDefault();
-  const titleVaule = cardDescriptionInput.value;
-  const urlVaule = cardUrlInput.value;
+function handleAddCardFormSubmit(event) {
+  event.preventDefault();
+
+  const titleValue = cardTitleInput.value;
+  const imageUrlValue = cardImageUrlInput.value;
+  const linkUrlValue = document.getElementById("link-input").value; // Access the link URL input field
+
   const newCardData = {
-    name: titleValue,
-    link: urlValue,
+    title: titleValue,
+    imageUrl: imageUrlValue,
+    linkUrl: linkUrlValue,
   };
 
   const newCardElement = getCardElement(newCardData);
