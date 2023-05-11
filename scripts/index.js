@@ -46,7 +46,7 @@ const profileTitleInput = document.querySelector("#profile-title-input");
 const profileTitleImage = document.querySelector("#profile-title-image");
 
 const profileDescriptionInput = document.querySelector(
-  "#profile-description-image"
+  "#profile-description-input"
 );
 
 const imageCaption = imageModal.querySelector(".modal__image-caption");
@@ -54,9 +54,8 @@ const imageElement = document.querySelector(".modal__card-image-preview");
 const enlargeCloseButton = imageModal.querySelector(".modal__image-close ");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 
-const cardDescriptionInput = addCardFormElement.querySelector(
-  "#profile-description-input"
-);
+const cardDescriptionInput = addCardFormElement.querySelector("#link-input");
+
 const profileFormElement = profileEditModal.querySelector(".modal__form");
 const cardTemplate = document.querySelector("#card-template");
 const cardListEl = document.querySelector(".cards__list");
@@ -79,7 +78,9 @@ function getCardElement(cardData) {
     likeButton.classList.toggle("card__like-button_active");
   });
 
-  deleteButton.addEventListener("click", () => {});
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
 
   function showPreviewImage({ name, link }) {
     imageCaption.textContent = name;
@@ -124,8 +125,6 @@ function handleAddCardFormSubmit(evt) {
     name: titleValue,
     link: urlValue,
   };
-
-  const updatedCards = [...initialCards, newCardData];
 
   const newCardElement = getCardElement(newCardData);
   cardListEl.prepend(newCardElement);
