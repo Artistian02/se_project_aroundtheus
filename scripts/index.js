@@ -36,14 +36,13 @@ const addCardModalCloseButton =
 const addNewCardButton = document.querySelector(".profile__add-button");
 
 const addCardForm = addCardModal.querySelector(".modal__form");
-const cardURLInput = addCardModal.querySelector("#profile-title-input");
+const cardTitleInput = addCardModal.querySelector("#card-title-input");
+const addCardFormElement = addCardModal.querySelector(".modal__form");
+const cardURLInput = addCardFormElement.querySelector("#card-url-input");
 
 const imageModal = document.querySelector("#image-preview-modal");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const profileTitleInput = document.querySelector("#profile-title-input");
-
-const cardTitleInput = document.querySelector("#card-title-input");
 
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
@@ -52,9 +51,6 @@ const profileDescriptionInput = document.querySelector(
 const imageCaption = imageModal.querySelector(".modal__image-caption");
 const imageElement = document.querySelector(".modal__card-image-preview");
 const enlargeCloseButton = imageModal.querySelector(".modal__image-close ");
-const addCardFormElement = addCardModal.querySelector(".modal__form");
-
-const cardDescriptionInput = addCardFormElement.querySelector("#link-input");
 
 const profileFormElement = profileEditModal.querySelector(".modal__form");
 const cardTemplate = document.querySelector("#card-template");
@@ -121,13 +117,13 @@ function handleAddCardFormSubmit(event) {
   event.preventDefault();
 
   const titleValue = cardTitleInput.value;
-  const imageUrlValue = cardUrlInput.value;
-  const linkUrlValue = document.getElementById("link-input").value; // Access the link URL input field
+  const imageUrlValue = cardURLInput.value;
+  const cardUrlValue = document.getElementById("card-url-input").value;
 
   const newCardData = {
     title: titleValue,
     name: cardTitleInput.value,
-    link: linkUrlValue,
+    link: cardUrlValue,
   };
 
   const newCardElement = getCardElement(newCardData);
