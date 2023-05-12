@@ -121,7 +121,7 @@ function handleAddCardFormSubmit(event) {
   event.preventDefault();
 
   const titleValue = cardTitleInput.value;
-  const imageUrlValue = cardImageUrlInput.value;
+  const imageUrlValue = cardUrlInput.value;
   const linkUrlValue = document.getElementById("link-input").value; // Access the link URL input field
 
   const newCardData = {
