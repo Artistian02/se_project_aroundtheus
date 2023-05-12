@@ -42,6 +42,7 @@ const cardURLInput = addCardFormElement.querySelector("#card-url-input");
 
 const imageModal = document.querySelector("#image-preview-modal");
 const profileTitle = document.querySelector(".profile__title");
+const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescription = document.querySelector(".profile__description");
 
 const profileDescriptionInput = document.querySelector(
@@ -90,11 +91,11 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
-//function openPopup() {
-// profileTitleInput.value = profileTitle.textContent;
-//  profileDescriptionInput.value = profileDescription.textContent;
-//  profileEditModal.classList.add("modal_opened");
-//}
+function openPopup(modal) {
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+  modal.classList.add("modal_opened");
+}
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
