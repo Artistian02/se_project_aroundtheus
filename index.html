@@ -58,17 +58,33 @@
           <input
             type="text"
             name="title"
-            class="modal__input"
+            class="modal__input modal__input_type_name"
             placeholder="Name"
             id="profile-title-input"
+            maxlength="40"
+            minlength="2"
+            required
           />
+          <span
+            class="modal__error modal__error_visible"
+            id="modal-form-title-error"
+          >
+          </span>
           <input
             type="text"
             name="description"
-            class="modal__input"
+            class="modal__input modal__input_type_description"
             placeholder="About"
             id="profile-description-input"
+            maxlength="200"
+            minlength="2"
+            required
           />
+          <span
+            class="modal__error modal__error_visible"
+            id="modal-form-description-error"
+          >
+          </span>
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
@@ -87,17 +103,28 @@
           <input
             type="text"
             name="title"
-            class="modal__input"
+            class="modal__input modal__input_type_title"
             placeholder="Title"
             id="card-title-input"
+            minlength="1"
+            maxlength="30"
+            required
           />
+          <span
+            class="modal__error modal__error visible"
+            id="card-modal-form-title-error"
+          >
+          </span>
           <input
             type="url"
             name="link"
-            class="modal__input"
+            class="modal__input modal__input_type_url"
             placeholder="Image URL"
             id="card-url-input"
+            required
           />
+          <span class="modal__error" id="card-modal-form-description-error">
+          </span>
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>

@@ -97,12 +97,21 @@ function openPopup(modal) {
   modal.classList.add("modal_opened");
 }
 
-function openPopup(modal) {
-  modal.classList.add("modal_opened");
+function closePopup(modal, evt) {
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closePopupKeypress);
 }
 
-function closePopup(modal) {
-  modal.classList.remove("modal_opened");
+function openPopup(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", (evt) => closePopup(modal, evt));
+}
+
+function closePopupKeypress(evt) {
+  if (evt.key === "Escape") {
+    const activeModal = document.querySelectorAll(".modal_opened");
+    closeModal(activeModal);
+  }
 }
 
 //// Event Handlers  //////
