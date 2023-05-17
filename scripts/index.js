@@ -126,22 +126,26 @@ function handleProfileEditSubmit(evt) {
 function handleAddCardFormSubmit(event) {
   event.preventDefault();
 
-  const titleValue = cardTitleInput.value;
-  const imageUrlValue = cardURLInput.value;
-  const cardUrlValue = document.getElementById("card-url-input").value;
+  if (addCardFormElement.checkValidity()) {
+    const titleValue = cardTitleInput.value;
+    const imageUrlValue = cardURLInput.value;
+    const cardUrlValue = document.getElementById("card-url-input").value;
 
-  const newCardData = {
-    title: titleValue,
-    name: cardTitleInput.value,
-    link: cardUrlValue,
-  };
+    const newCardData = {
+      title: titleValue,
+      name: cardTitleInput.value,
+      link: cardUrlValue,
+    };
 
-  const newCardElement = getCardElement(newCardData);
-  cardListEl.prepend(newCardElement);
-  closePopup(addCardModal);
-  addCardForm.reset();
+    const newCardElement = getCardElement(newCardData);
+    cardListEl.prepend(newCardElement);
+    closePopup(addCardModal);
+    addCardForm.reset();
+  } else {
+    const errorMessage = addCardFormElement.querySelector(".error-message");
+    errorMessage.textContent = "Please fill out all the required fields.";
+  }
 }
-
 /// Event Listeners /////
 profileFormElement.addEventListener("submit", handleProfileEditSubmit);
 addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
@@ -163,19 +167,13 @@ enlargeCloseButton.addEventListener("click", () => {
 });
 
 profileEditModal.addEventListener("mousedown", (e) => {
-  if (
-    e.target.classList.contains("modal") ||
-    e.target.classList.contains("modal__close")
-  ) {
+  if (e.target === profileEditModal || e.target === profileModalCloseButton) {
     closePopup(profileEditModal);
   }
 });
 
 addCardModal.addEventListener("mousedown", (e) => {
-  if (
-    e.target.classList.contains("modal") ||
-    e.target.classList.contains("modal__close")
-  ) {
+  if (e.target === addCardModal || e.target === addCardModalCloseButton) {
     closePopup(addCardModal);
   }
 });
