@@ -97,7 +97,7 @@ function openPopup(modal) {
   modal.classList.add("modal_opened");
 }
 
-function closePopup(modal, evt) {
+function closePopup(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keydown", closePopupKeypress);
 }
@@ -160,6 +160,24 @@ profileModalCloseButton.addEventListener("click", () =>
 
 enlargeCloseButton.addEventListener("click", () => {
   closePopup(imageModal);
+});
+
+profileEditModal.addEventListener("mousedown", (e) => {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closePopup(profileEditModal);
+  }
+});
+
+addCardModal.addEventListener("mousedown", (e) => {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closePopup(addCardModal);
+  }
 });
 
 // Add New Card //
