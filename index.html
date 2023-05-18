@@ -126,12 +126,13 @@
         </form>
       </div>
     </div>
-    <div class="modal" id="image-preview-modal">
-      <div class="modal__image-container">
-        <button class="modal__image-close modal__close"></button>
-        <img src="#" class="modal__card-image-preview" alt="#" />
-        <p class="modal__image-caption"></p>
+    <div id="image-preview-modal" class="modal">
+      <div class="modal__content">
+        <button class="modal__close modal__image-close">&times;</button>
+        <img class="modal__card-image-preview" src="" alt="" />
+        <div class="modal__image-caption"></div>
       </div>
+      <!-- Add overlay element here -->
       <div class="modal__overlay"></div>
     </div>
     <template id="card-template">

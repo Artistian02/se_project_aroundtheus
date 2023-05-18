@@ -52,6 +52,7 @@ const profileDescriptionInput = document.querySelector(
 const imageCaption = imageModal.querySelector(".modal__image-caption");
 const imageElement = document.querySelector(".modal__card-image-preview");
 const enlargeCloseButton = imageModal.querySelector(".modal__image-close ");
+const imageOverlay = imageModal.querySelector(".modal__overlay");
 
 const profileFormElement = profileEditModal.querySelector(".modal__form");
 const cardTemplate = document.querySelector("#card-template");
@@ -105,6 +106,9 @@ function closePopup(modalParam) {
 function openPopup(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keyup", closePopupKeypress);
+  imageOverlay.addEventListener("click", () => {
+    closePopup(modal);
+  });
 }
 
 function closePopupKeypress(evt) {
