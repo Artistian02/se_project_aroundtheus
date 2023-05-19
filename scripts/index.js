@@ -27,6 +27,8 @@ const initialCards = [
   },
 ];
 
+const cardTemplate = document.querySelector("#card-template");
+const cardListEl = document.querySelector(".cards__list");
 const profileEditButton = document.querySelector("#profile__edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
@@ -55,8 +57,6 @@ const enlargeCloseButton = imageModal.querySelector(".modal__image-close ");
 const imageOverlay = imageModal.querySelector(".modal__overlay");
 
 const profileFormElement = profileEditModal.querySelector(".modal__form");
-const cardTemplate = document.querySelector("#card-template");
-const cardListEl = document.querySelector(".cards__list");
 
 /////  Functions ////
 
