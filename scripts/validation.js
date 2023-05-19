@@ -8,19 +8,18 @@ function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
 }
 
 function hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
-  const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-  if (errorMessageEl) {
-    inputEl.classList.remove(inputErrorClass);
-    errorMessageEl.textContent = "";
-    errorMessageEl.classList.remove(errorClass);
-  }
+  const element = `#${inputEl.id}-error`;
+  const errorMessageEl = formEl.querySelector(element);
+  inputEl.classList.remove(inputErrorClass);
+  errorMessageEl.textContent = "";
+  errorMessageEl.classList.remove(errorClass);
 }
 
 function checkInputValidity(formEl, inputEl, options) {
   if (inputEl.validity.valid) {
     hideInputError(formEl, inputEl, options);
   } else {
-    showInputError(formEl, inputEl, options);
+    return showInputError(formEl, inputEl, options);
   }
 }
 
