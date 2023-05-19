@@ -148,7 +148,6 @@
 .modal__error_visible {
   color: #ff0000;
   opacity: 1;
-  position: absolute;
   top: 24px;
 }
 
