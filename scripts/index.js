@@ -130,26 +130,25 @@ function handleProfileEditSubmit(evt) {
 function handleAddCardFormSubmit(event) {
   event.preventDefault();
 
-  if (addCardFormElement.checkValidity()) {
-    const titleValue = cardTitleInput.value;
-    const imageUrlValue = cardURLInput.value;
-    const cardUrlValue = document.getElementById("card-url-input").value;
+  const titleValue = cardTitleInput.value.trim();
+  const imageUrlValue = cardURLInput.value.trim();
 
+  if (titleValue === "" || imageUrlValue === "") {
+    const errorMessage = addCardFormElement.querySelector(".error-message");
+    errorMessage.textContent = "Please fill out all the required fields.";
+  } else {
     const newCardData = {
-      title: titleValue,
-      name: cardTitleInput.value,
-      link: cardUrlValue,
+      name: titleValue,
+      link: imageUrlValue,
     };
 
     const newCardElement = getCardElement(newCardData);
     cardListEl.prepend(newCardElement);
     closePopup(addCardModal);
     addCardForm.reset();
-  } else {
-    const errorMessage = addCardFormElement.querySelector(".error-message");
-    errorMessage.textContent = "Please fill out all the required fields.";
   }
 }
+
 /// Event Listeners /////
 profileFormElement.addEventListener("submit", handleProfileEditSubmit);
 addCardFormElement.addEventListener("submit", handleAddCardFormSubmit);
