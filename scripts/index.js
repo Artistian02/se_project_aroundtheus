@@ -67,6 +67,11 @@ function getCardElement(cardData) {
   cardTitleEl.textContent = cardData.name.trim();
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
+  const titleError = document.getElementById("card-modal-form-title-error");
+  const descriptionError = document.getElementById(
+    "card-modal-form-description-error"
+  );
+  const errorMessage = addCardFormElement.querySelector(".modal__error");
 
   cardImageEl.addEventListener("click", () => {
     showPreviewImage(cardData);
@@ -134,9 +139,17 @@ function handleAddCardFormSubmit(event) {
   const imageUrlValue = cardURLInput.value.trim();
 
   if (titleValue === "" || imageUrlValue === "") {
-    const errorMessage = addCardFormElement.querySelector(".error-message");
-    errorMessage.textContent = "Please fill out all the required fields.";
+    titleError.textContent = "Please fill out this field.";
   } else {
+    titleError.textContent = "";
+  }
+  if (imageUrlValue === "") {
+    descriptionError.textContent = "Please enter a URL.";
+  } else {
+    descriptionError.textContent = "";
+  }
+
+  if (titleValue !== "" && imageUrlValue !== "") {
     const newCardData = {
       name: titleValue,
       link: imageUrlValue,

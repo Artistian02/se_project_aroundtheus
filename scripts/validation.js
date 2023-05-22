@@ -50,13 +50,31 @@ function toggleButtonState(inputEls, submitButton, { disabledButtonClass }) {
 
 function setEventListeners(formEl, options) {
   const { inputSelector, submitButtonSelector } = options;
-  const inputEls = [...formEl.querySelectorAll(options.inputSelector)];
+  const inputEls = [...formEl.querySelectorAll(inputSelector)];
   const submitButton = formEl.querySelector(submitButtonSelector);
 
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (e) => {
       checkInputValidity(formEl, inputEl, options); // Call checkInputValidity here
       toggleButtonState(inputEls, submitButton, options);
+    });
+
+    // Add event listener for each input to handle invalid event
+    inputEl.addEventListener("invalid", (e) => {
+      e.preventDefault();
+      showInputError(formEl, inputEl, options);
+    });
+
+    inputEl.addEventListener("input", (e) => {
+      hideInputError(formEl, inputEl, options);
+    });
+  });
+
+  submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    // Call checkInputValidity for all input fields before submitting
+    inputEls.forEach((inputEl) => {
+      checkInputValidity(formEl, inputEl, options);
     });
   });
 }
