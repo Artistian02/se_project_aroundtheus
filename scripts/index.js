@@ -42,6 +42,9 @@ const cardTitleInput = addCardModal.querySelector("#card-title-input");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 const cardURLInput = addCardFormElement.querySelector("#card-url-input");
 
+const titleError = document.getElementById("card-title-input-error");
+const descriptionError = document.getElementById("card-url-input-error");
+
 const imageModal = document.querySelector("#image-preview-modal");
 const profileTitle = document.querySelector(".profile__title");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -108,7 +111,7 @@ function closePopup(modalParam) {
   document.removeEventListener("keyup", closePopupKeypress);
 }
 
-function openPopup(modal) {
+function openImageModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keyup", closePopupKeypress);
   imageOverlay.addEventListener("click", () => {
