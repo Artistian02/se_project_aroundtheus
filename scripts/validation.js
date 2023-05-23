@@ -70,14 +70,6 @@ function setEventListeners(formEl, options) {
     //  hideInputError(formEl, inputEl, options);
     // });
   });
-
-  submitButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    // Call checkInputValidity for all input fields before submitting
-    inputEls.forEach((inputEl) => {
-      checkInputValidity(formEl, inputEl, options);
-    });
-  });
 }
 
 function enableValidation(options) {
