@@ -60,14 +60,14 @@ function setEventListeners(formEl, options) {
     });
 
     // Add event listener for each input to handle invalid event
-    inputEl.addEventListener("invalid", (e) => {
-      e.preventDefault();
-      showInputError(formEl, inputEl, options);
-    });
+    //inputEl.addEventListener("invalid", (e) => {
+    // e.preventDefault();
+    // showInputError(formEl, inputEl, options);
+    // });
 
-    inputEl.addEventListener("input", (e) => {
-      hideInputError(formEl, inputEl, options);
-    });
+    // inputEl.addEventListener("input", (e) => {
+    //  hideInputError(formEl, inputEl, options);
+    // });
   });
 
   submitButton.addEventListener("click", (e) => {
