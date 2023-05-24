@@ -36,7 +36,6 @@ function disableButton(buttonEl, { disabledButtonClass }) {
 function enableButton(buttonEl, { disabledButtonClass }) {
   buttonEl.classList.remove(disabledButtonClass);
   buttonEl.disabled = false;
-  buttonEl.style.backgroundColor = "";
 }
 
 function toggleButtonState(inputEls, submitButton, { disabledButtonClass }) {
