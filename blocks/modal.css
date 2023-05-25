@@ -162,6 +162,10 @@
   cursor: pointer;
 }
 
+.modal__disabled_button {
+  background-color: gray;
+}
+
 @media screen and (max-width: 580px) {
   .modal__close {
     top: -45px;
