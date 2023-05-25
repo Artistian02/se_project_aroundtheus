@@ -127,17 +127,15 @@ function handleAddCardFormSubmit(event) {
   const titleValue = cardTitleInput.value.trim();
   const imageUrlValue = cardURLInput.value.trim();
 
-  if (addCardFormElement.checkValidity()) {
-    const newCardData = {
-      name: titleValue,
-      link: imageUrlValue,
-    };
+  const newCardData = {
+    name: titleValue,
+    link: imageUrlValue,
+  };
 
-    const newCardElement = getCardElement(newCardData);
-    cardListEl.prepend(newCardElement);
-    closePopup(addCardModal);
-    addCardFormElement.reset();
-  }
+  const newCardElement = getCardElement(newCardData);
+  cardListEl.prepend(newCardElement);
+  closePopup(addCardModal);
+  addCardFormElement.reset();
 }
 
 /// Event Listeners /////

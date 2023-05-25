@@ -30,7 +30,6 @@ function hasInvalidInput(inputList) {
 function disableButton(buttonEl, { disabledButtonClass }) {
   buttonEl.classList.add(disabledButtonClass);
   buttonEl.disabled = true;
-  buttonEl.style.backgroundColor = "gray";
 }
 
 function enableButton(buttonEl, { disabledButtonClass }) {
@@ -41,7 +40,7 @@ function enableButton(buttonEl, { disabledButtonClass }) {
 function toggleButtonState(inputEls, submitButton, { disabledButtonClass }) {
   const hasInvalidInputs = hasInvalidInput(inputEls);
 
-  if (hasInvalidInput(inputEls)) {
+  if (hasInvalidInputs) {
     disableButton(submitButton, { disabledButtonClass });
   } else {
     enableButton(submitButton, { disabledButtonClass });
