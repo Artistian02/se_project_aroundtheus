@@ -162,7 +162,7 @@
   cursor: pointer;
 }
 
-.modal__disabled_button {
+.modal__button_disabled {
   background-color: gray;
 }
 

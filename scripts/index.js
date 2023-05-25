@@ -56,7 +56,8 @@ const profileDescriptionInput = document.querySelector(
 
 const imageCaption = imageModal.querySelector(".modal__image-caption");
 const imageElement = document.querySelector(".modal__card-image-preview");
-const enlargeCloseButton = imageModal.querySelector(".modal__image-close ");
+const enlargeCloseButton = imageModal.querySelector(".modal__close ");
+
 const imageOverlay = imageModal.querySelector(".modal__overlay");
 
 const profileFormElement = profileEditModal.querySelector(".modal__form");
