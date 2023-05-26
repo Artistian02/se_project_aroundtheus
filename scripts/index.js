@@ -169,8 +169,14 @@ addCardModal.addEventListener("mousedown", (e) => {
 
 // Add New Card //
 
-addNewCardButton.addEventListener("click", () => openPopup(addCardModal));
-closePopup(addCardModal);
+addNewCardButton.addEventListener("click", () => {
+  openPopup(addCardModal);
+  toggleButtonState(
+    [cardTitleInput, cardURLInput],
+    addCardFormElement.querySelector(".modal__button"),
+    config
+  );
+});
 
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);

@@ -1,3 +1,7 @@
+function areInputsEmpty(inputEls) {
+  return inputEls.every((inputEl) => inputEl.value.trim() === "");
+}
+
 function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
   const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
   if (errorMessageEl) {
@@ -21,6 +25,11 @@ function checkInputValidity(formEl, inputEl, options) {
   } else {
     return showInputError(formEl, inputEl, options);
   }
+  toggleButtonState(
+    [...formEl.querySelectorAll(options.inputSelector)],
+    formEl.querySelector(options.submitButtonSelector),
+    options
+  );
 }
 
 function hasInvalidInput(inputList) {
@@ -39,8 +48,9 @@ function enableButton(buttonEl, { disabledButtonClass }) {
 
 function toggleButtonState(inputEls, submitButton, { disabledButtonClass }) {
   const hasInvalidInputs = hasInvalidInput(inputEls);
+  const areEmptyInputs = areInputsEmpty(inputEls);
 
-  if (hasInvalidInputs) {
+  if (hasInvalidInputs || areEmptyInputs) {
     disableButton(submitButton, { disabledButtonClass });
   } else {
     enableButton(submitButton, { disabledButtonClass });
