@@ -161,6 +161,14 @@ profileEditModal.addEventListener("mousedown", (e) => {
   }
 });
 
+enlargeCloseButton.addEventListener("click", () => {
+  closePopup(imageModal);
+});
+
+imageOverlay.addEventListener("click", () => {
+  closePopup(imageModal);
+});
+
 addCardModal.addEventListener("mousedown", (e) => {
   if (e.target === addCardModal || e.target === addCardModalCloseButton) {
     closePopup(addCardModal);
