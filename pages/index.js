@@ -158,3 +158,10 @@ profileValidator.enableValidation();
 
 const addCardValidator = new FormValidator(config, "#add-card-form");
 addCardValidator.enableValidation();
+
+// Function to RenderCard ////
+
+function renderCard(cardData, wrapper) {
+  const card = new Card(cardData, cardSelector);
+  wrapper.prepend(card.getView());
+}
