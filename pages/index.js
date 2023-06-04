@@ -65,6 +65,9 @@ const imageOverlay = imageModal.querySelector(".modal__overlay");
 
 const profileFormElement = profileEditModal.querySelector(".modal__form");
 
+/// Calling Cards///
+const cardsList = document.querySelector(".cards__list");
+
 /////  Functions ////
 
 function addCard(event) {
@@ -76,7 +79,7 @@ function addCard(event) {
   };
   const newCard = new Card(cardData, "#card-template").returnCard();
 
-  cardsGrid.prepend(newCard);
+  cardsList.prepend(newCard);
   addCardModal.querySelector(".modal__form").reset();
   utils.closeModal(addCardModal);
   addCardValidator.disableButtonState();
@@ -161,7 +164,7 @@ addCardValidator.enableValidation();
 
 // Function to RenderCard ////
 
-function renderCard(cardData, wrapper) {
-  const card = new Card(cardData, cardSelector);
+function renderCard(cardData, cardsList, cardSelector) {
+  const card = new Card(cardData, cardsList, cardSelector);
   wrapper.prepend(card.getView());
 }
