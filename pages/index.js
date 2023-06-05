@@ -29,6 +29,11 @@ const initialCards = [
   },
 ];
 
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
 //Variables///
 const cardTemplate = document.querySelector("#card-template");
 const cardListEl = document.querySelector(".cards__list");
@@ -67,11 +72,16 @@ const profileFormElement = profileEditModal.querySelector(".modal__form");
 
 /// Calling Cards///
 const cardsList = document.querySelector(".cards__list");
+const cardSelector = "#card-template";
 
 /////  Functions ////
 
 function addCard(event) {
   event.preventDefault();
+
+  const addCardTitleInput =
+    addCardFormElement.querySelector("#card-title-input");
+  const addCardLinkInput = addCardFormElement.querySelector("#card-link-input");
 
   const cardData = {
     name: addCardTitleInput.value,
@@ -129,9 +139,15 @@ function closeImageModal() {
 }
 
 function createCard(cardData) {
-  const card = new Card(cardData, "#card-template");
+  const card = new Card(cardData, cardTemplate);
   return card.returnCard();
 }
+
+// Loop over initialCards and create cards
+initialCards.forEach((cardData) => {
+  const cardElement = createCard(cardData);
+  cardListEl.appendChild(cardElement);
+});
 
 //eventListeners//////
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
@@ -164,7 +180,22 @@ addCardValidator.enableValidation();
 
 // Function to RenderCard ////
 
-function renderCard(cardData, cardsList, cardSelector) {
-  const card = new Card(cardData, cardsList, cardSelector);
-  wrapper.prepend(card.getView());
+function getCardElement(data) {
+  const card = new Card(data, "#card-template");
+  const cardElement = card.getView();
+  return cardElement;
 }
+
+function renderInitialCards(initialCards) {
+  initialCards.forEach((cardData) => {
+    const cardElement = getCardElement(cardData);
+    cardsList.appendChild(cardElement);
+  });
+  function renderCard(cardData, cardsList, cardSelector) {
+    const card = new Card(cardData, cardsList, cardSelector);
+    cardsList.prepend(card.getView());
+  }
+}
+
+// Loop over initialCards and create cards
+renderInitialCards(initialCards);
