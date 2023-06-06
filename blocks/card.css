@@ -24,6 +24,18 @@
   color: black;
 }
 
+.card__caption {
+  font-family: "Inter", Arial, sans-serif;
+  max-width: 220px;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+}
+
 .card__title {
   font-family: "Inter", Arial, sans-serif;
   max-width: 220px;

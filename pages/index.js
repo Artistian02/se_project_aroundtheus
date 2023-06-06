@@ -129,7 +129,7 @@ function handleProfileFormSubmit(event) {
 }
 
 // Get the new values entered by the user
-nameInput.value = profileTitle.textContent;
+profileTitleInput.value = profileTitle.textContent;
 profileDescriptionInput.value = profileDescription.innerText;
 
 ///// Functions

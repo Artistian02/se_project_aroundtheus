@@ -1,5 +1,6 @@
 import { handleImageModalInfo } from "../pages/index.js";
 import { openModal } from "../utils/utils.js";
+import { renderInitialCards } from "../pages/index.js";
 
 export default class Card {
   #card;
