@@ -155,15 +155,15 @@ export function handleImageModalInfo(event, imageModal) {
 // }
 
 function profileModalCloseButton() {
-  closePopup(profileEditModal);
+  closeModal(profileEditModal);
 }
 
 function closeCardModal() {
-  closePopup(addCardModal);
+  closeModal(addCardModal);
 }
 
 function enlargeCloseButton() {
-  closePopup(imageModal);
+  closeModal(imageModal);
 }
 
 function createCard(cardData) {
@@ -185,7 +185,10 @@ addCardFormElement.addEventListener("submit", addCard);
 
 profileEditButton.addEventListener("click", openProfileModal);
 
-addCardModal.addEventListener("click", addCardModal);
+addNewCardButton.addEventListener("click", () => {
+  openModal(addCardModal);
+});
+
 addCardModalCloseButton.addEventListener("click", closeCardModal);
 
 /////Validation
