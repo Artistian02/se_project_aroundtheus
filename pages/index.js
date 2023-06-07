@@ -1,6 +1,6 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import * as utils from "../utils/utils.js";
+import { openModal, closeModal } from "../utils/utils.js";
 
 //Variables///
 const cardTemplate = document.querySelector("#card-template");
@@ -84,39 +84,22 @@ const cardSelector = "#card-template";
 
 // Function to RenderCard
 
-function getCardElement(data) {
-  const card = new Card(data, "#card-template");
-  const cardElement = card.getView();
-  return cardElement;
-}
+// function getCardElement(data) {
+//   const card = new Card(data, "#card-template");
+//   const cardElement = card.getView();
+//   return cardElement;
+// }
 
-export function renderInitialCards(cardsData) {
-  cardsData.forEach((cardData) => {
-    const card = new Card(cardData, "#card-template");
-    const cardElement = card.returnCard();
-    cardListEl.appendChild(cardElement);
-  });
-}
+// export function renderInitialCards(cardsData) {
+//   cardsData.forEach((cardData) => {
+//     const card = new Card(cardData, "#card-template");
+//     const cardElement = card.returnCard();
+//     cardListEl.appendChild(cardElement);
+//   });
+// }
 
-// Call the renderInitialCards
-renderInitialCards(initialCards);
-
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", closeByEscape);
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", closeByEscape);
-}
-
-function closeByEscape(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".modal_opened");
-    closeModal(openedPopup);
-  }
-}
+// // Call the renderInitialCards
+// renderInitialCards(initialCards);
 
 // Add the "submit" event listener to the form
 function handleProfileFormSubmit(event) {
@@ -124,8 +107,9 @@ function handleProfileFormSubmit(event) {
 
   profileUserName.textContent = modalInputUserName.value;
   profileSubtext.textContent = modalInputSubtext.value;
+  x;
 
-  utils.closeModal(profileEditModal);
+  closeModal(profileEditModal);
 }
 
 // Get the new values entered by the user
@@ -145,22 +129,24 @@ function addCard(event) {
     name: addCardTitleInput.value,
     link: addCardLinkInput.value,
   };
-  const newCard = new Card(cardData, "#card-template").returnCard();
+  // const newCard = new Card(cardData, "#card-template").returnCard();
 
   cardsList.prepend(newCard);
   addCardModal.querySelector(".modal__form").reset();
-  utils.closeModal(addCardModal);
+  closeModal(addCardModal);
   addCardValidator.disableButtonState();
 }
 
 function openProfileModal() {
-  utils.openModal(profileEditModal);
+  openModal(profileEditModal);
   fillProfileForm();
 }
 
 function fillProfileForm() {
-  modalInputUserName.value = profileUserName.textContent;
-  modalInputSubtext.value = profileSubtext.textContent;
+  const nameInput = document.querySelector("#profile-title-input");
+
+  nameInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.innerText;
 }
 
 export function handleImageModalInfo(event, imageModal) {
@@ -172,23 +158,23 @@ export function handleImageModalInfo(event, imageModal) {
 }
 
 function openCardModal() {
-  utils.openModal(addCardModal);
+  openModal(addCardModal);
 }
 
 function closeProfileModal() {
-  utils.closeModal(profileEditModal);
+  closeModal(profileEditModal);
 }
 
 function closeCardModal() {
-  utils.closeModal(addCardModal);
+  closeModal(addCardModal);
 }
 
 function closeImageModal() {
-  utils.closeModal(imageModal);
+  closeModal(imageModal);
 }
 
 function createCard(cardData) {
-  const card = new Card(cardData, cardTemplate);
+  const card = new Card(cardData, "#card-template");
   return card.returnCard();
 }
 
@@ -226,5 +212,5 @@ profileValidator.enableValidation();
 const addCardValidator = new FormValidator(config, "#add-card-form");
 addCardValidator.enableValidation();
 
-// Loop over initialCards and create cards
-renderInitialCards(initialCards);
+// // Loop over initialCards and create cards
+// renderInitialCards(initialCards);

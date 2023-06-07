@@ -1,6 +1,6 @@
 import { handleImageModalInfo } from "../pages/index.js";
 import { openModal } from "../utils/utils.js";
-import { renderInitialCards } from "../pages/index.js";
+// import { renderInitialCards } from "../pages/index.js";
 
 export default class Card {
   #card;
@@ -79,7 +79,7 @@ export default class Card {
   }
 }
 
-// Loop over initialCards and create cards
-document.addEventListener("DOMContentLoaded", () => {
-  renderInitialCards(initialCards);
-});
+// // Loop over initialCards and create cards
+// document.addEventListener("DOMContentLoaded", () => {
+//   renderInitialCards(initialCards);
+// });
