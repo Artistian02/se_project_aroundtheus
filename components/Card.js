@@ -43,8 +43,10 @@ export default class Card {
     this.#deleteButton.addEventListener("click", this.#deleteCard);
   }
 
-  #deleteCard(event) {
-    event.target.closest(".card").remove();
+  #deleteCard = (event) => {
+    // remove card
+    this.#card.remove();
+    // event.target.closest(".card").remove();
   }
 
   #addImageEventListener() {

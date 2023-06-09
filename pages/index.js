@@ -122,6 +122,7 @@ function addCard(event) {
 }
 
 function openProfileModal() {
+  debugger;
   openModal(profileEditModal);
   fillProfileForm();
 }
