@@ -82,19 +82,10 @@ const cardSelector = "#card-template";
 
 // Function to RenderCard
 
-// function getCardElement(data) {
-//   const card = new Card(data, "#card-template");
-//   const cardElement = card.getView();
-//   return cardElement;
-// }
-
-// export function renderInitialCards(cardsData) {
-//   cardsData.forEach((cardData) => {
-//     const card = new Card(cardData, "#card-template");
-//     const cardElement = card.returnCard();
-//     cardListEl.appendChild(cardElement);
-//   });
-// }
+function getCardElement(data) {
+  const card = new Card(data, "#card-template");
+  const cardElement = card.getView();
+}
 
 // // Call the renderInitialCards
 // renderInitialCards(initialCards);
@@ -206,6 +197,3 @@ const profileValidator = new FormValidator(config, "#profile-edit-modal");
 profileValidator.enableValidation();
 const addCardValidator = new FormValidator(config, "#add-card-form");
 addCardValidator.enableValidation();
-
-// // Loop over initialCards and create cards
-// renderInitialCards(initialCards);
