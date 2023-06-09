@@ -30,7 +30,7 @@ export default class Card {
   }
 
   #toggleLikeButton = (event) => {
-    event.target.classList.toggle("card__like-button_inactive");
+    event.target.classList.toggle("card__like-button_active");
   };
 
   #deleteCard = (event) => {
