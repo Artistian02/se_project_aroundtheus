@@ -38,9 +38,9 @@ export default class Card {
   };
 
   #openImageModal = (event) => {
-    const imageModal = document.querySelector("#image-modal");
-    openModal(imageModal);
-    handleImageModalInfo(event, imageModal);
+    const imagePreviewModal = document.querySelector("#image-preview-modal");
+    openModal(imagePreviewModal);
+    handleImageModalInfo(event, imagePreviewModal);
   };
 
   #addLikeButtonEventListener() {
