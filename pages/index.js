@@ -88,7 +88,6 @@ function getCardElement(data) {
   return cardElement;
 }
 
-
 // // Call the renderInitialCards
 // renderInitialCards(initialCards);
 
@@ -133,7 +132,7 @@ function fillProfileForm() {
 }
 
 export function handleImageModalInfo(event, imageModal) {
-  const imageElement = imageModal.querySelector(".modal__image");
+  const imageElement = imageModal.querySelector(".modal__card-image-preview");
   const imageCaption = imageModal.querySelector(".modal__image-caption");
   imageElement.src = event.target.src;
   imageElement.alt = event.target.alt;
@@ -173,14 +172,15 @@ initialCards.forEach((cardData) => {
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 addCardFormElement.addEventListener("submit", addCard);
 
-profileEditButton.addEventListener("click", openModal);
+profileEditButton.addEventListener("click", () => {
+  openModal(profileEditModal);
+});
 
 addNewCardButton.addEventListener("click", () => {
   openModal(addCardModal);
 });
 
 addCardModalCloseButton.addEventListener("click", closeCardModal);
-
 /////Validation
 
 const config = {
