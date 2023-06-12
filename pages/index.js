@@ -101,7 +101,8 @@ function handleProfileFormSubmit(event) {
 
   closeModal(profileEditModal);
 }
-///// Functions
+///// Functions ///////////////////////
+/////////////////////
 
 function addCard(event) {
   event.preventDefault();
@@ -111,7 +112,6 @@ function addCard(event) {
     link: addCardUrlInput.value,
   };
 
-  // const newCard = new Card(cardData, "#card-template").returnCard();
   const newCard = getCardElement(cardData);
   cardsList.prepend(newCard);
   addCardModal.querySelector(".modal__form").reset();
@@ -124,8 +124,6 @@ function openProfileEditModal() {
   fillProfileForm();
 }
 
-profileEditButton.addEventListener("click", openProfileEditModal);
-
 export function handleImageModalInfo(event, imageModal) {
   const imageElement = imageModal.querySelector(".modal__card-image-preview");
   const imageCaption = imageModal.querySelector(".modal__image-caption");
@@ -133,10 +131,6 @@ export function handleImageModalInfo(event, imageModal) {
   imageElement.alt = event.target.alt;
   imageCaption.textContent = event.target.alt;
 }
-
-// function openPopup() {
-//   openPopup(addCardModal);
-// }
 
 function profileModalCloseButton() {
   closeModal(profileEditModal);
@@ -156,6 +150,37 @@ function createCard(cardData) {
 }
 
 function modalImageClose() {}
+function checkEmptyInputs() {
+  const inputs = addCardFormElement.querySelectorAll(".modal__input");
+  let isEmpty = false;
+
+  inputs.forEach((input) => {
+    if (input.value.trim() === "") {
+      isEmpty = true;
+    }
+  });
+
+  return isEmpty;
+}
+
+//// Disabling Input Buttons ///////
+////////
+
+function toggleSubmitButtonState() {
+  const submitButton = addCardFormElement.querySelector(".modal__button");
+  const isEmpty = checkEmptyInputs();
+
+  if (isEmpty) {
+    submitButton.setAttribute("disabled", "true");
+    submitButton.classList.add("modal__button_disabled");
+  } else {
+    submitButton.removeAttribute("disabled");
+    submitButton.classList.remove("modal__button_disabled");
+  }
+}
+
+// Call the toggleSubmitButtonState function whenever the input values change
+addCardFormElement.addEventListener("input", toggleSubmitButtonState);
 
 // Loop over initialCards and create cards
 initialCards.forEach((cardData) => {
@@ -164,6 +189,7 @@ initialCards.forEach((cardData) => {
 });
 
 ////////////EventListeners//////////////
+/////////////
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 addCardFormElement.addEventListener("submit", addCard);
@@ -176,15 +202,20 @@ addNewCardButton.addEventListener("click", () => {
   openModal(addCardModal);
 });
 
-imageModal.addEventListener("click", () => {
-  openModal(imageModal);
+imageModal.addEventListener("click", (event) => {
+  if (event.target === imageModal) {
+    closeModal(imageModal);
+  }
 });
+
 // To close //
 
 addCardModalCloseButton.addEventListener("click", closeCardModal);
 
-profileEditModal.addEventListener("click", () => {
-  closeModal(profileEditModal);
+profileEditModal.addEventListener("click", (event) => {
+  if (event.target === profileEditModal) {
+    closeModal(profileEditModal);
+  }
 });
 
 imageModal.addEventListener("click", () => {

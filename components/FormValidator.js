@@ -1,4 +1,4 @@
-export default class formValidator {
+export default class FormValidator {
   #config;
   #formElement;
   #inputList;
@@ -51,7 +51,7 @@ export default class formValidator {
     if (this.#isInvalid()) {
       this.disableButtonState();
     } else {
-      this.#submitButton.classList.remove(this.#config.inactiveButtonClass);
+      this.#submitButton.classList.remove(this.#config.disabledButtonClass);
       this.#submitButton.disabled = false;
     }
   }
@@ -69,7 +69,7 @@ export default class formValidator {
 
   disableButtonState() {
     this.#submitButton.disabled = true;
-    this.#submitButton.classList.add(this.#config.inactiveButtonClass);
+    this.#submitButton.classList.add(this.#config.disabledButtonClass);
   }
 
   enableValidation() {
