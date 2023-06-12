@@ -43,8 +43,8 @@ const template = document
 const cardsList = document.querySelector(".cards__list");
 
 // Get the form input elements
-const cardTitleInput = addCardModal.querySelector("#card-title-input");
-const cardURLInput = addCardFormElement.querySelector("#card-url-input");
+const addCardTitleInput = addCardModal.querySelector("#card-title-input");
+const addCardUrlInput = addCardFormElement.querySelector("#card-url-input");
 
 const initialCards = [
   {
@@ -92,6 +92,7 @@ function getCardElement(data) {
 // renderInitialCards(initialCards);
 
 // Add the "submit" event listener to the form
+
 function handleProfileFormSubmit(event) {
   event.preventDefault();
 
@@ -100,7 +101,6 @@ function handleProfileFormSubmit(event) {
 
   closeModal(profileEditModal);
 }
-
 ///// Functions
 
 function addCard(event) {
@@ -119,17 +119,12 @@ function addCard(event) {
   addCardValidator.disableButtonState();
 }
 
-function ImagePreviewModal() {
+function openProfileEditModal() {
   openModal(profileEditModal);
   fillProfileForm();
 }
 
-function fillProfileForm() {
-  const nameInput = document.querySelector("#profile-title-input");
-
-  nameInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.innerText;
-}
+profileEditButton.addEventListener("click", openProfileEditModal);
 
 export function handleImageModalInfo(event, imageModal) {
   const imageElement = imageModal.querySelector(".modal__card-image-preview");
@@ -168,7 +163,8 @@ initialCards.forEach((cardData) => {
   cardListEl.appendChild(cardElement);
 });
 
-//eventListeners
+////////////EventListeners//////////////
+
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 addCardFormElement.addEventListener("submit", addCard);
 
@@ -180,7 +176,21 @@ addNewCardButton.addEventListener("click", () => {
   openModal(addCardModal);
 });
 
+imageModal.addEventListener("click", () => {
+  openModal(imageModal);
+});
+// To close //
+
 addCardModalCloseButton.addEventListener("click", closeCardModal);
+
+profileEditModal.addEventListener("click", () => {
+  closeModal(profileEditModal);
+});
+
+imageModal.addEventListener("click", () => {
+  closeModal(imageModal);
+});
+
 /////Validation
 
 const config = {
