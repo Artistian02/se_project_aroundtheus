@@ -132,7 +132,7 @@ export function handleImageModalInfo(event, imageModal) {
   imageCaption.textContent = event.target.alt;
 }
 
-function profileModalCloseButton() {
+function profileEditCloseButton() {
   closeModal(profileEditModal);
 }
 
@@ -212,10 +212,11 @@ imageModal.addEventListener("click", (event) => {
 
 addCardModalCloseButton.addEventListener("click", closeCardModal);
 
-profileEditModal.addEventListener("click", (event) => {
-  if (event.target === profileEditModal) {
-    closeModal(profileEditModal);
-  }
+const profileModalCloseButtonElement =
+  profileEditModal.querySelector(".modal__close");
+
+profileModalCloseButtonElement.addEventListener("click", () => {
+  closeModal(profileEditModal);
 });
 
 imageModal.addEventListener("click", () => {
