@@ -76,8 +76,3 @@ export default class Card {
     return this.#completeNewCard();
   }
 }
-
-// Loop over initialCards and create cards
-document.addEventListener("DOMContentLoaded", () => {
-  // renderInitialCards(initialCards);
-});

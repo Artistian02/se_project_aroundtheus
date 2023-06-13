@@ -114,14 +114,9 @@ function addCard(event) {
 
   const newCard = getCardElement(cardData);
   cardsList.prepend(newCard);
-  addCardModal.querySelector(".modal__form").reset();
+  addCardModal.querySelector.reset();
   closeModal(addCardModal);
   addCardValidator.disableButtonState();
-}
-
-function openProfileEditModal() {
-  openModal(profileEditModal);
-  fillProfileForm();
 }
 
 export function handleImageModalInfo(event, imageModal) {
@@ -179,9 +174,6 @@ function toggleSubmitButtonState() {
   }
 }
 
-// Call the toggleSubmitButtonState function whenever the input values change
-addCardFormElement.addEventListener("input", toggleSubmitButtonState);
-
 // Loop over initialCards and create cards
 initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData);
@@ -209,6 +201,16 @@ imageModal.addEventListener("click", (event) => {
 });
 
 // To close //
+
+function fillProfileForm() {
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+}
+
+function openProfileEditModal() {
+  fillProfileForm();
+  openModal(profileEditModal);
+}
 
 addCardModalCloseButton.addEventListener("click", closeCardModal);
 

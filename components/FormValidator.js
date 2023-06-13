@@ -6,7 +6,7 @@ export default class FormValidator {
 
   constructor(configObj, formElement) {
     this.#config = configObj;
-    this.#formElement = document.querySelector(formElement);
+    this.#formElement = formElement;
     this.#inputList = [
       ...this.#formElement.querySelectorAll(this.#config.inputSelector),
     ];
