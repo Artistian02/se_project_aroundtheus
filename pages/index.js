@@ -114,7 +114,6 @@ function addCard(event) {
 
   const newCard = getCardElement(cardData);
   cardsList.prepend(newCard);
-  addCardModal.querySelector.reset();
   closeModal(addCardModal);
   addCardValidator.disableButtonState();
 }
@@ -139,25 +138,6 @@ function enlargeCloseButton() {
   closeModal(imageModal);
 }
 
-function createCard(cardData) {
-  const card = new Card(cardData, "#card-template");
-  return card.returnCard();
-}
-
-function modalImageClose() {}
-function checkEmptyInputs() {
-  const inputs = addCardFormElement.querySelectorAll(".modal__input");
-  let isEmpty = false;
-
-  inputs.forEach((input) => {
-    if (input.value.trim() === "") {
-      isEmpty = true;
-    }
-  });
-
-  return isEmpty;
-}
-
 //// Disabling Input Buttons ///////
 ////////
 
@@ -176,7 +156,7 @@ function toggleSubmitButtonState() {
 
 // Loop over initialCards and create cards
 initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData);
+  const cardElement = getCardElement(cardData);
   cardListEl.appendChild(cardElement);
 });
 
@@ -195,9 +175,7 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 imageModal.addEventListener("click", (event) => {
-  if (event.target === imageModal) {
-    closeModal(imageModal);
-  }
+  closeModal(imageModal);
 });
 
 // To close //
@@ -208,7 +186,7 @@ function fillProfileForm() {
 }
 
 function openProfileEditModal() {
-  fillProfileForm();
+  openModal(fillProfileForm);
   openModal(profileEditModal);
 }
 
