@@ -144,6 +144,16 @@ function enlargeCloseButton() {
 //// Disabling Input Buttons ///////
 ////////
 
+function checkEmptyInputs() {
+  const inputs = addCardFormElement.querySelectorAll(".modal__input");
+  for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i].value.trim() === "") {
+      return true;
+    }
+  }
+  return false;
+}
+
 function toggleSubmitButtonState() {
   const submitButton = addCardFormElement.querySelector(".modal__button");
   const isEmpty = checkEmptyInputs();
@@ -156,6 +166,8 @@ function toggleSubmitButtonState() {
     submitButton.classList.remove("modal__button_disabled");
   }
 }
+
+toggleSubmitButtonState();
 
 // Loop over initialCards and create cards
 initialCards.forEach((cardData) => {
@@ -180,6 +192,8 @@ addNewCardButton.addEventListener("click", () => {
 imageModal.addEventListener("click", (event) => {
   closeModal(imageModal);
 });
+
+addCardFormElement.addEventListener("input", toggleSubmitButtonState);
 
 // To close //
 
@@ -221,5 +235,5 @@ const config = {
 
 const profileValidator = new FormValidator(config, profileFormElement);
 profileValidator.enableValidation();
-const addCardValidator = new FormValidator(config, formElement);
+const addCardValidator = new FormValidator(config, addCardFormElement);
 addCardValidator.enableValidation();
