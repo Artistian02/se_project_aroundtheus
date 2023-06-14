@@ -9,6 +9,7 @@ const profileEditButton = document.querySelector("#profile__edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const addNewCardButton = document.querySelector(".profile__add-button");
+const formElement = document.querySelector(".modal__form");
 
 const profileForm = document.forms["profile-form"];
 const cardForm = document.forms["card-form"];
@@ -112,6 +113,8 @@ function addCard(event) {
     link: addCardUrlInput.value,
   };
 
+  addCardFormElement.reset();
+
   const newCard = getCardElement(cardData);
   cardsList.prepend(newCard);
   closeModal(addCardModal);
@@ -185,9 +188,11 @@ function fillProfileForm() {
   profileDescriptionInput.value = profileDescription.textContent;
 }
 
-function openProfileEditModal() {
-  openModal(fillProfileForm);
-  openModal(profileEditModal);
+function openProfileEditModal(userData) {
+  openModal(function () {
+    fillProfileForm(userData);
+    openModal(profileEditModal);
+  });
 }
 
 addCardModalCloseButton.addEventListener("click", closeCardModal);
@@ -206,7 +211,7 @@ imageModal.addEventListener("click", () => {
 /////Validation
 
 const config = {
-  formSelector: ".modal__form",
+  formElement: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",
   disabledButtonClass: "modal__button_disabled",
