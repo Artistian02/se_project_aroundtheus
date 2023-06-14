@@ -154,21 +154,6 @@ function checkEmptyInputs() {
   return false;
 }
 
-function toggleSubmitButtonState() {
-  const submitButton = addCardFormElement.querySelector(".modal__button");
-  const isEmpty = checkEmptyInputs();
-
-  if (isEmpty) {
-    submitButton.setAttribute("disabled", "true");
-    submitButton.classList.add("modal__button_disabled");
-  } else {
-    submitButton.removeAttribute("disabled");
-    submitButton.classList.remove("modal__button_disabled");
-  }
-}
-
-toggleSubmitButtonState();
-
 // Loop over initialCards and create cards
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
@@ -182,6 +167,7 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 addCardFormElement.addEventListener("submit", addCard);
 
 profileEditButton.addEventListener("click", () => {
+  fillProfileForm();
   openModal(profileEditModal);
 });
 
@@ -193,7 +179,7 @@ imageModal.addEventListener("click", (event) => {
   closeModal(imageModal);
 });
 
-addCardFormElement.addEventListener("input", toggleSubmitButtonState);
+// addCardFormElement.addEventListener("input", toggleSubmitButtonState);
 
 // To close //
 
