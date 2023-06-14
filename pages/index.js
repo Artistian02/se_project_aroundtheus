@@ -219,7 +219,7 @@ const config = {
   errorClass: "modal__error_visible",
 };
 
-const profileValidator = new FormValidator(config, "#profile-edit-modal");
+const profileValidator = new FormValidator(config, profileForm);
 profileValidator.enableValidation();
-const addCardValidator = new FormValidator(config, "#add-card-form");
+const addCardValidator = new FormValidator(config, formElement);
 addCardValidator.enableValidation();
