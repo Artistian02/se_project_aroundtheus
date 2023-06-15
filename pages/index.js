@@ -171,19 +171,15 @@ profileEditButton.addEventListener("click", () => {
   openModal(profileEditModal);
 });
 
+// Add a click event listener to the close button inside the image modal
+const imageModalCloseButton = imageModal.querySelector(".modal__close");
+
 addNewCardButton.addEventListener("click", () => {
   openModal(addCardModal);
 });
 
-imageModal.addEventListener("click", (event) => {
-  event.stopPropagation();
-
-  const isImageOverlayClicked =
-    event.target.classList.contains("modal__overlay");
-
-  if (isImageOverlayClicked) {
-    closeModal(imageModal);
-  }
+imageModalCloseButton.addEventListener("click", (event) => {
+  closeModal(imageModal);
 });
 
 // addCardFormElement.addEventListener("input", toggleSubmitButtonState);
@@ -211,10 +207,10 @@ profileModalCloseButtonElement.addEventListener("click", () => {
   closeModal(profileEditModal);
 });
 
-imageOverlay.addEventListener("click", (event) => {
-  event.stopPropagation();
-  closeModal(imageModal);
-});
+// imageOverlay.addEventListener("click", (event) => {
+//   event.stopPropagation();
+//   closeModal(imageModal);
+// });
 
 /////Validation
 
