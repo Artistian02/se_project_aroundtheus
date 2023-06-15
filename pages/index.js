@@ -176,7 +176,14 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 imageModal.addEventListener("click", (event) => {
-  closeModal(imageModal);
+  event.stopPropagation();
+
+  const isImageOverlayClicked =
+    event.target.classList.contains("modal__overlay");
+
+  if (isImageOverlayClicked) {
+    closeModal(imageModal);
+  }
 });
 
 // addCardFormElement.addEventListener("input", toggleSubmitButtonState);
@@ -204,7 +211,8 @@ profileModalCloseButtonElement.addEventListener("click", () => {
   closeModal(profileEditModal);
 });
 
-imageModal.addEventListener("click", () => {
+imageOverlay.addEventListener("click", (event) => {
+  event.stopPropagation();
   closeModal(imageModal);
 });
 
