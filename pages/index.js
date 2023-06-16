@@ -207,11 +207,10 @@ profileModalCloseButtonElement.addEventListener("click", () => {
   closeModal(profileEditModal);
 });
 
-// imageOverlay.addEventListener("click", (event) => {
-//   event.stopPropagation();
-//   closeModal(imageModal);
-// });
-
+imageOverlay.addEventListener("click", (event) => {
+  event.stopPropagation();
+  closeModal(imageModal);
+});
 /////Validation
 
 const config = {
