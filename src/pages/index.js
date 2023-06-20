@@ -1,6 +1,8 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import { openModal, closeModal } from "../utils/utils.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/popupWithImage.js";
 
 //Variables///
 const cardTemplate = document.querySelector("#card-template");
