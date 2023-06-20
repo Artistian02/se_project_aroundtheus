@@ -1,8 +1,9 @@
-import Card from "../components/Card.js";
-import FormValidator from "../components/FormValidator.js";
-import { openModal, closeModal } from "../utils/utils.js";
-import popupWithForm from "../components/popupWithForm.js";
-import popupWithImage from "../components/popupWithImage.js";
+import Card from "./components/Card.js";
+import FormValidator from "./components/FormValidator.js";
+import { openModal, closeModal } from "./utils/utils.js";
+import popupWithForm from "./components/popupWithForm.js";
+import popupWithImage from "./components/popupWithImage.js";
+import index from "./index.css";
 
 //Variables///
 const cardTemplate = document.querySelector("#card-template");
