@@ -1,10 +1,10 @@
-import Card from "../components/Card.js";
-import FormValidator from "../components/FormValidator.js";
-import { openModal, closeModal } from "../utils/utils.js";
-import popupWithForm from "../components/popupWithForm.js";
-import popupWithImage from "../components/popupWithImage.js";
+import Card from "./components/Card";
+import FormValidator from "./components/FormValidator.js";
+import { openModal, closeModal } from "./utils/utils.js";
+// import popupWithForm from "../components/popupWithForm.js";
+// import popupWithImage from "../components/popupWithImage.js";
 import index from "./pages/index.css";
-import userInfo from "../components/userInfo.js";
+// import userInfo from "../components/userInfo.js";
 
 //Variables///
 const cardTemplate = document.querySelector("#card-template");
