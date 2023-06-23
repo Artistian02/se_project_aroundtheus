@@ -1,8 +1,8 @@
 import Card from "./components/Card";
 import FormValidator from "./components/FormValidator.js";
 import { openModal, closeModal } from "./utils/utils.js";
-// import popupWithForm from "../components/popupWithForm.js";
-// import popupWithImage from "../components/popupWithImage.js";
+// import PopupWithForm from "../components/PopupWithForm.js";
+// import PopupWithImage from "../components/PopupWithImage.js";
 import index from "./pages/index.css";
 // import userInfo from "../components/userInfo.js";
 
