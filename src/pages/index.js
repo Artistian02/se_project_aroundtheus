@@ -1,6 +1,5 @@
 import Card from "./components/Card";
 import FormValidator from "./components/FormValidator.js";
-import { openModal, closeModal } from "./utils/utils.js";
 // import PopupWithForm from "../components/PopupWithForm.js";
 // import PopupWithImage from "../components/PopupWithImage.js";
 import index from "./pages/index.css";
