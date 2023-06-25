@@ -86,8 +86,14 @@ const cardSelector = "#card-template";
 
 // Function to RenderCard
 
+const handleCardClick = (card) => {
+  // open the popup
+  // pass the card data to the popup instance
+};
+
+const card = new Card(...handleCardClick);
 function getCardElement(data) {
-  const card = new Card(data, "#card-template");
+  const card = new Card(data, "#card-template", handleCardClick);
   const cardElement = card.returnCard();
   return cardElement;
 }

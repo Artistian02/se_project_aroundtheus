@@ -1,11 +1,9 @@
-import { handleImageModalInfo } from "../pages/index";
-// import { openModal } from "../utils/utils.js";
-
 class Card {
-  constructor({ name, link }, cardTemplateSelector) {
+  constructor({ name, link }, cardTemplateSelector, handleCardClick) {
     this.name = name;
     this.link = link;
     this.cardTemplateSelector = cardTemplateSelector;
+    this.handleCardClick = handleCardClick;
   }
 
   returnEmptyClone() {
@@ -20,30 +18,26 @@ class Card {
     this.cardCaption.textContent = this.name;
   }
 
-  toggleLikeButton = (event) => {
+  toggleLikeButton(event) {
     event.target.classList.toggle("card__like-button_active");
-  };
+  }
 
-  deleteCard = (event) => {
+  deleteCard(event) {
     this.card.remove();
-  };
-
-  openImageModal = (event) => {
-    const imagePreviewModal = document.querySelector("#image-preview-modal");
-    openModal(imagePreviewModal);
-    handleImageModalInfo(event, imagePreviewModal);
-  };
+  }
 
   addLikeButtonEventListener() {
     this.likeButton.addEventListener("click", this.toggleLikeButton);
   }
 
   addDeleteButtonEventListener() {
-    this.deleteButton.addEventListener("click", this.deleteCard);
+    this.deleteButton.addEventListener("click", this.deleteCard.bind(this));
   }
 
   addImageEventListener() {
-    this.cardImage.addEventListener("click", this.openImageModal);
+    this.cardImage.addEventListener("click", () => {
+      this.handleCardClick(this);
+    });
   }
 
   addEventListeners() {
