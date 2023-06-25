@@ -1,8 +1,8 @@
-import Card from "./components/Card";
-import FormValidator from "./components/FormValidator.js";
+import Card from "../components/Card";
+import FormValidator from "../components/FormValidator";
 // import PopupWithForm from "../components/PopupWithForm.js";
 // import PopupWithImage from "../components/PopupWithImage.js";
-import index from "./pages/index.css";
+import index from "../pages/index.css";
 // import userInfo from "../components/userInfo.js";
 
 //Variables///

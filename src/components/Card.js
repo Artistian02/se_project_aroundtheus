@@ -1,5 +1,5 @@
-import { handleImageModalInfo } from "../index";
-import { openModal } from "../utils/utils.js";
+import { handleImageModalInfo } from "../pages/index";
+// import { openModal } from "../utils/utils.js";
 
 class Card {
   constructor({ name, link }, cardTemplateSelector) {
