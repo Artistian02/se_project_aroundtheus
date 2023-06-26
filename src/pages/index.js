@@ -4,7 +4,7 @@ import FormValidator from "../components/FormValidator";
 // import PopupWithImage from "../components/PopupWithImage.js";
 import index from "../pages/index.css";
 // import userInfo from "../components/userInfo.js";
-
+git;
 //Variables///
 const cardTemplate = document.querySelector("#card-template");
 const cardListEl = document.querySelector(".cards__list");
