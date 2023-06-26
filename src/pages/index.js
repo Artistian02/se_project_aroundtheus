@@ -91,7 +91,7 @@ const handleCardClick = (card) => {
   // pass the card data to the popup instance
 };
 
-const card = new Card(...handleCardClick);
+const card = new Card(handleCardClick);
 function getCardElement(data) {
   const card = new Card(data, "#card-template", handleCardClick);
   const cardElement = card.returnCard();
