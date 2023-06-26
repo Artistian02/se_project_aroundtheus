@@ -4,7 +4,7 @@ import FormValidator from "../components/FormValidator";
 // import PopupWithImage from "../components/PopupWithImage.js";
 import index from "../pages/index.css";
 // import userInfo from "../components/userInfo.js";
-git;
+
 //Variables///
 const cardTemplate = document.querySelector("#card-template");
 const cardListEl = document.querySelector(".cards__list");
@@ -169,26 +169,38 @@ initialCards.forEach((cardData) => {
   cardListEl.appendChild(cardElement);
 });
 
+// Define the open function for the profileEditModal
+function openProfileEditModal() {
+  profileEditModal.style.display = "block";
+}
+
+// Define the open function for the addCardModal
+function openAddCardModal() {
+  addCardModal.style.display = "block";
+}
+
+function openImageModal() {
+  imageModal.style.display = "block";
+}
 ////////////EventListeners//////////////
-/////////////
 
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 addCardFormElement.addEventListener("submit", addCard);
 
 profileEditButton.addEventListener("click", () => {
   fillProfileForm();
-  openModal(profileEditModal);
+  openProfileEditModal(profileEditModal);
 });
 
 // Add a click event listener to the close button inside the image modal
 const imageModalCloseButton = imageModal.querySelector(".modal__close");
 
 addNewCardButton.addEventListener("click", () => {
-  openModal(addCardModal);
+  openAddCardModal(addCardModal);
 });
 
 imageModalCloseButton.addEventListener("click", (event) => {
-  closeModal(imageModal);
+  openImageModal(imageModal);
 });
 
 // addCardFormElement.addEventListener("input", toggleSubmitButtonState);
@@ -200,12 +212,12 @@ function fillProfileForm() {
   profileDescriptionInput.value = profileDescription.textContent;
 }
 
-function openProfileEditModal(userData) {
-  openModal(function () {
-    fillProfileForm(userData);
-    openModal(profileEditModal);
-  });
-}
+// function openProfileEditModal(userData) {
+//   openModal(function () {
+//     fillProfileForm(userData);
+//     openProfileEditModal(profileEditModal);
+//   });
+// }
 
 addCardModalCloseButton.addEventListener("click", closeCardModal);
 
