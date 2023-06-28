@@ -1,6 +1,6 @@
 export default class Popup {
   constructor({ popupSelector }) {
-    this._popupElement = document.querySelector(popupSelector);
+    this._popupElement = popupSelector;
   }
 
   open() {
@@ -23,13 +23,21 @@ export default class Popup {
   }
 
   setEventListeners() {
-    // sets event listeners
-    this.closeButton.addEventListener("click", () => {
-      this.close();
+    this._popupElement.addEventListener("mousedown", (evt) => {
+      if (
+        evt.target.classList.contains("popup") ||
+        evt.taget.classList.contains("popup__close")
+      ) {
+        this.close();
+      }
     });
+    // // sets event listeners
+    // this.closeButton.addEventListener("click", () => {
+    //   this.close();
+    // });
 
-    this.overlay.addEventListener("click", () => {
-      this.close();
-    });
+    // this.overlay.addEventListener("click", () => {
+    //   this.close();
+    // });
   }
 }

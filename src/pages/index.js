@@ -2,8 +2,9 @@
 
 import Card from "../components/Card";
 import FormValidator from "../components/FormValidator";
+import Section from "../components/Section.js";
 // import PopupWithForm from "../components/PopupWithForm.js";
-// import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 import index from "../pages/index.css";
 // import userInfo from "../components/userInfo.js";
 
@@ -86,15 +87,6 @@ const cardSelector = "#card-template";
 // Function to RenderCard
 const handleCardClick = (card) => {};
 
-// const card = new Card(handleCardClick);
-// function getCardElement(data) {
-//   const card = new Card(data, "#card-template", handleCardClick);
-//   const cardElement = card.returnCard();
-//   return cardElement;
-// }
-
-// Add the "submit" event listener to the form
-
 function handleProfileFormSubmit(event) {
   event.preventDefault();
 
@@ -148,12 +140,6 @@ function checkEmptyInputs() {
   return false;
 }
 
-// // Loop over initialCards and create cards
-// initialCards.forEach((cardData) => {
-//   const cardElement = getCardElement(cardData);
-//   cardListEl.appendChild(cardElement);
-// });
-
 // Define the open function for the profileEditModal
 function openProfileEditModal() {
   profileEditModal.style.visiblity = "visible";
@@ -166,23 +152,21 @@ function openAddCardModal() {
 }
 
 // Modal Image
-const previewImagePopup = new PopupWithImage(imageModal);
-previewImagePopup.setEventListeners();
+const imagePreviewModal = new PopupWithImage(imageModal);
+imagePreviewModal.setEventListeners();
 
-// cards portion
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (data) => {
-      const card = renderCard(data);
+// // cards portion
 
-      cardSection.addItem(card);
-    },
+const cardSection = new Section({
+  items: initialCards,
+  renderer: (data) => {
+    const card = new Card(data);
+    const cardElement = card.createCard();
+    cardSection.addItem(cardElement);
   },
+});
 
-  selectors.cardList
-);
-
+// Render the cards using the cardSection
 cardSection.renderItems(initialCards);
 
 // card format
