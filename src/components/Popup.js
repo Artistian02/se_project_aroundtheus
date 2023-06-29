@@ -1,17 +1,18 @@
 export default class Popup {
   constructor({ popupSelector }) {
-    this._popupElement = popupSelector;
+    this._popupElement = document.querySelector("#add-card-modal");
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
     // opens popup
-    this.popup.classList.add("open");
+    this._popupElement.classList.add("open");
     document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
     // closes popup
-    this.popup.classList.remove("open");
+    this._popupElement.classList.remove("open");
     document.removeEventListener("keydown", this._handleEscClose);
   }
 
@@ -26,18 +27,10 @@ export default class Popup {
     this._popupElement.addEventListener("mousedown", (evt) => {
       if (
         evt.target.classList.contains("popup") ||
-        evt.taget.classList.contains("popup__close")
+        evt.target.classList.contains("popup__close")
       ) {
         this.close();
       }
     });
-    // // sets event listeners
-    // this.closeButton.addEventListener("click", () => {
-    //   this.close();
-    // });
-
-    // this.overlay.addEventListener("click", () => {
-    //   this.close();
-    // });
   }
 }

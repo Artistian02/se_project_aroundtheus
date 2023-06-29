@@ -19,7 +19,6 @@ export default class FormValidator {
     const errorElement = this.formElement.querySelector(
       `#${inputElement.id}-error`
     );
-    console.log(this.config);
     errorElement.textContent = inputElement.validationMessage;
     errorElement.classList.add(this.config.errorClass);
     inputElement.classList.add(this.config.inputErrorClass);
@@ -29,7 +28,6 @@ export default class FormValidator {
     const errorElement = this.formElement.querySelector(
       `#${inputElement.id}-error`
     );
-    console.log(`${inputElement.id}-error`);
     errorElement.classList.remove(this.config.errorClass);
     errorElement.textContent = "";
     inputElement.classList.remove(this.config.inputErrorClass);
@@ -52,7 +50,7 @@ export default class FormValidator {
   toggleButtonState() {
     if (this.isInvalid()) {
       this.disableButtonState();
-    } else {
+    } else if (this.submitButton) {
       this.submitButton.classList.remove(this.config.disabledButtonClass);
       this.submitButton.disabled = false;
     }
@@ -69,14 +67,28 @@ export default class FormValidator {
     this.toggleButtonState();
   }
 
-  resetValidation() {}
+  resetValidation() {
+    this.inputList.forEach((inputElement) => {
+      this.hideInputError(inputElement);
+    });
+
+    this.toggleButtonState();
+  }
 
   disableButtonState() {
-    this.submitButton.disabled = true;
-    this.submitButton.classList.add(this.config.disabledButtonClass);
+    if (this.submitButton) {
+      this.submitButton.disabled = true;
+      if (this.config.disabledButtonClass) {
+        this.submitButton.classList.add(this.config.disabledButtonClass);
+      }
+    }
   }
 
   enableValidation() {
+    this.formElement.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+
     this.setEventListeners();
   }
 }
