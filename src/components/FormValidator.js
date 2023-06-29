@@ -1,9 +1,4 @@
 export default class FormValidator {
-  config;
-  formElement;
-  inputList;
-  submitButton;
-
   constructor(configObj, formElement) {
     this.config = configObj;
     this.formElement = formElement;

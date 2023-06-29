@@ -211,6 +211,7 @@ imageModalCloseButton.addEventListener("click", (event) => {
 
 const editFormValidator = new FormValidator({}, profileEditForm);
 const addFormValidator = new FormValidator({}, addCardFormElement);
+console.log(editFormValidator);
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
