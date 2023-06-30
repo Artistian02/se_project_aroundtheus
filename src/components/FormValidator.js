@@ -70,7 +70,7 @@ export default class FormValidator {
     this.toggleButtonState();
   }
 
-  disableButtonState() {
+  disableButton() {
     if (this.submitButton) {
       this.submitButton.disabled = true;
       if (this.config.disabledButtonClass) {

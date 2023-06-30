@@ -4,6 +4,7 @@ import Section from "../components/Section";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import UserInfo from "../components/UserInfo";
+import Card from "../components/Card";
 
 import "./index.css";
 
@@ -82,10 +83,18 @@ function renderCard(card) {
     (imageData) => {
       ImagePopup.open(imageData);
     },
-    cardSelector
+    "#card-template"
   );
   return cardElement.getView();
 }
+
+const cardSection = new Section({
+  items: initialCards,
+  renderer: (data) => {
+    const cardElement = renderCard(data); // Call the renderCard function
+    cardSection.addItem(cardElement);
+  },
+});
 
 export function handleImageModalInfo(event, imageModal) {
   const imageElement = imageModal.querySelector(".modal__card-image-preview");
@@ -134,40 +143,6 @@ function openAddCardModal() {
 const imagePreviewModal = new PopupWithImage(imageModal);
 imagePreviewModal.setEventListeners();
 
-// // cards portion
-
-const cardSection = new Section({
-  items: initialCards,
-  renderer: (data) => {
-    const card = new Card(data, () => {}, "#card-template");
-    const cardElement = card.createCard();
-    cardSection.addItem(cardElement);
-  },
-});
-
-class Card {
-  constructor(data, handleCardClick, cardSelector) {
-    this.data = data;
-    this.handleCardClick = handleCardClick;
-    this.cardSelector = cardSelector;
-  }
-
-  createCard() {
-    const cardElement = document
-      .querySelector(this.cardSelector)
-      .content.querySelector(".card")
-      .cloneNode(true);
-
-    const cardImage = cardElement.querySelector(".card__image");
-    const cardTitle = cardElement.querySelector(".card__title");
-
-    cardImage.src = this.data.link;
-    cardImage.alt = this.data.name;
-    cardTitle.textContent = this.data.name;
-
-    return cardElement;
-  }
-}
 // card format
 const addCardModalSelector = "#add-card-modal";
 const data = () => {};
