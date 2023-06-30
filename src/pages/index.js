@@ -25,7 +25,22 @@ const initialCards = [
     name: "Lake Louise",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
   },
-  // ...
+  {
+    name: "Bald Mountains",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
+  },
+  {
+    name: "Vanoise National Park",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
+  },
 ];
 
 //Variables
@@ -81,7 +96,7 @@ function renderCard(card) {
   const cardElement = new Card(
     card,
     (imageData) => {
-      ImagePopup.open(imageData);
+      imagePreviewModal.open(imageData);
     },
     "#card-template"
   );
@@ -95,6 +110,8 @@ const cardSection = new Section({
     cardSection.addItem(cardElement);
   },
 });
+
+cardSection.renderItems();
 
 export function handleImageModalInfo(event, imageModal) {
   const imageElement = imageModal.querySelector(".modal__card-image-preview");
