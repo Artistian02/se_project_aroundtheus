@@ -48,6 +48,7 @@ const cardTemplate = document.querySelector("#card-template");
 const cardListEl = document.querySelector(".cards__list");
 const profileEditButton = document.querySelector("#profile__edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
+const profileEditCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModal = document.querySelector("#add-card-modal");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const formElement = document.querySelector(".modal__form");
@@ -59,7 +60,9 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 
 const errorMessage = addCardFormElement.querySelector(".modal__error");
 
-const imageModal = document.querySelector("#image-preview-modal");
+const imageModalSelector = "#image-preview-modal";
+const imageModal = document.querySelector(imageModalSelector);
+const imageModalCloseButton = imageModal.querySelector(".modal__close");
 const addCardModalCloseButton =
   addCardModal.querySelector("#modal-close-image");
 const profileTitle = document.querySelector(".profile__title");
@@ -121,18 +124,6 @@ export function handleImageModalInfo(event, imageModal) {
   imageCaption.textContent = event.target.alt;
 }
 
-function profileEditCloseButton() {
-  closeModal(profileEditModal);
-}
-
-function closeCardModal() {
-  closeModal(addCardModal);
-}
-
-function enlargeCloseButton() {
-  closeModal(imageModal);
-}
-
 // Disabling Input Buttons
 
 function checkEmptyInputs() {
@@ -157,7 +148,7 @@ function openAddCardModal() {
 }
 
 // Modal Image
-const imagePreviewModal = new PopupWithImage(imageModal);
+const imagePreviewModal = new PopupWithImage(imageModalSelector);
 imagePreviewModal.setEventListeners();
 
 // card format
@@ -174,6 +165,7 @@ modalForm.addEventListener("submit", handleProfileFormSubmit);
 addCardFormElement.addEventListener("submit", addCard);
 
 addNewCardButton.addEventListener("click", () => {
+  console.log(addCardFormPopup);
   addFormValidator.disableButton();
   addCardFormPopup.open();
 });
@@ -187,9 +179,6 @@ profileEditButton.addEventListener("click", () => {
 
   profileModal.open();
 });
-
-// Add a click event listener to the close button inside the image modal
-const imageModalCloseButton = imageModal.querySelector(".modal__close");
 
 addNewCardButton.addEventListener("click", () => {
   openAddCardModal(addCardModal);
@@ -208,13 +197,17 @@ editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 // // To close //
+function closeModal(modal) {
+  modal.style.visibility = "hidden";
+}
 
-// function fillProfileForm() {
-//   profileTitleInput.value = profileTitle.textContent;
-//   profileDescriptionInput.value = profileDescription.textContent;
-// }
+addCardModalCloseButton.addEventListener("click", () => {
+  closeModal(addCardModal);
+});
 
-// addCardModalCloseButton.addEventListener;
+profileEditCloseButton.addEventListener("click", () => {
+  closeModal(profileEditModal);
+});
 
 // Profile
 
