@@ -140,6 +140,18 @@ function checkEmptyInputs() {
 
 function openProfileEditModal() {
   profileEditModal.style.visibility = "visible";
+  profileEditModal.addEventListener("click", handleOverlayClick);
+}
+
+function closeModal(modal) {
+  modal.style.visibility = "hidden";
+  modal.removeEventListener("click", handleOverlayClick);
+}
+
+function handleOverlayClick(event) {
+  if (event.target === event.currentTarget) {
+    closeModal(event.target);
+  }
 }
 
 // Define the open function for the addCardModal
@@ -184,22 +196,17 @@ addNewCardButton.addEventListener("click", () => {
   openAddCardModal(addCardModal);
 });
 
-imageModalCloseButton.addEventListener("click", (event) => {
-  imagePreviewModal.open(imageModal);
+imageModalCloseButton.addEventListener("click", () => {
+  closeModal(imageModal);
 });
 
 // Form Validators
 
 const editFormValidator = new FormValidator({}, profileEditForm);
 const addFormValidator = new FormValidator({}, addCardFormElement);
-console.log(editFormValidator);
+
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-
-// // To close //
-function closeModal(modal) {
-  modal.style.visibility = "hidden";
-}
 
 addCardModalCloseButton.addEventListener("click", () => {
   closeModal(addCardModal);
