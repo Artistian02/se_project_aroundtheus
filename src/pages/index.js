@@ -138,11 +138,6 @@ function checkEmptyInputs() {
 
 // Define the open function for the profileEditModal
 
-function openProfileEditModal() {
-  profileEditModal.style.visibility = "visible";
-  profileEditModal.addEventListener("click", handleOverlayClick);
-}
-
 function closeModal(modal) {
   modal.style.visibility = "hidden";
   modal.removeEventListener("click", handleOverlayClick);
@@ -154,11 +149,6 @@ function handleOverlayClick(event) {
   }
 }
 
-// Define the open function for the addCardModal
-function openAddCardModal() {
-  addCardModal.style.visibility = "visible";
-}
-
 // Modal Image
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
 imagePreviewModal.setEventListeners();
@@ -168,36 +158,22 @@ const addCardModalSelector = "#add-card-modal";
 const data = () => {};
 
 const addCardFormPopup = new PopupWithForm(addCardModalSelector, data);
-
 addCardFormPopup.setEventListeners();
 
-// EventListeners
-
-modalForm.addEventListener("submit", handleProfileFormSubmit);
-addCardFormElement.addEventListener("submit", addCard);
-
 addNewCardButton.addEventListener("click", () => {
-  console.log(addCardFormPopup);
-  addFormValidator.disableButton();
   addCardFormPopup.open();
 });
 
+// Profile
 profileEditButton.addEventListener("click", () => {
   const profileInfo = userInfo.getUserInfo();
-  profileTitleInput.value = profileInfo.name;
-  profileDescriptionInput.value = profileInfo.info;
+
+  profileTitleInput.value = profileInfo.profileName;
+  profileDescriptionInput.value = profileInfo.description;
 
   editFormValidator.disableButton();
 
   profileModal.open();
-});
-
-addNewCardButton.addEventListener("click", () => {
-  openAddCardModal(addCardModal);
-});
-
-imageModalCloseButton.addEventListener("click", () => {
-  closeModal(imageModal);
 });
 
 // Form Validators
@@ -207,14 +183,6 @@ const addFormValidator = new FormValidator({}, addCardFormElement);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-
-addCardModalCloseButton.addEventListener("click", () => {
-  closeModal(addCardModal);
-});
-
-profileEditCloseButton.addEventListener("click", () => {
-  closeModal(profileEditModal);
-});
 
 // Profile
 
