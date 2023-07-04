@@ -100,7 +100,7 @@ function renderCard(card) {
 const cardSection = new Section({
   items: initialCards,
   renderer: (data) => {
-    const cardElement = renderCard(data); // Call the renderCard function
+    const cardElement = renderCard(data);
     cardSection.addItem(cardElement);
   },
 });
@@ -144,31 +144,40 @@ function handleOverlayClick(event) {
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
 imagePreviewModal.setEventListeners();
 
+// Functions
+function addCard(event) {
+  // event here is not an event, this is an object with form fields
+
+  const profileTitleInput = document.getElementById("profile-title-input");
+  const profileDescriptionInput = document.getElementById(
+    "profile-description-input"
+  );
+
+  const cardData = {
+    name: profileTitleInput.value,
+    link: profileDescriptionInput.value,
+  };
+  addCardFormElement.reset();
+
+  const cardElement = renderCard(cardData);
+
+  cardSection.prepend(cardElement);
+  closeModal(addCardModal);
+  addCardFormPopup.disableButtonState();
+}
+
 // card format
 const addCardModalSelector = "#add-card-modal";
 const data = () => {};
 
-const addCardFormPopup = new PopupWithForm(addCardModalSelector, data);
+const addCardFormPopup = new PopupWithForm(addCardModalSelector, (event) => {
+  addCard(event);
+});
 addCardFormPopup.setEventListeners();
 
 addNewCardButton.addEventListener("click", () => {
   addCardFormPopup.open();
 });
-
-// Functions
-function addCard(event) {
-  event.preventDefault();
-
-  const cardData = {
-    name: addCardTitleInput.value,
-    link: addCardUrlInput.value,
-  };
-  addCardFormElement.reset();
-  const newCard = getCardElement(cardData);
-  cardsList.prepend(newCard);
-  closeModal(addCardModal);
-  addCardValidator.disableButtonState();
-}
 
 // Profile
 profileEditButton.addEventListener("click", () => {
