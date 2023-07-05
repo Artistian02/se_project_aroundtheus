@@ -1,9 +1,9 @@
 // imports
-import FormValidator from "../components/FormValidator";
+import FormValidator, { config } from "../components/FormValidator";
 import Section from "../components/Section";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
-import UserInfo from "../components/UserInfo";
+import UserInfo from "../components/userinfo";
 import Card from "../components/Card";
 
 import "./index.css";
@@ -145,34 +145,28 @@ const imagePreviewModal = new PopupWithImage(imageModalSelector);
 imagePreviewModal.setEventListeners();
 
 // Functions
-function addCard(event) {
-  // event here is not an event, this is an object with form fields
-
-  const profileTitleInput = document.getElementById("profile-title-input");
-  const profileDescriptionInput = document.getElementById(
-    "profile-description-input"
-  );
+function addCard(data) {
+  const createCardTitleInput = document.getElementById("card-title-input");
+  const createCardDescriptionInput = document.getElementById("card-url-input");
 
   const cardData = {
-    name: profileTitleInput.value,
-    link: profileDescriptionInput.value,
+    name: createCardTitleInput.value,
+    link: createCardDescriptionInput.value,
   };
-  addCardFormElement.reset();
 
+  addCardFormElement.reset();
   const cardElement = renderCard(cardData);
 
-  cardSection.prepend(cardElement);
+  cardSection.addItem(cardElement);
   closeModal(addCardModal);
-  addCardFormPopup.disableButtonState();
+  addCardFormPopup.disableButton();
 }
 
 // card format
 const addCardModalSelector = "#add-card-modal";
 const data = () => {};
 
-const addCardFormPopup = new PopupWithForm(addCardModalSelector, (event) => {
-  addCard(event);
-});
+const addCardFormPopup = new PopupWithForm(addCardModalSelector, addCard);
 addCardFormPopup.setEventListeners();
 
 addNewCardButton.addEventListener("click", () => {
@@ -193,7 +187,13 @@ profileEditButton.addEventListener("click", () => {
 
 // Form Validators
 
-const editFormValidator = new FormValidator({}, profileEditForm);
+const editFormValidator = new FormValidator(
+  {
+    inputSelector: ".modal__input",
+    submitButtonSelector: ".modal__button",
+  },
+  profileEditForm
+);
 const addFormValidator = new FormValidator({}, addCardFormElement);
 
 editFormValidator.enableValidation();

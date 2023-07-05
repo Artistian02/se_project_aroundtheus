@@ -43,11 +43,14 @@ class Card {
   getView() {
     this._element = this._getTemplate();
     const cardImage = this._element.querySelector(".card__image");
+
     cardImage.src = this._link;
     cardImage.alt = `Photo of ${this._name}`;
     const cardTitle = this._element.querySelector(".card__title");
     cardTitle.textContent = this._name;
     this._setEventListeners();
+
+    console.log(this._element);
     return this._element;
   }
 }
