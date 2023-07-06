@@ -1,5 +1,5 @@
 // imports
-import FormValidator, { config } from "../components/FormValidator";
+import FormValidator from "../components/FormValidator";
 import Section from "../components/Section";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
@@ -13,6 +13,15 @@ const selectors = {
   profileTitle: ".profile__title",
   profileDescription: ".profile__description",
   profileModal: "#profile-edit-modal",
+};
+
+const config = {
+  formElement: ".modal__form",
+  inputElement: ".modal__input",
+  submitButton: ".modal__button",
+  inactiveButton: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input__error_visible",
 };
 
 // Variables
@@ -57,6 +66,7 @@ const modalForm = document.forms["add-card-form"];
 const cardForm = document.forms["card-form"];
 const addCardFormElement = addCardModal.querySelector(".modal__form");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+const submitButton = document.querySelector(".modal__button");
 
 const errorMessage = addCardFormElement.querySelector(".modal__error");
 
@@ -76,6 +86,11 @@ const profileDescriptionInput = document.querySelector(
 const imageCaption = imageModal.querySelector(".modal__image-caption");
 const imageElement = imageModal.querySelector(".modal__card-image-preview");
 const imageOverlay = imageModal.querySelector(".modal__overlay");
+
+const userInfo = new UserInfo(
+  selectors.profileTitle,
+  selectors.profileDescription
+);
 
 function handleProfileFormSubmit(event) {
   event.preventDefault();
@@ -174,6 +189,14 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 // Profile
+
+const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
+  userInfo.setUserInfo(data.title, data.description);
+  profileModal.close();
+});
+
+profileModal.setEventListeners();
+
 profileEditButton.addEventListener("click", () => {
   const profileInfo = userInfo.getUserInfo();
 
@@ -187,28 +210,8 @@ profileEditButton.addEventListener("click", () => {
 
 // Form Validators
 
-const editFormValidator = new FormValidator(
-  {
-    inputSelector: ".modal__input",
-    submitButtonSelector: ".modal__button",
-  },
-  profileEditForm
-);
-const addFormValidator = new FormValidator({}, addCardFormElement);
+const editFormValidator = new FormValidator(config, formElement);
+const formValidator = new FormValidator(config, formElement, submitButton);
 
 editFormValidator.enableValidation();
-addFormValidator.enableValidation();
-
-// Profile
-
-const userInfo = new UserInfo(
-  selectors.profileTitle,
-  selectors.profileDescription
-);
-
-const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
-  userInfo.setUserInfo(data.title, data.description);
-  profileModal.close();
-});
-
-profileModal.setEventListeners();
+formValidator.enableValidation();

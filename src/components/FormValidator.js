@@ -1,7 +1,7 @@
 export default class FormValidator {
-  constructor(config, formElement) {
+  constructor(config, formElement, submitButton) {
     this._inputElement = config.inputElement;
-    this._submitButton = config.submitButton;
+    this._submitButton = submitButton;
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
@@ -54,6 +54,7 @@ export default class FormValidator {
       this._formElement.querySelectorAll(this._inputElement)
     );
 
+    //this._submitbutton = document.querySelector(this.submitButtonSector)
     this.inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
@@ -94,12 +95,3 @@ export default class FormValidator {
     this.setEventListeners();
   }
 }
-
-export const config = {
-  formElement: ".modal__form",
-  inputElement: ".modal__input",
-  submitButton: ".modal__button",
-  inactiveButton: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__input__error_visible",
-};
