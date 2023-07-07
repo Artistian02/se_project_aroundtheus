@@ -3,7 +3,7 @@ import FormValidator from "../components/FormValidator";
 import Section from "../components/Section";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
-import UserInfo from "../components/userinfo";
+import UserinfoComponent from "../components/Userinfo";
 import Card from "../components/Card";
 
 import "./index.css";
@@ -61,10 +61,10 @@ const profileEditCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModal = document.querySelector("#add-card-modal");
 const addNewCardButton = document.querySelector(".profile__add-button");
 const formElement = document.querySelector(".modal__form");
+const addCardFormElement = document.querySelector("#add-card-form");
 
 const modalForm = document.forms["add-card-form"];
 const cardForm = document.forms["card-form"];
-const addCardFormElement = addCardModal.querySelector(".modal__form");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const submitButton = document.querySelector(".modal__button");
 
@@ -87,7 +87,7 @@ const imageCaption = imageModal.querySelector(".modal__image-caption");
 const imageElement = imageModal.querySelector(".modal__card-image-preview");
 const imageOverlay = imageModal.querySelector(".modal__overlay");
 
-const userInfo = new UserInfo(
+const userinfoComponent = new UserinfoComponent(
   selectors.profileTitle,
   selectors.profileDescription
 );
@@ -191,27 +191,25 @@ addNewCardButton.addEventListener("click", () => {
 // Profile
 
 const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
-  userInfo.setUserInfo(data.title, data.description);
+  userinfoComponent.setUserInfo(data.title, data.description);
   profileModal.close();
 });
 
 profileModal.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
-  const profileInfo = userInfo.getUserInfo();
+  const profileInfo = userinfoComponent.getUserInfo();
 
   profileTitleInput.value = profileInfo.profileName;
   profileDescriptionInput.value = profileInfo.description;
-
-  editFormValidator.disableButton();
 
   profileModal.open();
 });
 
 // Form Validators
 
-const editFormValidator = new FormValidator(config, formElement);
-const formValidator = new FormValidator(config, formElement, submitButton);
+const addCardFormValidator = new FormValidator(config, addCardFormElement);
+const profileEditFormValidator = new FormValidator(config, profileEditForm);
 
-editFormValidator.enableValidation();
-formValidator.enableValidation();
+addCardFormValidator.enableValidation();
+profileEditFormValidator.enableValidation();
