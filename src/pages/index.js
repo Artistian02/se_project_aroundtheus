@@ -19,7 +19,7 @@ const config = {
   formElement: ".modal__form",
   inputElement: ".modal__input",
   submitButton: ".modal__button",
-  inactiveButton: "modal__button_disabled",
+  disableButton: "modal__button_disabled",
   inputErrorClass: "modal__error_visible",
   errorClass: "modal__error_visible",
 };
@@ -145,7 +145,7 @@ function checkEmptyInputs() {
 // Define the open function for the profileEditModal
 
 function closeModal(modal) {
-  modal.style.visibility = "hidden";
+  // modal.style.visibility = "hidden";
   modal.removeEventListener("click", handleOverlayClick);
 }
 
@@ -173,7 +173,7 @@ function addCard(data) {
   const cardElement = renderCard(cardData);
 
   cardSection.addItem(cardElement);
-  closeModal(addCardModal);
+  // closeModal(addCardModal);
   addCardFormPopup.disableButton();
 }
 
@@ -183,6 +183,7 @@ const data = () => {};
 
 const addCardFormPopup = new PopupWithForm(addCardModalSelector, addCard);
 addCardFormPopup.setEventListeners();
+addCardFormPopup.close();
 
 addNewCardButton.addEventListener("click", () => {
   addCardFormPopup.open();
