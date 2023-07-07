@@ -20,8 +20,8 @@ const config = {
   inputElement: ".modal__input",
   submitButton: ".modal__button",
   inactiveButton: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__input__error_visible",
+  inputErrorClass: "modal__error_visible",
+  errorClass: "modal__error_visible",
 };
 
 // Variables
