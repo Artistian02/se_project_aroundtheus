@@ -192,7 +192,7 @@ addNewCardButton.addEventListener("click", () => {
 // Profile
 
 const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
-  userinfoComponent.setUserInfo(data.title, data.description);
+  userinfoComponent.setUserInfo(profileTitleInput, profileDescriptionInput);
   profileModal.close();
 });
 
