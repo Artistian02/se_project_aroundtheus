@@ -1,8 +1,8 @@
 export default class FormValidator {
-  constructor(config, formElement, submitButton) {
+  constructor(config, formElement) {
     this._inputElement = config.inputElement;
-    this._submitButton = submitButton;
-    this._inactiveButtonClass = config.inactiveButtonClass;
+    this._submitButton = document.querySelector(config.submitButton);
+    this._disableButton = config.disableButton;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
     this._formElement = formElement;
@@ -44,7 +44,7 @@ export default class FormValidator {
     if (this.isInvalid()) {
       this.disableButton();
     } else if (this._submitButton) {
-      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.classList.remove(this._disableButton);
       this._submitButton.disabled = false;
     }
   }
@@ -74,16 +74,16 @@ export default class FormValidator {
   }
 
   disableButton() {
-    if (this._submitButton) {
+    {
       this._submitButton.disabled = true;
-      if (this._inactiveButtonClass) {
-        this._submitButton.classList.add(this._inactiveButtonClass);
-      }
+      console.log(1);
+      console.log(this._disableButton);
+      this._submitButton.classList.add(this._disableButton);
     }
   }
 
   enableButton() {
-    this._submitButton.classList.remove(this._inactiveButtonClass);
+    this._submitButton.classList.remove(this._disableButton);
     this._submitButton.disabled = false;
   }
 
