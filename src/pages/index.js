@@ -130,31 +130,6 @@ export function handleImageModalInfo(event, imageModal) {
   imageCaption.textContent = event.target.alt;
 }
 
-// Disabling Input Buttons
-
-function checkEmptyInputs() {
-  const inputs = addCardFormElement.querySelectorAll(".modal__input");
-  for (let i = 0; i < inputs.length; i++) {
-    if (inputs[i].value.trim() === "") {
-      return true;
-    }
-  }
-  return false;
-}
-
-// Define the open function for the profileEditModal
-
-function closeModal(modal) {
-  // modal.style.visibility = "hidden";
-  modal.removeEventListener("click", handleOverlayClick);
-}
-
-function handleOverlayClick(event) {
-  if (event.target === event.currentTarget) {
-    closeModal(event.target);
-  }
-}
-
 // Modal Image
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
 imagePreviewModal.setEventListeners();
@@ -169,12 +144,13 @@ function addCard(data) {
     link: createCardDescriptionInput.value,
   };
 
-  addCardFormElement.reset();
+  // addCardFormElement.reset();
   const cardElement = renderCard(cardData);
 
   cardSection.addItem(cardElement);
   // closeModal(addCardModal);
   addCardFormPopup.disableButton();
+  addCardFormPopup.close();
 }
 
 // card format
@@ -192,7 +168,10 @@ addNewCardButton.addEventListener("click", () => {
 // Profile
 
 const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
-  userinfoComponent.setUserInfo(profileTitleInput, profileDescriptionInput);
+  userinfoComponent.setUserInfo(
+    profileTitleInput.value,
+    profileDescriptionInput.value
+  );
   profileModal.close();
 });
 
