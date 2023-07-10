@@ -5,15 +5,8 @@ import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import UserinfoComponent from "../components/Userinfo";
 import Card from "../components/Card";
-
+import { initialCards } from "../utils/constants.js";
 import "./index.css";
-
-// Variables
-const selectors = {
-  profileTitle: ".profile__title",
-  profileDescription: ".profile__description",
-  profileModal: "#profile-edit-modal",
-};
 
 const config = {
   formElement: ".modal__form",
@@ -23,34 +16,6 @@ const config = {
   inputErrorClass: "modal__error_visible",
   errorClass: "modal__error_visible",
 };
-
-// Variables
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
 
 //Variables
 const cardTemplate = document.querySelector("#card-template");
@@ -101,27 +66,21 @@ function handleProfileFormSubmit(event) {
   closeModal(profileEditModal);
 }
 
-function renderCard(card) {
-  const cardElement = new Card(
-    card,
-    (imageData) => {
-      imagePreviewModal.open(imageData);
-    },
-    "#card-template"
-  );
-  return cardElement.getView();
+// Card
+function renderCard(cardData) {
+  const card = new Card(cardData, "#card-template", handleCardImageClick);
+  section.addItem(card.getCardElement());
 }
 
-const cardSection = new Section({
-  items: initialCards,
-  renderer: (data) => {
-    const cardElement = renderCard(data);
-    cardSection.addItem(cardElement);
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: renderCard,
   },
-});
+  cardListEl
+);
 
-cardSection.renderItems();
-
+section.renderItems();
 export function handleImageModalInfo(event, imageModal) {
   const imageElement = imageModal.querySelector(".modal__card-image-preview");
   const imageCaption = imageModal.querySelector(".modal__image-caption");
