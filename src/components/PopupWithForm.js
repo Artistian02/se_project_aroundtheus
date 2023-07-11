@@ -8,23 +8,25 @@ class PopupWithForm extends Popup {
     this._submitButton = this._popupForm.querySelector(".modal__button");
   }
 
-  disableButton() {
-    this._submitButton.disabled = true;
-  }
-
   _getInputValues() {
     const inputs = this._popupForm.querySelectorAll(".modal__input");
     const values = {};
     inputs.forEach((input) => {
       values[input.name] = input.value;
-      return values;
-    }, {});
+    });
+    return values;
   }
 
   _submitForm = () => {
     const inputValues = this._getInputValues();
     this._handleFormSubmit(inputValues);
+    this.disableButton();
   };
+
+  disableButton() {
+    this._submitButton.disabled = true;
+    this._submitButton.classList.add("disabled");
+  }
 
   setEventListeners() {
     super.setEventListeners();

@@ -5,7 +5,19 @@ import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import UserinfoComponent from "../components/Userinfo";
 import Card from "../components/Card";
-import { initialCards, selectors, config } from "../utils/constants.js";
+import {
+  initialCards,
+  selectors,
+  config,
+  cardListEl,
+  imageModalSelector,
+  addNewCardButton,
+  profileEditButton,
+  addCardFormElement,
+  profileEditForm,
+  profileTitleInput,
+  profileDescriptionInput,
+} from "../utils/constants.js";
 import "./index.css";
 
 const userinfoComponent = new UserinfoComponent(
@@ -18,9 +30,9 @@ function handleCardImageClick() {}
 
 function renderCard(cardData) {
   const card = new Card(cardData, "#card-template", handleCardImageClick);
-  section.addItem(card.getCardElement());
+  const cardElement = card.getView();
+  section.addItem(cardElement);
 }
-export const cardListEl = document.querySelector(".cards__list");
 
 const section = new Section(
   {
@@ -38,22 +50,16 @@ imagePreviewModal.setEventListeners();
 
 // Functions
 function addCard(data) {
-  const createCardTitleInput = document.getElementById("card-title-input");
-  const createCardDescriptionInput = document.getElementById("card-url-input");
+  const cardData = {
+    name: data["card-title-input"],
+    link: data["card-url-input"],
+  };
 
-  // const cardData = {
-  //   name: createCardTitleInput.value,
-  //   link: createCardDescriptionInput.value,
-  // };
-
-  // addCardFormElement.reset();
-  const cardElement = renderCard(cardData);
-
-  cardSection.addItem(cardElement);
-  // closeModal(addCardModal);
-  addCardFormPopup.disableButton();
+  renderCard(cardData);
   addCardFormPopup.close();
 }
+const cardElement = renderCard(cardData);
+section.addItem(cardElement);
 
 // card format
 const addCardModalSelector = "#add-card-modal";
@@ -68,11 +74,10 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 // Profile
-
 const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
   userinfoComponent.setUserInfo(
-    profileTitleInput.value,
-    profileDescriptionInput.value
+    data.profileTitleInput,
+    data.profileDescriptionInput
   );
   profileModal.close();
 });
