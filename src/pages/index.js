@@ -26,7 +26,9 @@ const userinfoComponent = new UserinfoComponent(
 );
 
 // Card
-function handleCardImageClick() {}
+function handleCardImageClick(cardData) {
+  imagePreviewModal.open(cardData);
+}
 
 function renderCard(cardData) {
   const card = new Card(cardData, "#card-template", handleCardImageClick);
@@ -51,15 +53,15 @@ imagePreviewModal.setEventListeners();
 // Functions
 function addCard(data) {
   const cardData = {
-    name: data["card-title-input"],
-    link: data["card-url-input"],
+    name: data.title,
+    link: data.imageURL,
   };
 
   renderCard(cardData);
   addCardFormPopup.close();
 }
-const cardElement = renderCard(cardData);
-section.addItem(cardElement);
+// const cardElement = renderCard(cardData);
+// section.addItem(cardElement);
 
 // card format
 const addCardModalSelector = "#add-card-modal";
@@ -74,11 +76,11 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 // Profile
-const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
-  userinfoComponent.setUserInfo(
-    data.profileTitleInput,
-    data.profileDescriptionInput
-  );
+
+const profileModal = new PopupWithForm(selectors.profileModal, () => {
+  const title = profileTitleInput.value;
+  const description = profileDescriptionInput.value;
+  userinfoComponent.setUserInfo(title, description);
   profileModal.close();
 });
 

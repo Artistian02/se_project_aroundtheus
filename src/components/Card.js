@@ -50,6 +50,8 @@ class Card {
     cardTitle.textContent = this._name;
     this._setEventListeners();
 
+    console.log(this._element);
+
     return this._element;
   }
 }
