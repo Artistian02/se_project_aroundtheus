@@ -43,48 +43,22 @@ export default class FormValidator {
   toggleButtonState() {
     if (this.isInvalid()) {
       this.disableButton();
-    } else if (this._submitButton) {
-      this._submitButton.classList.remove(this._disableButton);
-      this._submitButton.disabled = false;
+    } else {
+      this.enableButton();
     }
   }
 
-  setEventListeners() {
-    this.inputList = Array.from(
-      this._formElement.querySelectorAll(this._inputElement)
-    );
-
-    //this._submitbutton = document.querySelector(this.submitButtonSector)
-    this.inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
-        this._checkInputValidity(inputElement);
-        this.toggleButtonState();
-      });
-    });
-
-    this.toggleButtonState();
-  }
-
-  resetValidation() {
-    this.inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement);
-    });
-
-    this.toggleButtonState();
-  }
-
   disableButton() {
-    {
+    if (this._submitButton) {
       this._submitButton.disabled = true;
-      console.log(1);
-      console.log(this._disableButton);
-      this._submitButton.classList.add(this._disableButton);
     }
   }
 
   enableButton() {
-    this._submitButton.classList.remove(this._disableButton);
-    this._submitButton.disabled = false;
+    if (this._submitButton) {
+      this._submitButton.classList.remove(this._disableButton);
+      this._submitButton.disabled = false;
+    }
   }
 
   enableValidation() {
