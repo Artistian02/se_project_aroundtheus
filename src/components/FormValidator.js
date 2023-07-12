@@ -53,6 +53,7 @@ export default class FormValidator {
   disableButton() {
     if (this._submitButton) {
       this._submitButton.disabled = true;
+      this._submitButton.classList.add(this._disableButton);
     }
   }
 
@@ -66,12 +67,19 @@ export default class FormValidator {
     this.inputList = Array.from(
       this._formElement.querySelectorAll(this._inputElement)
     );
-    this.inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
+
+    const inputHandler = () => {
+      this.inputList.forEach((inputElement) => {
         this._checkInputValidity(inputElement);
-        this.toggleButtonState();
       });
+      this.toggleButtonState();
+    };
+
+    this.inputList.forEach((inputElement) => {
+      inputElement.addEventListener("input", inputHandler);
     });
+
+    this.toggleButtonState(); // Call toggleButtonState() here to disable the button for the first time on start
   }
 
   enableValidation() {

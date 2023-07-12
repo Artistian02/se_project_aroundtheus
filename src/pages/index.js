@@ -9,7 +9,7 @@ import {
   initialCards,
   selectors,
   config,
-  cardListEl,
+  containerSelector,
   imageModalSelector,
   addNewCardButton,
   profileEditButton,
@@ -41,7 +41,7 @@ const section = new Section(
     items: initialCards,
     renderer: renderCard,
   },
-  cardListEl
+  containerSelector
 );
 
 section.renderItems();

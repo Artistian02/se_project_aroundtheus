@@ -1,8 +1,10 @@
+import { containerSelector } from "../utils/constants";
+
 export default class Section {
   constructor({ items, renderer }, containerSelector) {
     this._renderedItems = items;
     this._renderer = renderer;
-    this._container = document.querySelector(".cards__list");
+    this._container = document.querySelector(containerSelector);
   }
 
   renderItems() {
@@ -15,3 +17,7 @@ export default class Section {
     this._container.prepend(element);
   }
 }
+const section = new Section(
+  { items: [], renderer: () => {} },
+  containerSelector
+);
