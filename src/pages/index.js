@@ -3,7 +3,7 @@ import FormValidator from "../components/FormValidator";
 import Section from "../components/Section";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
-import UserinfoComponent from "../components/Userinfo";
+import Userinfo from "../components/Userinfo";
 import Card from "../components/Card";
 import {
   initialCards,
@@ -20,7 +20,7 @@ import {
 } from "../utils/constants.js";
 import "./index.css";
 
-const userinfoComponent = new UserinfoComponent(
+const userinfoComponent = new Userinfo(
   selectors.profileTitle,
   selectors.profileDescription
 );
@@ -60,8 +60,6 @@ function addCard(data) {
   renderCard(cardData);
   addCardFormPopup.close();
 }
-// const cardElement = renderCard(cardData);
-// section.addItem(cardElement);
 
 // card format
 const addCardModalSelector = "#add-card-modal";
@@ -72,6 +70,8 @@ addCardFormPopup.setEventListeners();
 addCardFormPopup.close();
 
 addNewCardButton.addEventListener("click", () => {
+  addCardFormValidator.disableButton(); // Disable the submit button
+
   addCardFormPopup.open();
 });
 
