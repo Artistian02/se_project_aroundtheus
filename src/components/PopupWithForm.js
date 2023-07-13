@@ -20,7 +20,6 @@ class PopupWithForm extends Popup {
   _submitForm = () => {
     const inputValues = this._getInputValues();
     this._handleFormSubmit(inputValues);
-    this.disableButton();
   };
 
   setEventListeners() {

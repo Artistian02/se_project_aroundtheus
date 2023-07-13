@@ -65,6 +65,7 @@ function addCard(data) {
 const addCardModalSelector = "#add-card-modal";
 const data = () => {};
 
+
 const addCardFormPopup = new PopupWithForm(addCardModalSelector, addCard);
 addCardFormPopup.setEventListeners();
 addCardFormPopup.close();
@@ -77,7 +78,7 @@ addNewCardButton.addEventListener("click", () => {
 
 // Profile
 
-const profileModal = new PopupWithForm(selectors.profileModal, () => {
+const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
   const title = profileTitleInput.value;
   const description = profileDescriptionInput.value;
   userinfoComponent.setUserInfo(title, description);
