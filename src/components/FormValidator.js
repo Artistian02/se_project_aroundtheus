@@ -74,8 +74,6 @@ export default class FormValidator {
         inputHandler(inputElement);
       });
     });
-
-    this.toggleButtonState(); // Call toggleButtonState() here to disable the button for the first time on start
   }
 
   enableValidation() {
