@@ -5,6 +5,7 @@ import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import Userinfo from "../components/Userinfo";
 import Card from "../components/Card";
+import Api from "../components/Api";
 import {
   initialCards,
   selectors,
@@ -25,6 +26,26 @@ const userinfoComponent = new Userinfo(
   selectors.profileDescription
 );
 
+//Api
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en/users/me ",
+  headers: {
+    authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
+    "Content-Type": "application/json",
+  },
+});
+
+fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me", {
+  method: "PATCH",
+  headers: {
+    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+    // "Content-Type" "application/json"
+  },
+  body: JSON.stringify({
+    name: "Marie Skłodowska Curie",
+    about: "Physicist and Chemist",
+  }),
+});
 // Card
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
@@ -65,7 +86,6 @@ function addCard(data) {
 const addCardModalSelector = "#add-card-modal";
 const data = () => {};
 
-
 const addCardFormPopup = new PopupWithForm(addCardModalSelector, addCard);
 addCardFormPopup.setEventListeners();
 addCardFormPopup.close();
@@ -83,7 +103,6 @@ const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
   userinfoComponent.setUserInfo(title, description);
   profileModal.close();
 });
-
 
 profileModal.setEventListeners();
 
