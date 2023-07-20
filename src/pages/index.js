@@ -18,6 +18,8 @@ import {
   profileEditForm,
   profileTitleInput,
   profileDescriptionInput,
+  deleteCardModal,
+  deleteCardModalButton,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -71,12 +73,6 @@ function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
 
-function renderCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleCardImageClick);
-  const cardElement = card.getView();
-  section.addItem(cardElement);
-}
-
 const section = new Section(
   {
     items: initialCards,
@@ -85,7 +81,33 @@ const section = new Section(
   containerSelector
 );
 
+function renderCard(cardData) {
+  const card = new Card(cardData, "#card-template", handleCardImageClick);
+  const cardElement = card.getView();
+  section.addItem(cardElement);
+}
 section.renderItems();
+
+cardSelector: selectors.cardTemplate,
+handleDeleteClick: () => {
+  deleteCardPopup.setAction(() => {
+    setSubmitButtonText(deleteCardModalBtn, "Deleting...");
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        cardElement.handleDelete();
+        deleteCardPopup.close();
+      })
+      .catch((err) => {
+        console.error(err.status)
+      })
+      .finally(() => {
+        setSubmitButtonText(deleteCardModalButton, "Yes");
+      });
+  });
+  deleteCardPopup.open();
+},
+
 
 // Modal Image
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
