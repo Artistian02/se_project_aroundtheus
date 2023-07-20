@@ -38,14 +38,34 @@ const api = new Api({
 fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me", {
   method: "PATCH",
   headers: {
-    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
-    // "Content-Type" "application/json"
+    authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
+    "Content-Type": "application/json",
   },
   body: JSON.stringify({
     name: "Marie Skłodowska Curie",
     about: "Physicist and Chemist",
   }),
 });
+
+let cardList;
+
+api.getInitialCards().then((result) => {
+  const section = new Section(
+    {
+      items: result,
+      renderer: (item) => {
+        const cardElement = createCard(item);
+        section.addItem(cardElement);
+      },
+    },
+    ".cards__list"
+  );
+
+  section.renderItems();
+
+  cardList = section;
+});
+
 // Card
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
@@ -80,6 +100,21 @@ function addCard(data) {
 
   renderCard(cardData);
   addCardFormPopup.close();
+
+  api
+    .editProfileForm(cardData)
+    .then((data) => {
+      userinfoComponent.setUserImage(data.avatar);
+    })
+    .then(() => {
+      imagePreviewModal.close();
+    })
+    .catch((err) => {
+      console.error(err.status);
+    })
+    .finally(() => {
+      setSubmitButtonText(imagePreviewModal, "Save");
+    });
 }
 
 // card format
@@ -105,6 +140,22 @@ const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
 });
 
 profileModal.setEventListeners();
+
+const loggedInUser = api.getUserInfo();
+loggedInUser.then((result) => {
+  userinfoComponent.updateUserInfo({ name: result.name, job: result.about });
+  userinfoComponent.updateProfileAvatar(result.avatar);
+});
+
+api
+  .getUserInfo({
+    name: profileTitleInput.value,
+    about: profileDescriptionInput.value,
+  })
+  .then((result) => {
+    console.log(result);
+    userinfoComponent.updateUserInfo({ name: result.name, job: result.about });
+  });
 
 profileEditButton.addEventListener("click", () => {
   const profileInfo = userinfoComponent.getUserInfo();
