@@ -59,6 +59,10 @@ export const imageModalCloseButton = imageModal.querySelector(".modal__close");
 export const addCardModalCloseButton =
   addCardModal.querySelector("#modal-close-image");
 export const profileTitle = document.querySelector(".profile__title");
+export const deleteCardModal = document.querySelector("#delete-card-modal");
+export const deleteCardModalButton = deleteCardModal.querySelector(
+  selectors.modalBtn
+);
 export const profileTitleInput = document.querySelector("#profile-title-input");
 export const profileDescription = document.querySelector(
   ".profile__description"
