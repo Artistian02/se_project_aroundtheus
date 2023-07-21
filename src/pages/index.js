@@ -88,10 +88,11 @@ function renderCard(cardData) {
 }
 section.renderItems();
 
-cardSelector: selectors.cardTemplate,
+const cardSelector = selectors.cardTemplate;
+
 handleDeleteClick: () => {
   deleteCardPopup.setAction(() => {
-    setSubmitButtonText(deleteCardModalBtn, "Deleting...");
+    setSubmitButtonText(deleteCardModalButton, "Deleting...");
     api
       .deleteCard(card._id)
       .then(() => {
@@ -99,15 +100,14 @@ handleDeleteClick: () => {
         deleteCardPopup.close();
       })
       .catch((err) => {
-        console.error(err.status)
+        console.error(err.status);
       })
       .finally(() => {
         setSubmitButtonText(deleteCardModalButton, "Yes");
       });
   });
   deleteCardPopup.open();
-},
-
+};
 
 // Modal Image
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
