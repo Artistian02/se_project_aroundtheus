@@ -51,26 +51,49 @@ fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me", {
 
 let cardList;
 
-api.getInitialCards().then((result) => {
-  const section = new Section(
-    {
-      items: result,
-      renderer: (item) => {
-        const cardElement = createCard(item);
-        section.addItem(cardElement);
-      },
-    },
-    ".cards__list"
-  );
-
-  section.renderItems();
-
-  cardList = section;
-});
-
-// Card
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
+}
+
+function handleDeleteClick(cardID) {
+  deleteCardPopup.setAction(() => {
+    setSubmitButtonText(deleteCardModalButton, "Deleting...");
+    api
+      .deleteCard(cardID) // Use cardID instead of Card._id
+      .then(() => {
+        cardElement.handleDelete();
+        deleteCardPopup.close();
+      })
+      .catch((err) => {
+        console.error(err.status);
+      })
+      .finally(() => {
+        setSubmitButtonText(deleteCardModalButton, "Yes");
+      });
+  });
+  deleteCardPopup.open();
+}
+
+function handleLikeClick() {
+  if (cardElement.isLiked()) {
+    api
+      .likeCountRemove(card._id)
+      .then((card) => {
+        cardElement.setLikes(card.likes);
+      })
+      .catch((err) => {
+        console.error(err.status);
+      });
+  } else {
+    api
+      .likeCountAdd(card._id)
+      .then((card) => {
+        cardElement.setLikes(card.likes);
+      })
+      .catch((err) => {
+        console.error(err.status);
+      });
+  }
 }
 
 const section = new Section(
@@ -82,32 +105,23 @@ const section = new Section(
 );
 
 function renderCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleCardImageClick);
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleCardImageClick,
+    handleDeleteClick,
+    handleLikeClick
+  );
+
   const cardElement = card.getView();
-  section.addItem(cardElement);
+  return cardElement;
 }
+
 section.renderItems();
 
-cardSelector: selectors.cardTemplate,
-handleDeleteClick: () => {
-  deleteCardPopup.setAction(() => {
-    setSubmitButtonText(deleteCardModalBtn, "Deleting...");
-    api
-      .deleteCard(card._id)
-      .then(() => {
-        cardElement.handleDelete();
-        deleteCardPopup.close();
-      })
-      .catch((err) => {
-        console.error(err.status)
-      })
-      .finally(() => {
-        setSubmitButtonText(deleteCardModalButton, "Yes");
-      });
-  });
-  deleteCardPopup.open();
-},
+// Card
 
+const cardSelector = selectors.cardTemplate;
 
 // Modal Image
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
