@@ -51,50 +51,15 @@ fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me", {
 
 let cardList;
 
-api.getInitialCards().then((result) => {
-  const section = new Section(
-    {
-      items: result,
-      renderer: (item) => {
-        const cardElement = createCard(item);
-        section.addItem(cardElement);
-      },
-    },
-    ".cards__list"
-  );
-
-  section.renderItems();
-
-  cardList = section;
-});
-
-// Card
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  containerSelector
-);
-
-function renderCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleCardImageClick);
-  const cardElement = card.getView();
-  section.addItem(cardElement);
-}
-section.renderItems();
-
-const cardSelector = selectors.cardTemplate;
-
-handleDeleteClick: () => {
+function handleDeleteClick(cardID) {
   deleteCardPopup.setAction(() => {
     setSubmitButtonText(deleteCardModalButton, "Deleting...");
     api
-      .deleteCard(card._id)
+      .deleteCard(cardID) // Use cardID instead of Card._id
       .then(() => {
         cardElement.handleDelete();
         deleteCardPopup.close();
@@ -107,7 +72,56 @@ handleDeleteClick: () => {
       });
   });
   deleteCardPopup.open();
-};
+}
+
+function handleLikeClick() {
+  if (cardElement.isLiked()) {
+    api
+      .likeCountRemove(card._id)
+      .then((card) => {
+        cardElement.setLikes(card.likes);
+      })
+      .catch((err) => {
+        console.error(err.status);
+      });
+  } else {
+    api
+      .likeCountAdd(card._id)
+      .then((card) => {
+        cardElement.setLikes(card.likes);
+      })
+      .catch((err) => {
+        console.error(err.status);
+      });
+  }
+}
+
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: renderCard,
+  },
+  containerSelector
+);
+
+function renderCard(cardData) {
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleCardImageClick,
+    handleDeleteClick,
+    handleLikeClick
+  );
+
+  const cardElement = card.getView();
+  return cardElement;
+}
+
+section.renderItems();
+
+// Card
+
+const cardSelector = selectors.cardTemplate;
 
 // Modal Image
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
