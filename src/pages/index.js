@@ -51,6 +51,22 @@ fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me", {
 
 let cardList;
 
+api.getInitialCards().then((result) => {
+  const section = new Section(
+    {
+      items: result,
+      renderer: (item) => {
+        const cardElement = createCard(item);
+        section.addItem(cardElement);
+      },
+    },
+    ".cards__list"
+  );
+
+  section.renderItems();
+
+  cardList = section;
+});
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
