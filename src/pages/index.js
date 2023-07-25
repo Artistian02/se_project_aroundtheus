@@ -31,34 +31,37 @@ const userinfoComponent = new Userinfo(
 //Api
 
 const api = new Api({
-  method: "POST",
   baseUrl: "https://around.nomoreparties.co/cohort-3-en",
   headers: {
     authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
     "Content-Type": "application/json",
   },
-  body: JSON.stringify(newCard)({
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  }),
 });
 
-api
-  .addCard(newCard)
+fetch("https://around.nomoreparties.co/cohort-3-en/", {
+  method: "GET",
+  headers: {
+    authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
+    "Content-Type": "application/json",
+  },
+  // body: JSON.stringify({
+  //   name: "Lake Louise",
+  //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
+  // }),
+})
   .then((response) => {
-    console.log("Card added successfully:", response);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((result) => {
+    console.log(result);
+    userinfoComponent.setUserInfo({ name: result.name, job: result.about });
   })
   .catch((error) => {
-    console.error("Error adding card:", error);
+    console.error("Error:", error);
   });
-
-// let cardList;
-
-function renderCard(cardData) {
-  const card = new Card(cardData, "#card-template", handleCardImageClick);
-  const cardElement = card.getView();
-  section.addItem(cardElement);
-}
 
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
@@ -105,32 +108,32 @@ function handleLikeClick() {
   }
 }
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  containerSelector
-);
+// const section = new Section(
+//   {
+//     items: initialCards,
+//     renderer: renderCard,
+//   },
+//   containerSelector
+// );
 
-// function renderCard(cardData) {
-//   const card = new Card(
-//     cardData,
-//     "#card-template",
-//     handleCardImageClick,
-//     handleDeleteClick,
-//     handleLikeClick
-//   );
+function renderCard(cardData) {
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleCardImageClick,
+    handleDeleteClick,
+    handleLikeClick
+  );
 
-//   const cardElement = card.getView();
-//   return cardElement;
-// }
+  const cardElement = card.getView();
+  return cardElement;
+}
 
-section.renderItems();
+// section.renderItems();
 
 // Card
 
-const cardSelector = selectors.cardTemplate;
+// const cardSelector = selectors.cardTemplate;
 
 // Modal Image
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
@@ -199,7 +202,7 @@ api
   })
   .then((result) => {
     console.log(result);
-    userinfoComponent.updateUserInfo({ name: result.name, job: result.about });
+    userinfoComponent.setUserInfo({ name: result.name, job: result.about });
   });
 
 profileEditButton.addEventListener("click", () => {

@@ -18,7 +18,12 @@ export default class Api {
 
   getInitialCards() {
     return this._request(`${this._baseUrl}/cards`, {
+      method: "GET",
       headers: this._header,
+      body: JSON.stringify({
+        name: data.title,
+        about: data.description,
+      }),
     });
   }
 
