@@ -20,6 +20,7 @@ import {
   profileDescriptionInput,
   deleteCardModal,
   deleteCardModalButton,
+  submitButton,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -38,60 +39,61 @@ const api = new Api({
   },
 });
 
-fetch("https://around.nomoreparties.co/cohort-3-en/", {
-  method: "GET",
-  headers: {
-    authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
-    "Content-Type": "application/json",
-  },
-  // body: JSON.stringify({
-  //   name: "Lake Louise",
-  //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  // }),
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .then((result) => {
-    console.log(result);
-    userinfoComponent.setUserInfo({ name: result.name, job: result.about });
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+api.getInitialCards().then((cardData) => {
+  const section = new Section(
+    {
+      items: cardData,
+      renderer: (cardData) => {
+        const card = card(cardData);
+        section.addItem(card);
+      },
+    },
+    containerSelector
+  );
+  section.renderItems();
+});
+
+// fetch("https://around.nomoreparties.co/cohort-3-en/", {
+//   method: "GET",
+//   headers: {
+//     authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
+//     "Content-Type": "application/json",
+//   },
+//   // body: JSON.stringify({
+//   //   name: "Lake Louise",
+//   //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
+//   // }),
+// });
 
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
 
-function handleDeleteClick(cardID) {
-  deleteCardPopup.setAction(() => {
-    setSubmitButtonText(deleteCardModalButton, "Deleting...");
+function handleDeleteClick(card, cardID) {
+  deleteCardModal.setAction(() => {
+    submitButton(deleteCardModalButton, "Deleting...");
     api
-      .deleteCard(cardID) // Use cardID instead of Card._id
+      .deleteCard(cardID)
       .then(() => {
-        cardElement.handleDelete();
-        deleteCardPopup.close();
+        card.handleDelete();
+        deleteCardModal.close();
       })
       .catch((err) => {
         console.error(err.status);
       })
       .finally(() => {
-        setSubmitButtonText(deleteCardModalButton, "Yes");
+        submitButton(deleteCardModalButton, "Yes");
       });
   });
-  deleteCardPopup.open();
+  deleteCardModal.open();
 }
 
-function handleLikeClick() {
-  if (cardElement.isLiked()) {
+function handleLikeClick(card) {
+  if (card.isLiked()) {
     api
       .likeCountRemove(card._id)
-      .then((card) => {
-        cardElement.setLikes(card.likes);
+      .then((updatedCard) => {
+        card.setLikes(updatedCard.likes);
       })
       .catch((err) => {
         console.error(err.status);
@@ -99,8 +101,8 @@ function handleLikeClick() {
   } else {
     api
       .likeCountAdd(card._id)
-      .then((card) => {
-        cardElement.setLikes(card.likes);
+      .then((updatedCard) => {
+        card.setLikes(updatedCard.likes);
       })
       .catch((err) => {
         console.error(err.status);
@@ -108,32 +110,18 @@ function handleLikeClick() {
   }
 }
 
-// const section = new Section(
-//   {
-//     items: initialCards,
-//     renderer: renderCard,
-//   },
-//   containerSelector
-// );
-
 function renderCard(cardData) {
   const card = new Card(
     cardData,
     "#card-template",
     handleCardImageClick,
-    handleDeleteClick,
+    (cardID) => handleDeleteClick(card, cardID),
     handleLikeClick
   );
 
   const cardElement = card.getView();
   return cardElement;
 }
-
-// section.renderItems();
-
-// Card
-
-// const cardSelector = selectors.cardTemplate;
 
 // Modal Image
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
@@ -161,20 +149,20 @@ function addCard(data) {
       console.error(err.status);
     })
     .finally(() => {
-      setSubmitButtonText(imagePreviewModal, "Save");
+      submitButton(imagePreviewModal, "Save");
     });
 }
 
 // card format
 const addCardModalSelector = "#add-card-modal";
-const data = () => {};
+// const data = () => {};
 
 const addCardFormPopup = new PopupWithForm(addCardModalSelector, addCard);
 addCardFormPopup.setEventListeners();
 addCardFormPopup.close();
 
 addNewCardButton.addEventListener("click", () => {
-  addCardFormValidator.disableButton(); // Disable the submit button
+  addCardFormValidator.disableButton();
 
   addCardFormPopup.open();
 });
@@ -191,7 +179,7 @@ profileModal.setEventListeners();
 
 const loggedInUser = api.getUserInfo();
 loggedInUser.then((result) => {
-  userinfoComponent.setUserInfo({ name: result.name, job: result.about });
+  userinfoComponent.getUserInfo({ name: result.name, job: result.about });
   // userinfoComponent.setProfileAvatar(result.avatar);
 });
 

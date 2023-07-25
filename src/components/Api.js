@@ -12,22 +12,29 @@ export default class Api {
     }
   }
 
-  _request(url, options) {
-    return fetch(url, options).then(this._checkRequest);
+  async _request(url, options) {
+    try {
+      const res = await fetch(url, options);
+      return this._checkRequest(res);
+    } catch (error) {
+      // console.error("API Request Error:", error);
+      throw error;
+    }
   }
 
   getInitialCards() {
     return this._request(`${this._baseUrl}/cards`, {
       method: "GET",
       headers: this._header,
-      body: JSON.stringify({
-        name: data.title,
-        about: data.description,
-      }),
-    });
+    })
+      .then(this._checkResponse)
+      .catch((error) => {
+        // console.error("Error fetching initial cards:", error);
+        throw error;
+      });
   }
 
-  editProfile(data) {
+  editProfileForm(data) {
     return this._request(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._header,
