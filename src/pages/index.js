@@ -31,6 +31,7 @@ const userinfoComponent = new Userinfo(
 
 //Api
 
+
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/cohort-3-en",
   headers: {
@@ -39,19 +40,20 @@ const api = new Api({
   },
 });
 
+// Move the card rendering logic inside the `then` block
 api.getInitialCards().then((cardData) => {
   const section = new Section(
     {
       items: cardData,
       renderer: (cardData) => {
-        const card = card(cardData);
-        section.addItem(card);
+        const cardInstance = new Card(cardData.name, cardData.link, cardData.author);
+        section.addItem(cardInstance);
       },
     },
     containerSelector
   );
-  section.renderItems();
 });
+
 
 // fetch("https://around.nomoreparties.co/cohort-3-en/", {
 //   method: "GET",
@@ -78,8 +80,7 @@ function handleDeleteClick(card, cardID) {
         card.handleDelete();
         deleteCardModal.close();
       })
-      .catch((err) => {
-        console.error(err.status);
+      .catch(() => {
       })
       .finally(() => {
         submitButton(deleteCardModalButton, "Yes");
@@ -95,8 +96,7 @@ function handleLikeClick(card) {
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
-      .catch((err) => {
-        console.error(err.status);
+      .catch(() => {
       });
   } else {
     api
@@ -104,8 +104,7 @@ function handleLikeClick(card) {
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
-      .catch((err) => {
-        console.error(err.status);
+      .catch(() => {
       });
   }
 }
@@ -145,8 +144,7 @@ function addCard(data) {
     .then(() => {
       imagePreviewModal.close();
     })
-    .catch((err) => {
-      console.error(err.status);
+    .catch(() => {
     })
     .finally(() => {
       submitButton(imagePreviewModal, "Save");
@@ -180,18 +178,15 @@ profileModal.setEventListeners();
 const loggedInUser = api.getUserInfo();
 loggedInUser.then((result) => {
   userinfoComponent.getUserInfo({ name: result.name, job: result.about });
-  // userinfoComponent.setProfileAvatar(result.avatar);
 });
 
-api
-  .getUserInfo({
-    name: profileTitleInput.value,
-    about: profileDescriptionInput.value,
-  })
-  .then((result) => {
-    console.log(result);
-    userinfoComponent.setUserInfo({ name: result.name, job: result.about });
-  });
+api.getUserInfo({
+  name: profileTitleInput.value,
+  about: profileDescriptionInput.value,
+}).then((result) => {
+  userinfoComponent.setUserInfo({ name: result.name, job: result.about });
+});
+
 
 profileEditButton.addEventListener("click", () => {
   const profileInfo = userinfoComponent.getUserInfo();
