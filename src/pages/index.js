@@ -20,6 +20,7 @@ import {
   profileDescriptionInput,
   deleteCardModal,
   deleteCardModalButton,
+  deleteAllCardsButton,
   submitButton,
 } from "../utils/constants.js";
 import "./index.css";
@@ -32,7 +33,7 @@ const userinfoComponent = new Userinfo(
 //Api
 
 const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/cohort-3-en",
+  baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
   headers: {
     authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
     "Content-Type": "application/json",
@@ -44,26 +45,22 @@ api.getInitialCards().then((cardData) => {
     {
       items: cardData,
       renderer: (cardData) => {
-        const card = card(cardData);
-        section.addItem(card);
+        const card = new Card(
+          cardData,
+          "#card-template",
+          handleCardImageClick,
+          (cardID) => handleDeleteClick(card, cardID),
+          handleLikeClick
+        );
+
+        const cardElement = card.getView();
+        section.addItem(cardElement);
       },
     },
     containerSelector
   );
   section.renderItems();
 });
-
-// fetch("https://around.nomoreparties.co/cohort-3-en/", {
-//   method: "GET",
-//   headers: {
-//     authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
-//     "Content-Type": "application/json",
-//   },
-//   // body: JSON.stringify({
-//   //   name: "Lake Louise",
-//   //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-//   // }),
-// });
 
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
