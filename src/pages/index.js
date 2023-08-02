@@ -41,6 +41,7 @@ const api = new Api({
   },
 });
 
+// Move the card rendering logic inside the `then` block
 api.getInitialCards().then((cardData) => {
   const section = new Section(
     {
@@ -60,7 +61,6 @@ api.getInitialCards().then((cardData) => {
     },
     containerSelector
   );
-  section.renderItems();
 });
 
 function handleCardImageClick(cardData) {
@@ -76,9 +76,7 @@ function handleDeleteClick(card, cardID) {
         card.handleDelete();
         deleteCard.close();
       })
-      .catch((err) => {
-        console.error(err.status);
-      })
+      .catch(() => {})
       .finally(() => {
         submitButton(deleteCardModalButton, "Yes");
       });
@@ -93,18 +91,14 @@ function handleLikeClick(card) {
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
-      .catch((err) => {
-        console.error(err.status);
-      });
+      .catch(() => {});
   } else {
     api
       .likeCountAdd(card._id)
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
-      .catch((err) => {
-        console.error(err.status);
-      });
+      .catch(() => {});
   }
 }
 
@@ -143,9 +137,7 @@ function addCard(data) {
     .then(() => {
       imagePreviewModal.close();
     })
-    .catch((err) => {
-      console.error(err.status);
-    })
+    .catch(() => {})
     .finally(() => {
       submitButton(imagePreviewModal, "Save");
     });
@@ -178,7 +170,6 @@ profileModal.setEventListeners();
 const loggedInUser = api.getUserInfo();
 loggedInUser.then((result) => {
   userinfoComponent.getUserInfo({ name: result.name, job: result.about });
-  // userinfoComponent.setProfileAvatar(result.avatar);
 });
 
 api
@@ -187,7 +178,6 @@ api
     about: profileDescriptionInput.value,
   })
   .then((result) => {
-    console.log(result);
     userinfoComponent.setUserInfo({ name: result.name, job: result.about });
   });
 
