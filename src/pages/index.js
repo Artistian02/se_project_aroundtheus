@@ -56,11 +56,14 @@ api.getInitialCards().then((cardData) => {
         );
 
         const cardElement = card.getView();
+
+        console.log(cardElement);
         section.addItem(cardElement);
       },
     },
     containerSelector
   );
+  section.renderItems();
 });
 
 function handleCardImageClick(cardData) {
@@ -130,7 +133,7 @@ function addCard(data) {
   addCardFormPopup.close();
 
   api
-    .editProfileForm(cardData)
+    .addNewCard(cardData)
     .then((data) => {
       userinfoComponent.setUserImage(data.avatar);
     })
@@ -178,7 +181,8 @@ api
     about: profileDescriptionInput.value,
   })
   .then((result) => {
-    userinfoComponent.setUserInfo({ name: result.name, job: result.about });
+    console.log(result);
+    userinfoComponent.setUserInfo(result.name, result.about);
   });
 
 profileEditButton.addEventListener("click", () => {
