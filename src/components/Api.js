@@ -4,9 +4,9 @@ export default class Api {
     this._header = url.headers;
   }
 
-  _checkRequest(res) {
+  async _checkRequest(res) {
     if (res.ok) {
-      return res.json();
+      return await res.json();
     } else {
       return Promise.reject(`Error: ${res.status}`);
     }
@@ -23,15 +23,13 @@ export default class Api {
   }
 
   getInitialCards() {
-    return this._request(`${this._baseUrl}/cards`, {
-      method: "GET",
-      headers: this._header,
-    })
-      .then(this._checkResponse)
-      .catch((error) => {
-        // console.error("Error fetching initial cards:", error);
-        throw error;
-      });
+    return this._request(
+      "https://around.nomoreparties.co/v1/cohort-3-en/cards",
+      {
+        method: "GET",
+        headers: this._header,
+      }
+    );
   }
 
   editProfileForm(data) {
@@ -72,13 +70,6 @@ export default class Api {
     });
   }
 
-  deleteCard(id) {
-    return this._request(`${this._baseUrl}/cards/${id}`, {
-      method: "DELETE",
-      headers: this._header,
-    });
-  }
-
   likeCountAdd(cardId) {
     return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
@@ -101,5 +92,15 @@ export default class Api {
 
   loadData() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+  }
+
+  deleteCardModal(_cardID) {
+    return this._request(
+      "https://around.nomoreparties.co/v1/cohort-3-en/cards/64c94d8ede5eab1bc6814241",
+      {
+        method: "DELETE",
+        headers: this._header,
+      }
+    );
   }
 }

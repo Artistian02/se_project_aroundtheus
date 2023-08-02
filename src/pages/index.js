@@ -18,9 +18,11 @@ import {
   profileEditForm,
   profileTitleInput,
   profileDescriptionInput,
-  deleteCardModal,
+  deleteCardModalInstance,
   deleteCardModalButton,
+  deleteAllCardsButton,
   submitButton,
+  setAction,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -31,9 +33,8 @@ const userinfoComponent = new Userinfo(
 
 //Api
 
-
 const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/cohort-3-en",
+  baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
   headers: {
     authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
     "Content-Type": "application/json",
@@ -46,47 +47,41 @@ api.getInitialCards().then((cardData) => {
     {
       items: cardData,
       renderer: (cardData) => {
-        const cardInstance = new Card(cardData.name, cardData.link, cardData.author);
-        section.addItem(cardInstance);
+        const card = new Card(
+          cardData,
+          "#card-template",
+          handleCardImageClick,
+          (cardID) => handleDeleteClick(card, cardID),
+          handleLikeClick
+        );
+
+        const cardElement = card.getView();
+        section.addItem(cardElement);
       },
     },
     containerSelector
   );
 });
 
-
-// fetch("https://around.nomoreparties.co/cohort-3-en/", {
-//   method: "GET",
-//   headers: {
-//     authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
-//     "Content-Type": "application/json",
-//   },
-//   // body: JSON.stringify({
-//   //   name: "Lake Louise",
-//   //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-//   // }),
-// });
-
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
 
 function handleDeleteClick(card, cardID) {
-  deleteCardModal.setAction(() => {
+  deleteCardModalInstance(() => {
     submitButton(deleteCardModalButton, "Deleting...");
     api
       .deleteCard(cardID)
       .then(() => {
         card.handleDelete();
-        deleteCardModal.close();
+        deleteCard.close();
       })
-      .catch(() => {
-      })
+      .catch(() => {})
       .finally(() => {
         submitButton(deleteCardModalButton, "Yes");
       });
   });
-  deleteCardModal.open();
+  deleteCardModalInstance.open();
 }
 
 function handleLikeClick(card) {
@@ -96,16 +91,14 @@ function handleLikeClick(card) {
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
-      .catch(() => {
-      });
+      .catch(() => {});
   } else {
     api
       .likeCountAdd(card._id)
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
-      .catch(() => {
-      });
+      .catch(() => {});
   }
 }
 
@@ -144,8 +137,7 @@ function addCard(data) {
     .then(() => {
       imagePreviewModal.close();
     })
-    .catch(() => {
-    })
+    .catch(() => {})
     .finally(() => {
       submitButton(imagePreviewModal, "Save");
     });
@@ -180,13 +172,14 @@ loggedInUser.then((result) => {
   userinfoComponent.getUserInfo({ name: result.name, job: result.about });
 });
 
-api.getUserInfo({
-  name: profileTitleInput.value,
-  about: profileDescriptionInput.value,
-}).then((result) => {
-  userinfoComponent.setUserInfo({ name: result.name, job: result.about });
-});
-
+api
+  .getUserInfo({
+    name: profileTitleInput.value,
+    about: profileDescriptionInput.value,
+  })
+  .then((result) => {
+    userinfoComponent.setUserInfo({ name: result.name, job: result.about });
+  });
 
 profileEditButton.addEventListener("click", () => {
   const profileInfo = userinfoComponent.getUserInfo();
