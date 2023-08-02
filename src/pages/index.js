@@ -18,10 +18,11 @@ import {
   profileEditForm,
   profileTitleInput,
   profileDescriptionInput,
-  deleteCardModal,
+  deleteCardModalInstance,
   deleteCardModalButton,
   deleteAllCardsButton,
   submitButton,
+  setAction,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -67,13 +68,13 @@ function handleCardImageClick(cardData) {
 }
 
 function handleDeleteClick(card, cardID) {
-  deleteCardModal.setAction(() => {
+  deleteCardModalInstance(() => {
     submitButton(deleteCardModalButton, "Deleting...");
     api
       .deleteCard(cardID)
       .then(() => {
         card.handleDelete();
-        deleteCardModal.close();
+        deleteCard.close();
       })
       .catch((err) => {
         console.error(err.status);
@@ -82,7 +83,7 @@ function handleDeleteClick(card, cardID) {
         submitButton(deleteCardModalButton, "Yes");
       });
   });
-  deleteCardModal.open();
+  deleteCardModalInstance.open();
 }
 
 function handleLikeClick(card) {

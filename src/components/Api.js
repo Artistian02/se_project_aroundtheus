@@ -94,18 +94,12 @@ export default class Api {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
-  deleteCards(data) {
+  deleteCardModal(_cardID) {
     return this._request(
-      "https://around.nomoreparties.co/v1/cohort-3-en/cards",
+      "https://around.nomoreparties.co/v1/cohort-3-en/cards/64c94d8ede5eab1bc6814241",
       {
         method: "DELETE",
         headers: this._header,
-        body: JSON.stringify({
-          link: "https://cryptocurrencyjobs.co/startups/assets/logos/doodles.png",
-          name: "Doodles",
-          owner: { name: "Jacques Cousteau", about: "Sailor, researcher" },
-          _id: "64c94d8ede5eab1bc6814241",
-        }),
       }
     );
   }
