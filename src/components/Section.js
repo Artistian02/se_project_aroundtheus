@@ -17,8 +17,3 @@ export default class Section {
     this._container.prepend(element);
   }
 }
-
-const section = new Section(
-  { items: [], renderer: () => {} },
-  containerSelector
-);

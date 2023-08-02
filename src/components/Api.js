@@ -59,7 +59,7 @@ export default class Api {
     });
   }
 
-  addCard(data) {
+  addNewCard(data) {
     return this._request(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._header,
