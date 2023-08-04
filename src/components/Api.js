@@ -70,22 +70,22 @@ export default class Api {
     });
   }
 
-  likeCountAdd(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+  likeCountAdd(cardID) {
+    return this._request(`${this._baseUrl}/cards/likes/${cardID}`, {
       method: "PUT",
       headers: this._header,
     });
   }
 
-  likeCountRemove(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+  likeCountRemove(cardID) {
+    return this._request(`${this._baseUrl}/cards/likes/${cardID}`, {
       method: "DELETE",
       headers: this._header,
     });
   }
 
-  likeCount(cardId) {
-    return this._request(`${this._baseUrl}/cards/${cardId}`, {
+  likeCount(cardID) {
+    return this._request(`${this._baseUrl}/cards/${cardID}`, {
       headers: this._header,
     });
   }
@@ -94,13 +94,10 @@ export default class Api {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
-  deleteCardModal(_cardID) {
-    return this._request(
-      "https://around.nomoreparties.co/v1/cohort-3-en/cards/64c94d8ede5eab1bc6814241",
-      {
-        method: "DELETE",
-        headers: this._header,
-      }
-    );
+  deleteCard(cardID) {
+    return this._request(`${this._baseUrl}/cards/${cardID}`, {
+      method: "DELETE",
+      headers: this._header,
+    });
   }
 }

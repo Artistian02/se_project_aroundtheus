@@ -3,6 +3,7 @@ import FormValidator from "../components/FormValidator";
 import Section from "../components/Section";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
+import PopupWithConfirmation from "../components/PopupWithConfirmation";
 import Userinfo from "../components/Userinfo";
 import Card from "../components/Card";
 import Api from "../components/Api";
@@ -18,11 +19,7 @@ import {
   profileEditForm,
   profileTitleInput,
   profileDescriptionInput,
-  deleteCardModalInstance,
-  deleteCardModalButton,
-  deleteAllCardsButton,
-  submitButton,
-  setAction,
+  modalButton,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -33,15 +30,68 @@ const userinfoComponent = new Userinfo(
 
 //Api
 
-const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
+const apiURL = {
+  baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en/",
   headers: {
     authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
     "Content-Type": "application/json",
   },
-});
+};
 
-// Move the card rendering logic inside the `then` block
+// Add Card Popup//
+const addCardPopup = new PopupWithForm(
+  "#add-card-modal",
+  (cardData) => {
+    addCardPopup.showLoading();
+    api
+      .addNewCard(cardData)
+      .then((card) => {
+        renderCard(card);
+        addCardPopup.close();
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        addCardPopup.hideLoading();
+      });
+  },
+  "Saving..."
+);
+
+// Delete Card ///
+const api = new Api(apiURL);
+const cardIDToDelete = "64cce53e2c87090019be4b1c";
+
+api
+  .deleteCard(cardIDToDelete)
+  .then((data) => {
+    console.log("Card deleted successfully:", data);
+  })
+  .catch((error) => {
+    console.error("Error deleting card:", error);
+  });
+
+const deleteCardPopup = new PopupWithConfirmation(
+  "#delete-card-modal",
+  "Deleting..."
+);
+
+function handleDeleteClick(card, cardID) {
+  deleteCardPopup.setSubmitAction(() => {
+    deleteCardPopup.showLoading();
+    api
+      .deleteCard(cardID)
+      .then(() => {
+        card.removeCard();
+        deleteCardPopup.close();
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        deleteCardPopup.hideLoading();
+      });
+  });
+  deleteCardPopup.open();
+}
+
 api.getInitialCards().then((cardData) => {
   const section = new Section(
     {
@@ -57,7 +107,6 @@ api.getInitialCards().then((cardData) => {
 
         const cardElement = card.getView();
 
-        console.log(cardElement);
         section.addItem(cardElement);
       },
     },
@@ -70,22 +119,25 @@ function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
 
-function handleDeleteClick(card, cardID) {
-  deleteCardModalInstance(() => {
-    submitButton(deleteCardModalButton, "Deleting...");
+// Editing Profile //
+const editAvatarPopup = new PopupWithForm(
+  "#edit-avatar-modal",
+  (inputValues) => {
+    editAvatarPopup.showLoading();
+
     api
-      .deleteCard(cardID)
+      .updateProfilePicture(inputValues)
       .then(() => {
-        card.handleDelete();
-        deleteCard.close();
+        profileAvatar.src = inputValues.link;
+        editAvatarPopup.close();
       })
-      .catch(() => {})
+      .catch((err) => console.error(err))
       .finally(() => {
-        submitButton(deleteCardModalButton, "Yes");
+        editAvatarPopup.hideLoading();
       });
-  });
-  deleteCardModalInstance.open();
-}
+  },
+  "Saving..."
+);
 
 function handleLikeClick(card) {
   if (card.isLiked()) {
@@ -142,7 +194,7 @@ function addCard(data) {
     })
     .catch(() => {})
     .finally(() => {
-      submitButton(imagePreviewModal, "Save");
+      modalButton(imagePreviewModal, "Save");
     });
 }
 
@@ -181,7 +233,6 @@ api
     about: profileDescriptionInput.value,
   })
   .then((result) => {
-    console.log(result);
     userinfoComponent.setUserInfo(result.name, result.about);
   });
 

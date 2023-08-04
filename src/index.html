@@ -121,11 +121,31 @@
       <div class="modal__container">
         <button class="modal__close" type="button"></button>
         <h2 class="modal__heading">Are you sure?</h2>
-        <button type="submit" class="modal__button" id="delete-card">
-          Yes
-        </button>
+        <button type="submit" class="modal__button">Yes</button>
       </div>
     </div>
+    <!-- --------------------------- Edit AVATAR MODAL ---------------------------- -->
+    <div class="modal" id="edit-avatar-modal">
+      <div class="modal__container">
+        <button class="modal__close" type="button"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="edit-avatar-form" name="avatar-edit-form">
+          <input
+            type="url"
+            name="link"
+            id="add-avatar-url"
+            class="modal__form modal__form-input-URL"
+            placeholder="Image URL"
+            required
+          />
+          <span class="modal__input-error" id="add-avatar-url-error"
+            >Please enter a web address.</span
+          >
+          <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- <--------------- Image Modal ------------------------------->
     <div id="image-preview-modal" class="modal">
       <div class="modal__content">
         <button class="modal__close"></button>
