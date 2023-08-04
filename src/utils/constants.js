@@ -45,11 +45,12 @@ export const addNewCardButton = document.querySelector(".profile__add-button");
 export const formElement = document.querySelector(".modal__form");
 export const addCardFormElement = document.querySelector("#add-card-form");
 export const containerSelector = ".cards__list";
+export const avatarEditModal = document.querySelector("#edit-avatar-modal");
 
 export const modalForm = document.forms["add-card-form"];
 export const cardForm = document.forms["card-form"];
 export const profileEditForm = profileEditModal.querySelector(".modal__form");
-export const submitButton = document.querySelector(".modal__button");
+export const modalButton = document.querySelector(".modal__button");
 
 export const errorMessage = addCardFormElement.querySelector(".modal__error");
 
@@ -59,10 +60,10 @@ export const imageModalCloseButton = imageModal.querySelector(".modal__close");
 export const addCardModalCloseButton =
   addCardModal.querySelector("#modal-close-image");
 export const profileTitle = document.querySelector(".profile__title");
-export const deleteCardModalInstance = document.querySelector("#delete-card");
-export const setAction = (actionFunction) => {};
-export const deleteCardModalButton = deleteCardModalInstance.querySelector(
-  selectors.modalBtn
+// export const deleteCardModalInstance = document.querySelector("#delete-card");
+const deleteCardPopup = document.querySelector("#delete-card-modal");
+export const deleteCardModalButton = deleteCardPopup.querySelector(
+  selectors.modalButton
 );
 export const profileTitleInput = document.querySelector("#profile-title-input");
 export const profileDescription = document.querySelector(
