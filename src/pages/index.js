@@ -57,18 +57,7 @@ const addCardPopup = new PopupWithForm(
   "Saving..."
 );
 
-// Delete Card ///
-const api = new Api(apiURL);
-const cardIDToDelete = "64cce53e2c87090019be4b1c";
-
-api
-  .deleteCard(cardIDToDelete)
-  .then((data) => {
-    console.log("Card deleted successfully:", data);
-  })
-  .catch((error) => {
-    console.error("Error deleting card:", error);
-  });
+// Delete Card //
 
 const deleteCardPopup = new PopupWithConfirmation(
   "#delete-card-modal",
@@ -89,34 +78,8 @@ function handleDeleteClick(card, cardID) {
         deleteCardPopup.hideLoading();
       });
   });
+
   deleteCardPopup.open();
-}
-
-api.getInitialCards().then((cardData) => {
-  const section = new Section(
-    {
-      items: cardData,
-      renderer: (cardData) => {
-        const card = new Card(
-          cardData,
-          "#card-template",
-          handleCardImageClick,
-          (cardID) => handleDeleteClick(card, cardID),
-          handleLikeClick
-        );
-
-        const cardElement = card.getView();
-
-        section.addItem(cardElement);
-      },
-    },
-    containerSelector
-  );
-  section.renderItems();
-});
-
-function handleCardImageClick(cardData) {
-  imagePreviewModal.open(cardData);
 }
 
 // Editing Profile //
@@ -157,24 +120,15 @@ function handleLikeClick(card) {
   }
 }
 
-function renderCard(cardData) {
-  const card = new Card(
-    cardData,
-    "#card-template",
-    handleCardImageClick,
-    (cardID) => handleDeleteClick(card, cardID),
-    handleLikeClick
-  );
+// Functions
 
-  const cardElement = card.getView();
+function renderCard(cardData) {
+  const cardElement = document.createElement("div");
+  cardElement.classList.add("card");
+  cardElement.textContent = cardData.name;
   return cardElement;
 }
 
-// Modal Image
-const imagePreviewModal = new PopupWithImage(imageModalSelector);
-imagePreviewModal.setEventListeners();
-
-// Functions
 function addCard(data) {
   const cardData = {
     name: data.title,
@@ -193,10 +147,39 @@ function addCard(data) {
       imagePreviewModal.close();
     })
     .catch(() => {})
-    .finally(() => {
-      modalButton(imagePreviewModal, "Save");
-    });
+    .finally(() => {});
 }
+
+const api = new Api(apiURL);
+
+const imagePreviewModal = new PopupWithImage(imageModalSelector);
+
+function handleCardImageClick(cardData) {
+  imagePreviewModal.open(cardData);
+}
+
+api.getInitialCards().then((cardData) => {
+  const section = new Section(
+    {
+      items: cardData,
+      renderer: (cardData) => {
+        const card = new Card(
+          cardData,
+          "#card-template",
+          handleCardImageClick,
+          (cardID) => handleDeleteClick(card, cardID),
+          handleLikeClick
+        );
+
+        const cardElement = card.getView();
+
+        section.addItem(cardElement);
+      },
+    },
+    containerSelector
+  );
+  section.renderItems();
+});
 
 // card format
 const addCardModalSelector = "#add-card-modal";
