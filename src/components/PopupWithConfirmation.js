@@ -11,12 +11,18 @@ class PopupWithConfirmation extends Popup {
   }
 
   setSubmitAction(callBack) {
-    this._handleSubmit = callBack();
+    this._handleSubmit = callBack;
   }
 
   _setEventListeners() {
     super._setEventListeners();
-    this._popupSubmitButton.addEventListener("click", this._handleSubmit);
+
+    // Set the event listener for the submit button
+    this._popupSubmitButton.addEventListener("click", () => {
+      if (this._handleSubmit) {
+        this._handleSubmit();
+      }
+    });
   }
 
   showLoading() {
