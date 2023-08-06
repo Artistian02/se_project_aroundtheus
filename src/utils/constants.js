@@ -73,7 +73,7 @@ export const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-export const config = {
+export const formValidatorConfig = {
   formElement: ".modal__form",
   inputElement: ".modal__input",
   submitButton: ".modal__button",

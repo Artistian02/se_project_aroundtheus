@@ -95,9 +95,12 @@ export default class Api {
   }
 
   deleteCard(cardID) {
-    return this._request(`${this._baseUrl}/cards/${cardID}`, {
-      method: "DELETE",
-      headers: this._header,
-    });
+    return this._request(
+      "https://around.nomoreparties.co/v1/cohort-3-en/cards/64ceeda8d0ab8d00640e7988",
+      {
+        method: "DELETE",
+        headers: this._header,
+      }
+    );
   }
 }
