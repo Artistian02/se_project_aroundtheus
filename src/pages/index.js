@@ -10,7 +10,7 @@ import Api from "../components/Api";
 import {
   initialCards,
   selectors,
-  config,
+  // config,
   containerSelector,
   imageModalSelector,
   addNewCardButton,
@@ -20,6 +20,7 @@ import {
   profileTitleInput,
   profileDescriptionInput,
   modalButton,
+  formValidatorConfig,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -58,11 +59,11 @@ const addCardPopup = new PopupWithForm(
 );
 
 // Delete Card //
-
 const deleteCardPopup = new PopupWithConfirmation(
   "#delete-card-modal",
   "Deleting..."
 );
+deleteCardPopup.setEventListeners();
 
 function handleDeleteClick(card, cardID) {
   deleteCardPopup.setSubmitAction(() => {
@@ -102,31 +103,43 @@ const editAvatarPopup = new PopupWithForm(
   "Saving..."
 );
 
+// Likes///
 function handleLikeClick(card) {
   if (card.isLiked()) {
     api
-      .likeCountRemove(card._id)
+      .likeCountRemove(card)
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.error("Error removing like:", error);
+      });
   } else {
     api
-      .likeCountAdd(card._id)
+      .likeCountAdd(card)
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.error("Error adding like:", error);
+      });
   }
 }
+
+const section = new Section({}, containerSelector);
 
 // Functions
 
 function renderCard(cardData) {
-  const cardElement = document.createElement("div");
-  cardElement.classList.add("card");
-  cardElement.textContent = cardData.name;
-  return cardElement;
+  const card = new Card(
+    cardData,
+    "#card-template",
+    handleCardImageClick,
+    (cardID) => handleDeleteClick(card, cardID),
+    handleLikeClick
+  );
+
+  return card.getView();
 }
 
 function addCard(data) {
@@ -135,7 +148,9 @@ function addCard(data) {
     link: data.imageURL,
   };
 
-  renderCard(cardData);
+  const cardElement = renderCard(cardData);
+  section.addItem(cardElement);
+
   addCardFormPopup.close();
 
   api
@@ -153,37 +168,34 @@ function addCard(data) {
 const api = new Api(apiURL);
 
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
+imagePreviewModal.setEventListeners();
 
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
 
 api.getInitialCards().then((cardData) => {
-  const section = new Section(
-    {
-      items: cardData,
-      renderer: (cardData) => {
-        const card = new Card(
-          cardData,
-          "#card-template",
-          handleCardImageClick,
-          (cardID) => handleDeleteClick(card, cardID),
-          handleLikeClick
-        );
+  section.renderer = () => {
+    cardData.forEach((cardItem) => {
+      const card = new Card(
+        cardItem,
+        "#card-template",
+        handleCardImageClick,
+        (cardID) => handleDeleteClick(card, cardID),
+        handleLikeClick
+      );
 
-        const cardElement = card.getView();
+      const cardElement = card.getView();
 
-        section.addItem(cardElement);
-      },
-    },
-    containerSelector
-  );
+      section.addItem(cardElement);
+    });
+  };
+  section.renderer();
   section.renderItems();
 });
 
 // card format
 const addCardModalSelector = "#add-card-modal";
-// const data = () => {};
 
 const addCardFormPopup = new PopupWithForm(addCardModalSelector, addCard);
 addCardFormPopup.setEventListeners();
@@ -230,8 +242,20 @@ profileEditButton.addEventListener("click", () => {
 
 // Form Validators
 
-const addCardFormValidator = new FormValidator(config, addCardFormElement);
-const profileEditFormValidator = new FormValidator(config, profileEditForm);
+const addCardFormValidator = new FormValidator(
+  formValidatorConfig,
+  addCardFormElement
+);
+const profileEditFormValidator = new FormValidator(
+  formValidatorConfig,
+  profileEditForm
+);
 
 addCardFormValidator.enableValidation();
 profileEditFormValidator.enableValidation();
+
+const avatarFormValidator = new FormValidator(
+  formValidatorConfig,
+  avatarEditForm
+);
+avatarFormValidator.enableValidation();
