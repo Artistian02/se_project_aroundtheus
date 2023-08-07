@@ -21,6 +21,8 @@ import {
   profileDescriptionInput,
   modalButton,
   formValidatorConfig,
+  avatarEditModal,
+  profileAvatarButton,
 } from "../utils/constants.js";
 import "./index.css";
 
@@ -102,6 +104,10 @@ const editAvatarPopup = new PopupWithForm(
   },
   "Saving..."
 );
+
+profileAvatarButton.addEventListener("click", () => {
+  editAvatarPopup.open();
+});
 
 // Likes///
 function handleLikeClick(card) {
@@ -256,6 +262,6 @@ profileEditFormValidator.enableValidation();
 
 const avatarFormValidator = new FormValidator(
   formValidatorConfig,
-  avatarEditForm
+  avatarEditModal
 );
 avatarFormValidator.enableValidation();
