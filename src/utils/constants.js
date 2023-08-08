@@ -46,6 +46,9 @@ export const formElement = document.querySelector(".modal__form");
 export const addCardFormElement = document.querySelector("#add-card-form");
 export const containerSelector = ".cards__list";
 export const avatarEditModal = document.querySelector("#edit-avatar-modal");
+export const profileAvatarButton = document.querySelector(
+  "#avatar-edit-button"
+);
 
 export const modalForm = document.forms["add-card-form"];
 export const cardForm = document.forms["card-form"];

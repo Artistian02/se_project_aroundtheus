@@ -4,8 +4,7 @@ class Card {
     cardSelector,
     handleCardClick,
     handleDeleteClick,
-    handleLikeClick,
-    likes
+    handleLikeClick
   ) {
     this._name = data.name;
     this._link = data.link;
@@ -13,7 +12,7 @@ class Card {
     this._handleCardClick = handleCardClick;
     this._handleDelete = handleDeleteClick;
     this._handleLike = handleLikeClick;
-    this._likes = likes;
+    this._likes = Array.isArray(data.likes) ? data.likes : [];
   }
 
   _setEventListeners() {
@@ -54,9 +53,6 @@ class Card {
       .content.querySelector(".card")
       .cloneNode(true);
 
-    const likesCountElement = cardElement.querySelector(".card__likes-count");
-    likesCountElement.textContent = this._likes;
-
     return cardElement;
   }
 
@@ -68,6 +64,8 @@ class Card {
     cardImage.alt = `Photo of ${this._name}`;
     const cardTitle = this._element.querySelector(".card__title");
     cardTitle.textContent = this._name;
+    const likesCountElement = this._element.querySelector(".card__likes-count");
+    likesCountElement.textContent = this._likes.length;
     this._setEventListeners();
 
     return this._element;
