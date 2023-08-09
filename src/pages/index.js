@@ -97,6 +97,7 @@ const editAvatarPopup = new PopupWithForm(
         profileAvatar.src = inputValues.link;
         editAvatarPopup.close();
       })
+
       .catch((err) => console.error(err))
       .finally(() => {
         editAvatarPopup.hideLoading();
@@ -108,6 +109,8 @@ const editAvatarPopup = new PopupWithForm(
 profileAvatarButton.addEventListener("click", () => {
   editAvatarPopup.open();
 });
+
+editAvatarPopup.setEventListeners();
 
 // Likes///
 function handleLikeClick(card) {
