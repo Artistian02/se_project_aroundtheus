@@ -1,9 +1,18 @@
 class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor(
+    data,
+    cardSelector,
+    handleCardClick,
+    handleDeleteClick,
+    handleLikeClick
+  ) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDelete = handleDeleteClick;
+    this._handleLike = handleLikeClick;
+    this._likes = Array.isArray(data.likes) ? data.likes : [];
   }
 
   _setEventListeners() {
@@ -13,11 +22,17 @@ class Card {
 
     likeButton.addEventListener("click", () => this._handleLikeIcon());
 
-    deleteButton.addEventListener("click", this._handleDelete.bind(this));
+    deleteButton.addEventListener("click", () => this._handleDelete(this));
 
     cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
     });
+  }
+
+  updateLikesCount(likes) {
+    this._likes = likes;
+    const likesCountElement = this._element.querySelector(".card__likes-count");
+    likesCountElement.textContent = this._likes;
   }
 
   _handleLikeIcon() {
@@ -26,9 +41,10 @@ class Card {
       .classList.toggle("card__like-button_active");
   }
 
-  _handleDelete() {
-    this._element.remove();
-    this._element = null;
+  _handleDelete(card) {
+    this._handleDelete(card);
+    // this._element.remove();
+    // this._element = null;
   }
 
   _getTemplate() {
@@ -48,6 +64,8 @@ class Card {
     cardImage.alt = `Photo of ${this._name}`;
     const cardTitle = this._element.querySelector(".card__title");
     cardTitle.textContent = this._name;
+    const likesCountElement = this._element.querySelector(".card__likes-count");
+    likesCountElement.textContent = this._likes.length;
     this._setEventListeners();
 
     return this._element;

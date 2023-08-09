@@ -30,6 +30,14 @@ class PopupWithForm extends Popup {
     });
   }
 
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._popupForm.querySelector(".modal__button").textContent = "Saving...";
+    } else {
+      this._popupForm.querySelector(".modal__button").textContent = "Save";
+    }
+  }
+
   close() {
     this._popupForm.reset();
     super.close();

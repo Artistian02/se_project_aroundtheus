@@ -4,25 +4,35 @@ export default class Api {
     this._header = url.headers;
   }
 
-  _checkRequest(res) {
+  async _checkRequest(res) {
     if (res.ok) {
-      return res.json();
+      return await res.json();
     } else {
       return Promise.reject(`Error: ${res.status}`);
     }
   }
 
-  _request(url, options) {
-    return fetch(url, options).then(this._checkRequest);
+  async _request(url, options) {
+    try {
+      const res = await fetch(url, options);
+      return this._checkRequest(res);
+    } catch (error) {
+      // console.error("API Request Error:", error);
+      throw error;
+    }
   }
 
   getInitialCards() {
-    return this._request(`${this._baseUrl}/cards`, {
-      headers: this._header,
-    });
+    return this._request(
+      "https://around.nomoreparties.co/v1/cohort-3-en/cards",
+      {
+        method: "GET",
+        headers: this._header,
+      }
+    );
   }
 
-  editProfile(data) {
+  editProfileForm(data) {
     return this._request(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._header,
@@ -49,7 +59,7 @@ export default class Api {
     });
   }
 
-  addCard(data) {
+  addNewCard(data) {
     return this._request(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._header,
@@ -60,34 +70,37 @@ export default class Api {
     });
   }
 
-  deleteCard(id) {
-    return this._request(`${this._baseUrl}/cards/${id}`, {
-      method: "DELETE",
-      headers: this._header,
-    });
-  }
-
-  likeCountAdd(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+  likeCountAdd(cardID) {
+    return this._request(`${this._baseUrl}/cards/likes/${cardID}`, {
       method: "PUT",
       headers: this._header,
     });
   }
 
-  likeCountRemove(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+  likeCountRemove(cardID) {
+    return this._request(`${this._baseUrl}/cards/likes/${cardID}`, {
       method: "DELETE",
       headers: this._header,
     });
   }
 
-  likeCount(cardId) {
-    return this._request(`${this._baseUrl}/cards/${cardId}`, {
+  likeCount(cardID) {
+    return this._request(`${this._baseUrl}/cards/${cardID}`, {
       headers: this._header,
     });
   }
 
   loadData() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+  }
+
+  deleteCard(cardID) {
+    return this._request(
+      "https://around.nomoreparties.co/v1/cohort-3-en/cards/64ceeda8d0ab8d00640e7988",
+      {
+        method: "DELETE",
+        headers: this._header,
+      }
+    );
   }
 }
