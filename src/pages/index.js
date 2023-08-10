@@ -45,7 +45,7 @@ const apiURL = {
 const addCardPopup = new PopupWithForm(
   "#add-card-modal",
   (cardData) => {
-    addCardPopup.showLoading();
+    addCardPopup.renderLoading();
     api
       .addNewCard(cardData)
       .then((card) => {
@@ -69,7 +69,7 @@ deleteCardPopup.setEventListeners();
 
 function handleDeleteClick(card, cardID) {
   deleteCardPopup.setSubmitAction(() => {
-    deleteCardPopup.showLoading();
+    deleteCardPopup.renderLoading();
     api
       .deleteCard(cardID)
       .then(() => {
@@ -89,10 +89,10 @@ function handleDeleteClick(card, cardID) {
 const editAvatarPopup = new PopupWithForm(
   "#edit-avatar-modal",
   (inputValues) => {
-    editAvatarPopup.showLoading();
+    editAvatarPopup.renderLoading();
 
     api
-      .updateProfilePicture(inputValues)
+      .editProfileImage(inputValues)
       .then(() => {
         profileAvatar.src = inputValues.link;
         editAvatarPopup.close();
@@ -100,7 +100,7 @@ const editAvatarPopup = new PopupWithForm(
 
       .catch((err) => console.error(err))
       .finally(() => {
-        editAvatarPopup.hideLoading();
+        editAvatarPopup.renderLoading();
       });
   },
   "Saving..."
@@ -164,13 +164,15 @@ function addCard(data) {
 
   api
     .addNewCard(cardData)
-    .then((data) => {
-      userinfoComponent.setUserImage(data.avatar);
-    })
-    .then(() => {
+    .then((newCardData) => {
+      renderCard(newCardData);
+
+      userinfoComponent.setUserImage(newCardData.avatar);
       imagePreviewModal.close();
     })
-    .catch(() => {})
+    .catch((error) => {
+      console.error("Error adding new card:", error);
+    })
     .finally(() => {});
 }
 
@@ -184,22 +186,20 @@ function handleCardImageClick(cardData) {
 }
 
 api.getInitialCards().then((cardData) => {
-  section.renderer = () => {
-    cardData.forEach((cardItem) => {
-      const card = new Card(
-        cardItem,
-        "#card-template",
-        handleCardImageClick,
-        (cardID) => handleDeleteClick(card, cardID),
-        handleLikeClick
-      );
+  cardData.forEach((cardItem) => {
+    const card = new Card(
+      cardItem,
+      "#card-template",
+      handleCardImageClick,
+      (cardID) => handleDeleteClick(card, cardID),
+      handleLikeClick
+    );
 
-      const cardElement = card.getView();
+    const cardElement = card.getView();
 
-      section.addItem(cardElement);
-    });
-  };
-  section.renderer();
+    section.addItem(cardElement);
+  });
+
   section.renderItems();
 });
 
@@ -225,11 +225,6 @@ const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
 });
 
 profileModal.setEventListeners();
-
-const loggedInUser = api.getUserInfo();
-loggedInUser.then((result) => {
-  userinfoComponent.getUserInfo({ name: result.name, job: result.about });
-});
 
 api
   .getUserInfo({

@@ -41,11 +41,11 @@ class Card {
       .classList.toggle("card__like-button_active");
   }
 
-  _handleDelete(card) {
-    this._handleDelete(card);
-    // this._element.remove();
-    // this._element = null;
-  }
+  // _handleDelete(card) {
+  //   this._handleDelete(card);
+  //   // this._element.remove();
+  //   // this._element = null;
+  // }
 
   _getTemplate() {
     const cardElement = document
