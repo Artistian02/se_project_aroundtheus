@@ -66,14 +66,13 @@ const deleteCardPopup = new PopupWithConfirmation(
   "Deleting..."
 );
 deleteCardPopup.setEventListeners();
-
 function handleDeleteClick(card, cardID) {
   deleteCardPopup.setSubmitAction(() => {
-    deleteCardPopup.renderLoading();
+    deleteCardPopup.showLoading();
     api
       .deleteCard(cardID)
       .then(() => {
-        card.removeCard();
+        card.deleteCard();
         deleteCardPopup.close();
       })
       .catch((err) => console.error(err))
@@ -192,7 +191,8 @@ api.getInitialCards().then((cardData) => {
       "#card-template",
       handleCardImageClick,
       (cardID) => handleDeleteClick(card, cardID),
-      handleLikeClick
+      handleLikeClick,
+      api
     );
 
     const cardElement = card.getView();
