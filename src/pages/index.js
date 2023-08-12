@@ -191,8 +191,7 @@ api.getInitialCards().then((cardData) => {
       "#card-template",
       handleCardImageClick,
       (cardID) => handleDeleteClick(card, cardID),
-      handleLikeClick,
-      api
+      handleLikeClick
     );
 
     const cardElement = card.getView();

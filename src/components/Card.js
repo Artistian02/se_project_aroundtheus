@@ -4,8 +4,7 @@ class Card {
     cardSelector,
     handleCardClick,
     handleDeleteClick,
-    handleLikeClick,
-    api
+    handleLikeClick
   ) {
     this._name = data.name;
     this._link = data.link;
@@ -14,7 +13,6 @@ class Card {
     this._handleDelete = handleDeleteClick;
     this._handleLike = handleLikeClick;
     this._likes = Array.isArray(data.likes) ? data.likes : [];
-    this._api = api;
     this._cardID = data.id;
   }
 
@@ -25,18 +23,12 @@ class Card {
 
     likeButton.addEventListener("click", () => this._handleLikeClick());
 
-    deleteButton.addEventListener("click", () => this._handleDeleteClick());
+    deleteButton.addEventListener("click", () => this._handleDelete());
 
     cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
     });
   }
-
-  // updateLikesCount(likes) {
-  //   this._likes = likes;
-  //   const likesCountElement = this._element.querySelector(".card__likes-count");
-  //   likesCountElement.textContent = this._likes;
-  // }
 
   _handleLikeClick() {
     this._element
@@ -46,16 +38,6 @@ class Card {
 
   _handleDeleteClick() {
     this.deleteCard();
-  }
-
-  deleteCard() {
-    this._api
-      .deleteCard(this._cardID)
-      .then(() => {
-        this._element.remove();
-        this._element = null;
-      })
-      .catch((err) => console.error(err));
   }
 
   _getTemplate() {
