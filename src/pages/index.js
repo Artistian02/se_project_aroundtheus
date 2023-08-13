@@ -34,7 +34,7 @@ const userinfoComponent = new Userinfo(
 //Api
 
 const apiURL = {
-  baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en/",
+  baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
   headers: {
     authorization: "a1101938-3641-4790-a37b-6b7f03e0e338",
     "Content-Type": "application/json",
@@ -90,16 +90,19 @@ const editAvatarPopup = new PopupWithForm(
   (inputValues) => {
     editAvatarPopup.renderLoading();
 
+    const avatarData = {
+      avatar: inputValues.link,
+    };
+
     api
-      .editProfileImage(inputValues)
+      .editProfileImage(avatarData)
       .then(() => {
         profileAvatar.src = inputValues.link;
         editAvatarPopup.close();
       })
-
       .catch((err) => console.error(err))
       .finally(() => {
-        editAvatarPopup.renderLoading();
+        editAvatarPopup.hideLoading();
       });
   },
   "Saving..."

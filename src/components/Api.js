@@ -35,12 +35,14 @@ export default class Api {
   }
 
   editProfileImage(data) {
+    console.log(data);
+    const formData = new FormData();
+    formData.append("avatar", data.avatar);
+
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._header,
-      body: JSON.stringify({
-        avatar: data.avatar,
-      }),
+      body: formData,
     });
   }
 
