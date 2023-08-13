@@ -11,17 +11,24 @@ export default class FormValidator {
   }
 
   _showInputError(inputElement) {
-    const errorMessageElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    const errorMessageElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
     inputElement.classList.add(this._inputErrorClass);
     errorMessageElement.classList.add(this._errorClass);
     errorMessageElement.textContent = inputElement.validationMessage;
   }
 
   _hideInputError(inputElement) {
-    const errorMessageElement = this._formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove(this._inputErrorClass);
-    errorMessageElement.classList.remove(this._errorClass);
-    errorMessageElement.textContent = "";
+    const errorMessageElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
+
+    if (errorMessageElement) {
+      inputElement.classList.remove(this._inputErrorClass);
+      errorMessageElement.classList.remove(this._errorClass);
+      errorMessageElement.textContent = "";
+    }
   }
 
   _checkInputValidity(inputElement) {
@@ -61,7 +68,9 @@ export default class FormValidator {
   }
 
   setEventListeners() {
-    this.inputList = Array.from(this._formElement.querySelectorAll(this._inputElement));
+    this.inputList = Array.from(
+      this._formElement.querySelectorAll(this._inputElement)
+    );
     this.toggleButtonState(); // Call toggleButtonState() here to disable the button for the first time on start
 
     const inputHandler = (inputElement) => {
