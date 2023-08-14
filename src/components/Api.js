@@ -42,7 +42,7 @@ export default class Api {
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._header,
-      body: formData,
+      body: JSON.stringify(data),
     });
   }
 

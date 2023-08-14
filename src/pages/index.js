@@ -23,12 +23,14 @@ import {
   formValidatorConfig,
   avatarEditModal,
   profileAvatarButton,
+  // profileAvatar,
 } from "../utils/constants.js";
 import "./index.css";
 
 const userinfoComponent = new Userinfo(
   selectors.profileTitle,
-  selectors.profileDescription
+  selectors.profileDescription,
+  selectors.profileAvatar
 );
 
 //Api
@@ -48,8 +50,8 @@ const addCardPopup = new PopupWithForm(
     addCardPopup.renderLoading();
     api
       .addNewCard(cardData)
-      .then((card) => {
-        renderCard(card);
+      .then((newCardData) => {
+        renderCard(newCardData);
         addCardPopup.close();
       })
       .catch((err) => console.error(err))
@@ -85,6 +87,8 @@ function handleDeleteClick(card, cardID) {
 }
 
 // Editing Profile //
+const profileAvatar = document.querySelector(".profile__image");
+
 const editAvatarPopup = new PopupWithForm(
   "#edit-avatar-modal",
   (inputValues) => {
