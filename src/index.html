@@ -137,17 +137,17 @@
         <button class="modal__close" type="button"></button>
         <h2 class="modal__heading">Change profile picture</h2>
         <form class="modal__form" id="edit-avatar-form" name="avatar-edit-form">
+          <span class="modal__error" id="profile-avatar-url-error"
+            >Please enter a web address.</span
+          >
           <input
             type="url"
-            name="link"
-            id="add-avatar-url"
-            class="modal__input modal__input-URL"
+            name="imageURL"
+            id="profile-avatar-url"
+            class="modal__input modal__input_avatar_url"
             placeholder="Image URL"
             required
           />
-          <span class="modal__error" id="profile-title-input-error"
-            >Please enter a web address.</span
-          >
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>

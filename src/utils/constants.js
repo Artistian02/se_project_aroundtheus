@@ -45,7 +45,7 @@ export const addNewCardButton = document.querySelector(".profile__add-button");
 export const formElement = document.querySelector(".modal__form");
 export const addCardFormElement = document.querySelector("#add-card-form");
 export const containerSelector = ".cards__list";
-export const avatarEditModal = document.querySelector("#edit-avatar-modal");
+export const avatarEditForm = document.querySelector(".avatar-edit-form");
 export const profileAvatarButton = document.querySelector(
   "#avatar-edit-button"
 );

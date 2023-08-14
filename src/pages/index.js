@@ -21,8 +21,9 @@ import {
   profileDescriptionInput,
   modalButton,
   formValidatorConfig,
-  avatarEditModal,
+  avatarEditForm,
   profileAvatarButton,
+  formElement,
   // profileAvatar,
 } from "../utils/constants.js";
 import "./index.css";
@@ -266,6 +267,7 @@ profileEditFormValidator.enableValidation();
 
 const avatarFormValidator = new FormValidator(
   formValidatorConfig,
-  avatarEditModal
+  // avatarEditForm
+  formElement
 );
 avatarFormValidator.enableValidation();
