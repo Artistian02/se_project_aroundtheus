@@ -21,7 +21,6 @@ import {
   profileDescriptionInput,
   modalButton,
   formValidatorConfig,
-  avatarEditForm,
   profileAvatarButton,
   formElement,
   // profileAvatar,
@@ -265,9 +264,7 @@ const profileEditFormValidator = new FormValidator(
 addCardFormValidator.enableValidation();
 profileEditFormValidator.enableValidation();
 
-const avatarFormValidator = new FormValidator(
-  formValidatorConfig,
-  // avatarEditForm
-  formElement
-);
+const avatarFormValidator = new FormValidator(formValidatorConfig);
+formValidatorConfig, editAvatarForm;
+
 avatarFormValidator.enableValidation();
