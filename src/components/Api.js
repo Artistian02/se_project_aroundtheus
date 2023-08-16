@@ -35,9 +35,10 @@ export default class Api {
   }
 
   editProfileImage(data) {
-    console.log(data);
     const formData = new FormData();
     formData.append("avatar", data.avatar);
+
+    console.log(data);
 
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",

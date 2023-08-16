@@ -16,6 +16,18 @@ class Card {
     this._cardID = data.id;
   }
 
+  likeCountRemove() {
+    return api
+      .removeLike(this._cardID)
+      .then((updatedCard) => {
+        this._likes = updatedCard.likes;
+        this._updateLikes();
+      })
+      .catch((error) => {
+        console.error("Error removing like:", error);
+      });
+  }
+
   _setEventListeners() {
     const likeButton = this._element.querySelector(".card__like-button");
     const deleteButton = this._element.querySelector(".card__delete-button");
@@ -49,6 +61,16 @@ class Card {
     return cardElement;
   }
 
+  _renderLikes() {
+    const likesCountElement = this._element.querySelector(".card__likes-count");
+    likesCountElement.textContent = this._likes.length;
+  }
+
+  setLikes(likes) {
+    this._likes = likes;
+    this._renderLikes();
+  }
+
   getView() {
     this._element = this._getTemplate();
     const cardImage = this._element.querySelector(".card__image");
@@ -57,8 +79,8 @@ class Card {
     cardImage.alt = `Photo of ${this._name}`;
     const cardTitle = this._element.querySelector(".card__title");
     cardTitle.textContent = this._name;
-    const likesCountElement = this._element.querySelector(".card__likes-count");
-    likesCountElement.textContent = this._likes.length;
+
+    this._renderLikes();
     this._setEventListeners();
 
     return this._element;

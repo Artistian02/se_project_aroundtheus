@@ -6,6 +6,16 @@ class PopupWithForm extends Popup {
     this._popupForm = this._popupElement.querySelector(".modal__form");
     this._handleFormSubmit = handleFormSubmit;
     this._submitButton = this._popupForm.querySelector(".modal__button");
+    this._loadingState = false;
+  }
+
+  renderLoading(isLoading) {
+    const submitButton = this._popupForm.querySelector(".modal__button");
+    if (isLoading) {
+      submitButton.textContent = "Saving...";
+    } else {
+      submitButton.textContent = "Save";
+    }
   }
 
   _getInputValues() {
@@ -20,12 +30,28 @@ class PopupWithForm extends Popup {
 
   _submitForm = () => {
     const inputValues = this._getInputValues();
-    this._handleFormSubmit(inputValues);
+    this._loadingState = true;
+    this.showLoading(true);
+
+    setTimeout(() => {
+      this._handleFormSubmit(inputValues);
+
+      this._loadingState = false;
+      this.hideLoading();
+    }, 2000);
   };
 
-  renderLoading() {}
+  showLoading(isLoading) {
+    if (isLoading) {
+      this._submitButton.textContent = "Saving...";
+    } else {
+      this._submitButton.textContent = "Save";
+    }
+  }
 
-  hideLoading() {}
+  hideLoading() {
+    this.showLoading(false);
+  }
 
   setEventListeners() {
     super.setEventListeners();
@@ -33,19 +59,6 @@ class PopupWithForm extends Popup {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });
-  }
-
-  renderLoading(isLoading) {
-    if (isLoading) {
-      this._popupForm.querySelector(".modal__button").textContent = "Saving...";
-    } else {
-      this._popupForm.querySelector(".modal__button").textContent = "Save";
-    }
-  }
-
-  close() {
-    this._popupForm.reset();
-    super.close();
   }
 }
 

@@ -22,7 +22,7 @@ import {
   modalButton,
   formValidatorConfig,
   profileAvatarButton,
-  formElement,
+  editAvatarForm,
   // profileAvatar,
 } from "../utils/constants.js";
 import "./index.css";
@@ -87,24 +87,24 @@ function handleDeleteClick(card, cardID) {
 }
 
 // Editing Profile //
-const profileAvatar = document.querySelector(".profile__image");
-
 const editAvatarPopup = new PopupWithForm(
   "#edit-avatar-modal",
   (inputValues) => {
-    editAvatarPopup.renderLoading();
+    editAvatarPopup.showLoading();
 
     const avatarData = {
-      avatar: inputValues.link,
+      avatar: inputValues.imageURL,
     };
 
     api
       .editProfileImage(avatarData)
       .then(() => {
-        profileAvatar.src = inputValues.link;
+        userinfoComponent.setUserImage(inputValues.imageURL);
         editAvatarPopup.close();
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error("Error updating avatar:", err);
+      })
       .finally(() => {
         editAvatarPopup.hideLoading();
       });
@@ -117,7 +117,6 @@ profileAvatarButton.addEventListener("click", () => {
 });
 
 editAvatarPopup.setEventListeners();
-
 // Likes///
 function handleLikeClick(card) {
   if (card.isLiked()) {
@@ -157,32 +156,28 @@ function renderCard(cardData) {
   return card.getView();
 }
 
+// const cardElement = renderCard(cardData);
+// section.addItem(cardElement);
+
+// addCardFormPopup.close();
+
 function addCard(data) {
   const cardData = {
     name: data.title,
     link: data.imageURL,
   };
 
-  const cardElement = renderCard(cardData);
-  section.addItem(cardElement);
-
-  addCardFormPopup.close();
-
   api
     .addNewCard(cardData)
-    .then((newCardData) => {
-      renderCard(newCardData);
-
-      userinfoComponent.setUserImage(newCardData.avatar);
-      imagePreviewModal.close();
+    .then((newCard) => {
+      const cardElement = renderCard(newCard);
+      section.addItem(cardElement);
+      addCardFormPopup.close();
     })
     .catch((error) => {
-      console.error("Error adding new card:", error);
-    })
-    .finally(() => {});
+      console.error("Error adding card:", error);
+    });
 }
-
-const api = new Api(apiURL);
 
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
 imagePreviewModal.setEventListeners();
@@ -190,6 +185,8 @@ imagePreviewModal.setEventListeners();
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
+
+const api = new Api(apiURL);
 
 api.getInitialCards().then((cardData) => {
   cardData.forEach((cardItem) => {
@@ -256,15 +253,16 @@ const addCardFormValidator = new FormValidator(
   formValidatorConfig,
   addCardFormElement
 );
+addCardFormValidator.enableValidation();
+
 const profileEditFormValidator = new FormValidator(
   formValidatorConfig,
   profileEditForm
 );
-
-addCardFormValidator.enableValidation();
 profileEditFormValidator.enableValidation();
 
-const avatarFormValidator = new FormValidator(formValidatorConfig);
-formValidatorConfig, editAvatarForm;
-
+const avatarFormValidator = new FormValidator(
+  formValidatorConfig,
+  editAvatarForm
+);
 avatarFormValidator.enableValidation();
