@@ -18,6 +18,6 @@ export default class UserInfo {
   }
 
   setUserImage(imageUrl) {
-    this._avatarElement = imageUrl;
+    this._avatarElement.src = imageUrl;
   }
 }

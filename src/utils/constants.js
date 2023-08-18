@@ -30,6 +30,7 @@ export const selectors = {
   profileTitle: ".profile__title",
   profileDescription: ".profile__description",
   profileModal: "#profile-edit-modal",
+  profileAvatar: ".profile__image",
 };
 
 export const cardTemplate = document.querySelector("#card-template");

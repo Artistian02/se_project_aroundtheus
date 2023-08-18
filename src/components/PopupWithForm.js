@@ -32,13 +32,6 @@ class PopupWithForm extends Popup {
     const inputValues = this._getInputValues();
     this._loadingState = true;
     this.showLoading(true);
-
-    setTimeout(() => {
-      this._handleFormSubmit(inputValues);
-
-      this._loadingState = false;
-      this.hideLoading();
-    }, 2000);
   };
 
   showLoading(isLoading) {

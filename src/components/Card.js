@@ -4,7 +4,8 @@ class Card {
     cardSelector,
     handleCardClick,
     handleDeleteClick,
-    handleLikeClick
+    handleLikeClick,
+    isLiked
   ) {
     this._name = data.name;
     this._link = data.link;
@@ -14,6 +15,12 @@ class Card {
     this._handleLike = handleLikeClick;
     this._likes = Array.isArray(data.likes) ? data.likes : [];
     this._cardID = data.id;
+    this._isLiked = isLiked;
+  }
+
+  isLiked() {
+    // Return true if the user liked the card, otherwise false
+    return this._isLiked;
   }
 
   likeCountRemove() {
@@ -56,6 +63,14 @@ class Card {
   _renderLikes() {
     const likesCountElement = this._element.querySelector(".card__likes-count");
     likesCountElement.textContent = this._likes.length;
+
+    const likeButton = this._element.querySelector(".card__like-button");
+
+    if (this.isLiked()) {
+      likeButton.classList.add("card__like-button_active");
+    } else {
+      likeButton.classList.remove("card__like-button_active");
+    }
   }
 
   setLikes(likes) {

@@ -47,7 +47,7 @@ const apiURL = {
 const addCardPopup = new PopupWithForm(
   "#add-card-modal",
   (cardData) => {
-    addCardPopup.renderLoading();
+    addCardPopup.showLoading();
     api
       .addNewCard(cardData)
       .then((newCardData) => {
@@ -236,6 +236,11 @@ api
   })
   .then((result) => {
     userinfoComponent.setUserInfo(result.name, result.about);
+    userinfoComponent.setUserImage(result.avatar);
+  })
+  .catch((error) => {
+    // Handle error from getUserInfo
+    console.error("Error updating user info:", error);
   });
 
 profileEditButton.addEventListener("click", () => {
