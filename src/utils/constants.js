@@ -43,6 +43,7 @@ export const profileEditCloseButton =
   profileEditModal.querySelector(".modal__close");
 export const addCardModal = document.querySelector("#add-card-modal");
 export const addNewCardButton = document.querySelector(".profile__add-button");
+// addButton.classList.add("loading");
 export const formElement = document.querySelector(".modal__form");
 export const addCardFormElement = document.querySelector("#add-card-form");
 export const containerSelector = ".cards__list";

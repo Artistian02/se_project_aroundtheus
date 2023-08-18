@@ -19,8 +19,7 @@ class Card {
   }
 
   isLiked() {
-    // Return true if the user liked the card, otherwise false
-    return this._isLiked;
+    return this._likes.some((like) => like._id === this._userId);
   }
 
   likeCountRemove() {

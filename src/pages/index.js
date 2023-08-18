@@ -68,6 +68,7 @@ const deleteCardPopup = new PopupWithConfirmation(
   "Deleting..."
 );
 deleteCardPopup.setEventListeners();
+
 function handleDeleteClick(card, cardID) {
   deleteCardPopup.setSubmitAction(() => {
     deleteCardPopup.showLoading();
@@ -156,11 +157,6 @@ function renderCard(cardData) {
   return card.getView();
 }
 
-// const cardElement = renderCard(cardData);
-// section.addItem(cardElement);
-
-// addCardFormPopup.close();
-
 function addCard(data) {
   const cardData = {
     name: data.title,
@@ -173,9 +169,15 @@ function addCard(data) {
       const cardElement = renderCard(newCard);
       section.addItem(cardElement);
       addCardFormPopup.close();
+
+      // Remove loading state after the card is added
+      addNewCardButton.classList.remove("loading");
     })
     .catch((error) => {
       console.error("Error adding card:", error);
+
+      // Remove loading state if an error occurs
+      addNewCardButton.classList.remove("loading");
     });
 }
 
@@ -202,8 +204,7 @@ api.getInitialCards().then((cardData) => {
 
     section.addItem(cardElement);
   });
-
-  section.renderItems();
+  // section.renderItems();
 });
 
 // card format
