@@ -17,15 +17,7 @@ class Card {
   }
 
   likeCountRemove() {
-    return api
-      .removeLike(this._cardID)
-      .then((updatedCard) => {
-        this._likes = updatedCard.likes;
-        this._updateLikes();
-      })
-      .catch((error) => {
-        console.error("Error removing like:", error);
-      });
+    this._handleLikeRemove(this._cardID);
   }
 
   _setEventListeners() {
