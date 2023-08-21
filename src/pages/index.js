@@ -196,7 +196,7 @@ api.getInitialCards().then((cardData) => {
       cardItem,
       "#card-template",
       handleCardImageClick,
-      (cardID) => handleDeleteClick(card, cardID),
+      handleDeleteClick,
       handleLikeClick
     );
 

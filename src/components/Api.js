@@ -8,7 +8,8 @@ export default class Api {
     if (res.ok) {
       return await res.json();
     } else {
-      return Promise.reject(`Error: ${res.status}`);
+      const errorData = await res.json(); // Parse the error response
+      return Promise.reject(`Error: ${res.status} - ${errorData.message}`);
     }
   }
 

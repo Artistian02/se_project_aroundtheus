@@ -14,7 +14,7 @@ class Card {
     this._handleDelete = handleDeleteClick;
     this._handleLike = handleLikeClick;
     this._likes = Array.isArray(data.likes) ? data.likes : [];
-    this._cardID = data.id;
+    this._cardID = data._id;
     this._isLiked = isLiked;
   }
 
@@ -33,7 +33,9 @@ class Card {
 
     likeButton.addEventListener("click", () => this._handleLikeClick());
 
-    deleteButton.addEventListener("click", () => this._handleDelete());
+    deleteButton.addEventListener("click", () =>
+      this._handleDelete(this, this._cardID)
+    );
 
     cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
@@ -46,8 +48,12 @@ class Card {
       .classList.toggle("card__like-button_active");
   }
 
-  _handleDeleteClick() {
-    this.deleteCard();
+  // _handleDeleteClick() {
+  //   this.deleteCard();
+  // }
+
+  deleteCard() {
+    this._element.remove();
   }
 
   _getTemplate() {
