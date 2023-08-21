@@ -62,6 +62,17 @@ const addCardPopup = new PopupWithForm(
   "Saving..."
 );
 
+// addCardFormPopup.setEventListeners();
+
+// addNewCardButton.addEventListener("click", () => {
+//   addCardFormValidator.disableButton();
+
+//   // Start loading state here
+//   addCardFormPopup.showLoading();
+
+//   addCardFormPopup.open();
+// });
+
 // Delete Card //
 const deleteCardPopup = new PopupWithConfirmation(
   "#delete-card-modal",
@@ -118,11 +129,14 @@ profileAvatarButton.addEventListener("click", () => {
 });
 
 editAvatarPopup.setEventListeners();
+
 // Likes///
 function handleLikeClick(card) {
-  if (card.isLiked()) {
+  const isLiked = card.isLiked();
+
+  if (isLiked()) {
     api
-      .likeCountRemove(card)
+      .likeCountRemove(card._cardID)
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
@@ -163,23 +177,24 @@ function addCard(data) {
     link: data.imageURL,
   };
 
+  // Show loading state
+  addNewCardButton.classList.add("loading");
   api
     .addNewCard(cardData)
     .then((newCard) => {
       const cardElement = renderCard(newCard);
       section.addItem(cardElement);
       addCardFormPopup.close();
-
-      // Remove loading state after the card is added
-      addNewCardButton.classList.remove("loading");
     })
     .catch((error) => {
       console.error("Error adding card:", error);
-
-      // Remove loading state if an error occurs
+    })
+    .finally(() => {
+      // Hide loading state whether the operation succeeds or fails
       addNewCardButton.classList.remove("loading");
     });
 }
+const api = new Api(apiURL);
 
 const imagePreviewModal = new PopupWithImage(imageModalSelector);
 imagePreviewModal.setEventListeners();
@@ -188,35 +203,39 @@ function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
 
-const api = new Api(apiURL);
+api
+  .getInitialCards()
+  .then((cardData) => {
+    cardData.forEach((cardItem) => {
+      const card = new Card(
+        cardItem,
+        "#card-template",
+        handleCardImageClick,
+        handleDeleteClick,
+        handleLikeClick
+      );
 
-api.getInitialCards().then((cardData) => {
-  cardData.forEach((cardItem) => {
-    const card = new Card(
-      cardItem,
-      "#card-template",
-      handleCardImageClick,
-      handleDeleteClick,
-      handleLikeClick
-    );
+      const cardElement = card.getView();
 
-    const cardElement = card.getView();
-
-    section.addItem(cardElement);
+      section.addItem(cardElement);
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching initial cards:", error);
   });
-  // section.renderItems();
-});
 
 // card format
 const addCardModalSelector = "#add-card-modal";
 
 const addCardFormPopup = new PopupWithForm(addCardModalSelector, addCard);
 addCardFormPopup.setEventListeners();
-addCardFormPopup.close();
+// addCardFormPopup.close();
 
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.disableButton();
 
+  // Start loading state here
+  addCardFormPopup.showLoading();
   addCardFormPopup.open();
 });
 

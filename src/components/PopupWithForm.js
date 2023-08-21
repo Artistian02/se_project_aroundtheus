@@ -20,6 +20,8 @@ class PopupWithForm extends Popup {
 
   _submitForm = () => {
     const inputValues = this._getInputValues();
+    this._loadingState = true;
+    this.showLoading(true);
     this._handleFormSubmit(inputValues);
   };
 
