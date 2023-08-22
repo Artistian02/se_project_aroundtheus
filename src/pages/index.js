@@ -134,9 +134,9 @@ editAvatarPopup.setEventListeners();
 function handleLikeClick(card) {
   const isLiked = card.isLiked();
 
-  if (isLiked()) {
+  if (isLiked) {
     api
-      .likeCountRemove(card._cardID)
+      .likeCountRemove(card)
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })

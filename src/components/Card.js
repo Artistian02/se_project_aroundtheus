@@ -35,7 +35,7 @@ class Card {
     const deleteButton = this._element.querySelector(".card__delete-button");
     const cardImage = this._element.querySelector(".card__image");
 
-    likeButton.addEventListener("click", () => this._handleLikeClick());
+    likeButton.addEventListener("click", () => this._handleLike(this));
 
     deleteButton.addEventListener("click", () =>
       this._handleDelete(this, this._cardID)
