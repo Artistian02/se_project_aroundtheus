@@ -37,9 +37,14 @@ class Card {
 
     likeButton.addEventListener("click", () => this._handleLike(this));
 
-    deleteButton.addEventListener("click", () =>
-      this._handleDelete(this, this._cardID)
-    );
+    if (this._cardID()) {
+      deleteButton.style.display = "block"; // Show the trash button
+      deleteButton.addEventListener("click", () =>
+        this._handleDelete(this, this._cardID)
+      );
+    } else {
+      deleteButton.style.display = "none"; // Hide the trash button
+    }
 
     cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
