@@ -33,7 +33,7 @@ const userinfoComponent = new Userinfo(
   selectors.profileAvatar
 );
 
-//Api
+////// Api /////////
 
 const apiURL = {
   baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
@@ -42,6 +42,7 @@ const apiURL = {
     "Content-Type": "application/json",
   },
 };
+let currentUserId;
 
 // Add Card Popup//
 const addCardPopup = new PopupWithForm(
@@ -51,6 +52,7 @@ const addCardPopup = new PopupWithForm(
     api
       .addNewCard(cardData)
       .then((newCardData) => {
+        currentUserId = userData._id;
         renderCard(newCardData);
         addCardPopup.close();
       })
@@ -61,17 +63,6 @@ const addCardPopup = new PopupWithForm(
   },
   "Saving..."
 );
-
-// addCardFormPopup.setEventListeners();
-
-// addNewCardButton.addEventListener("click", () => {
-//   addCardFormValidator.disableButton();
-
-//   // Start loading state here
-//   addCardFormPopup.showLoading();
-
-//   addCardFormPopup.open();
-// });
 
 // Delete Card //
 const deleteCardPopup = new PopupWithConfirmation(
@@ -165,7 +156,8 @@ function renderCard(cardData) {
     "#card-template",
     handleCardImageClick,
     (cardID) => handleDeleteClick(card, cardID),
-    handleLikeClick
+    handleLikeClick,
+    isCurrentUserOwner
   );
 
   return card.getView();
@@ -206,18 +198,23 @@ function handleCardImageClick(cardData) {
 api
   .getInitialCards()
   .then((cardData) => {
-    cardData.forEach((cardItem) => {
-      const card = new Card(
-        cardItem,
-        "#card-template",
-        handleCardImageClick,
-        handleDeleteClick,
-        handleLikeClick
-      );
+    currentUserId.then((currentUser) => {
+      currentUserId = currentUser._id;
 
-      const cardElement = card.getView();
+      cardData.forEach((cardItem) => {
+        const card = new Card(
+          cardItem,
+          "#card-template",
+          handleCardImageClick,
+          handleDeleteClick,
+          handleLikeClick,
+          currentUserId
+        );
 
-      section.addItem(cardElement);
+        const cardElement = card.getView();
+
+        section.addItem(cardElement);
+      });
     });
   })
   .catch((error) => {

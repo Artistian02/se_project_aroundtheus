@@ -5,7 +5,8 @@ class Card {
     handleCardClick,
     handleDeleteClick,
     handleLikeClick,
-    isLiked
+    isLiked,
+    owner
   ) {
     this._name = data.name;
     this._link = data.link;
@@ -16,6 +17,8 @@ class Card {
     this._likes = Array.isArray(data.likes) ? data.likes : [];
     this._cardID = data._id;
     this._isLiked = isLiked;
+    this._owner = data.owner._id;
+    this._currentUserId = currentUserId;
   }
 
   isLiked() {
@@ -37,7 +40,7 @@ class Card {
 
     likeButton.addEventListener("click", () => this._handleLike(this));
 
-    if (this._cardID()) {
+    if (this._owner === this._currentUserId) {
       deleteButton.style.display = "block"; // Show the trash button
       deleteButton.addEventListener("click", () =>
         this._handleDelete(this, this._cardID)
