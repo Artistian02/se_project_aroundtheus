@@ -52,7 +52,6 @@ const addCardPopup = new PopupWithForm(
     api
       .addNewCard(cardData)
       .then((newCardData) => {
-        currentUserId = userData._id;
         renderCard(newCardData);
         addCardPopup.close();
       })
@@ -124,10 +123,11 @@ editAvatarPopup.setEventListeners();
 // Likes///
 function handleLikeClick(card) {
   const isLiked = card.isLiked();
+  const cardID = card._cardID;
 
   if (isLiked) {
     api
-      .likeCountRemove(card)
+      .likeCountRemove(cardID)
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
@@ -136,7 +136,7 @@ function handleLikeClick(card) {
       });
   } else {
     api
-      .likeCountAdd(card)
+      .likeCountAdd(cardID)
       .then((updatedCard) => {
         card.setLikes(updatedCard.likes);
       })
@@ -157,7 +157,7 @@ function renderCard(cardData) {
     handleCardImageClick,
     (cardID) => handleDeleteClick(card, cardID),
     handleLikeClick,
-    isCurrentUserOwner
+    currentUserId
   );
 
   return card.getView();
@@ -170,7 +170,7 @@ function addCard(data) {
   };
 
   // Show loading state
-  addNewCardButton.classList.add("loading");
+  addNewCardButton.classList.add("showLoading");
   api
     .addNewCard(cardData)
     .then((newCard) => {
@@ -182,8 +182,7 @@ function addCard(data) {
       console.error("Error adding card:", error);
     })
     .finally(() => {
-      // Hide loading state whether the operation succeeds or fails
-      addNewCardButton.classList.remove("loading");
+      addNewCardButton.classList.remove("hideLoading");
     });
 }
 const api = new Api(apiURL);
@@ -196,29 +195,33 @@ function handleCardImageClick(cardData) {
 }
 
 api
-  .getInitialCards()
-  .then((cardData) => {
-    currentUserId.then((currentUser) => {
-      currentUserId = currentUser._id;
+  .getUserInfo()
+  .then((currentUser) => {
+    currentUserId = currentUser._id;
 
-      cardData.forEach((cardItem) => {
-        const card = new Card(
-          cardItem,
-          "#card-template",
-          handleCardImageClick,
-          handleDeleteClick,
-          handleLikeClick,
-          currentUserId
-        );
+    api
+      .getInitialCards()
+      .then((cardData) => {
+        cardData.forEach((cardItem) => {
+          const card = new Card(
+            cardItem,
+            "#card-template",
+            handleCardImageClick,
+            handleDeleteClick,
+            handleLikeClick,
+            currentUserId
+          );
 
-        const cardElement = card.getView();
-
-        section.addItem(cardElement);
+          const cardElement = card.getView();
+          section.addItem(cardElement);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching initial cards:", error);
       });
-    });
   })
   .catch((error) => {
-    console.error("Error fetching initial cards:", error);
+    console.error("Error fetching user info:", error);
   });
 
 // card format
@@ -232,7 +235,7 @@ addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.disableButton();
 
   // Start loading state here
-  addCardFormPopup.showLoading();
+  addCardFormPopup.showLoading(false);
   addCardFormPopup.open();
 });
 

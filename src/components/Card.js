@@ -5,24 +5,23 @@ class Card {
     handleCardClick,
     handleDeleteClick,
     handleLikeClick,
-    isLiked,
-    owner
+    currentUserId
   ) {
     this._name = data.name;
     this._link = data.link;
+    this._owner = data.owner;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDelete = handleDeleteClick;
     this._handleLike = handleLikeClick;
     this._likes = Array.isArray(data.likes) ? data.likes : [];
     this._cardID = data._id;
-    this._isLiked = isLiked;
-    this._owner = data.owner._id;
+    this._isLiked = data.isLiked;
     this._currentUserId = currentUserId;
   }
 
   isLiked() {
-    return this._likes.some((like) => like._id === this._cardID);
+    return this._likes.some((like) => like._id === this._owner._id);
   }
 
   likeCountAdd() {
@@ -39,8 +38,8 @@ class Card {
     const cardImage = this._element.querySelector(".card__image");
 
     likeButton.addEventListener("click", () => this._handleLike(this));
-
-    if (this._owner === this._currentUserId) {
+    debugger;
+    if (this._owner._id === this._currentUserId) {
       deleteButton.style.display = "block"; // Show the trash button
       deleteButton.addEventListener("click", () =>
         this._handleDelete(this, this._cardID)

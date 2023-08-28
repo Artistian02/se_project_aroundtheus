@@ -157,7 +157,7 @@
   opacity: 1;
 }
 
-.modal__button:hover {
+.modal__button:hover:not(:disabled) {
   opacity: 0.8;
   cursor: pointer;
 }
