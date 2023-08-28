@@ -38,12 +38,13 @@ class Card {
     const cardImage = this._element.querySelector(".card__image");
 
     likeButton.addEventListener("click", () => this._handleLike(this));
-    debugger;
+
     if (this._owner._id === this._currentUserId) {
       deleteButton.style.display = "block"; // Show the trash button
-      deleteButton.addEventListener("click", () =>
-        this._handleDelete(this, this._cardID)
-      );
+      deleteButton.addEventListener("click", () => {
+        this._handleDelete(this, this._cardID);
+        deleteButton.remove();
+      });
     } else {
       deleteButton.style.display = "none"; // Hide the trash button
     }

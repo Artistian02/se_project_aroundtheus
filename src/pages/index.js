@@ -48,20 +48,26 @@ let currentUserId;
 const addCardPopup = new PopupWithForm(
   "#add-card-modal",
   (cardData) => {
-    addCardPopup.showLoading();
-    api
-      .addNewCard(cardData)
-      .then((newCardData) => {
-        renderCard(newCardData);
-        addCardPopup.close();
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        addCardPopup.hideLoading();
-      });
+    handleFormSubmit(cardData); // Call the form submission handler
   },
   "Saving..."
 );
+
+// Function to handle form submission
+function handleFormSubmit(cardData) {
+  addCardPopup.showLoading();
+
+  api
+    .addNewCard(cardData)
+    .then((newCardData) => {
+      renderCard(newCardData);
+      addCardPopup.close();
+    })
+    .catch((err) => console.error(err))
+    .finally(() => {
+      addCardPopup.hideLoading();
+    });
+}
 
 // Delete Card //
 const deleteCardPopup = new PopupWithConfirmation(
