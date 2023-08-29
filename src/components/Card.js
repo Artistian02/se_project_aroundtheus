@@ -60,10 +60,6 @@ class Card {
       .classList.toggle("card__like-button_active");
   }
 
-  // _handleDeleteClick() {
-  //   this.deleteCard();
-  // }
-
   deleteCard() {
     this._element.remove();
     this._element = null;
