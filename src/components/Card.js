@@ -21,7 +21,7 @@ class Card {
   }
 
   isLiked() {
-    return this._likes.some((like) => like._id === this._owner._id);
+    return this._likes.some((like) => like._id === this._currentUserId);
   }
 
   likeCountAdd() {
