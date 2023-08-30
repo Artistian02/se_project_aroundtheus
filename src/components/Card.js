@@ -12,7 +12,7 @@ class Card {
     this._owner = data.owner;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._handleDelete = handleDeleteClick;
+    this._deleteCard = handleDeleteClick;
     this._handleLike = handleLikeClick;
     this._likes = Array.isArray(data.likes) ? data.likes : [];
     this._cardID = data._id;
@@ -42,8 +42,8 @@ class Card {
     if (this._owner._id === this._currentUserId) {
       deleteButton.style.display = "block"; // Show the trash button
       deleteButton.addEventListener("click", () => {
-        this._handleDelete(this, this._cardID);
-        deleteButton.remove();
+        this._deleteCard(this, this._cardID); // Perform the delete action
+        deleteButton.parentElement.removeChild(deleteButton); // Remove the delete button
       });
     } else {
       deleteButton.style.display = "none"; // Hide the trash button

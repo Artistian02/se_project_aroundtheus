@@ -27,7 +27,7 @@ import {
 } from "../utils/constants.js";
 import "./index.css";
 
-const userinfoComponent = new Userinfo(
+const userInfoComponent = new Userinfo(
   selectors.profileTitle,
   selectors.profileDescription,
   selectors.profileAvatar
@@ -98,7 +98,7 @@ function handleDeleteClick(card, cardID) {
 const editAvatarPopup = new PopupWithForm(
   "#edit-avatar-modal",
   (inputValues) => {
-    editAvatarPopup.showLoading();
+    editAvatarPopup.renderLoading();
 
     const avatarData = {
       avatar: inputValues.imageURL,
@@ -107,7 +107,7 @@ const editAvatarPopup = new PopupWithForm(
     api
       .editProfileImage(avatarData)
       .then(() => {
-        userinfoComponent.setUserImage(inputValues.imageURL);
+        userInfoComponent.setAvatar(inputValues.imageURL);
         editAvatarPopup.close();
       })
       .catch((err) => {
@@ -240,8 +240,7 @@ addCardFormPopup.setEventListeners();
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.disableButton();
 
-  // Start loading state here
-  addCardFormPopup.showLoading(false);
+  addCardFormPopup.renderLoading(false);
   addCardFormPopup.open();
 });
 
@@ -249,7 +248,7 @@ addNewCardButton.addEventListener("click", () => {
 
 const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
   const { title, description } = data;
-  userinfoComponent.setUserInfo(title, description);
+  userInfoComponent.setUserInfo(title, description);
   profileModal.close();
 });
 
@@ -261,8 +260,8 @@ api
     about: profileDescriptionInput.value,
   })
   .then((result) => {
-    userinfoComponent.setUserInfo(result.name, result.about);
-    userinfoComponent.setUserImage(result.avatar);
+    userInfoComponent.setUserInfo(result.name, result.about);
+    userInfoComponent.setAvatar(result.avatar);
   })
   .catch((error) => {
     // Handle error from getUserInfo
@@ -270,7 +269,7 @@ api
   });
 
 profileEditButton.addEventListener("click", () => {
-  const profileInfo = userinfoComponent.getUserInfo();
+  const profileInfo = userInfoComponent.getUserInfo();
 
   profileTitleInput.value = profileInfo.profileName;
   profileDescriptionInput.value = profileInfo.description;
