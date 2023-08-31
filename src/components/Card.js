@@ -40,15 +40,14 @@ class Card {
     likeButton.addEventListener("click", () => this._handleLike(this));
 
     if (this._owner._id === this._currentUserId) {
-      deleteButton.style.display = "block"; // Show the trash button
+      deleteButton.style.display = "block";
       deleteButton.addEventListener("click", () => {
-        this._deleteCard(this, this._cardID); // Perform the delete action
-        deleteButton.parentElement.removeChild(deleteButton); // Remove the delete button
+        this._deleteCard(this, this._cardID);
+        deleteButton.parentElement.removeChild(deleteButton);
       });
     } else {
       deleteButton.style.display = "none"; // Hide the trash button
     }
-
     cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
     });

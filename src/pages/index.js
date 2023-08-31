@@ -47,10 +47,8 @@ let currentUserId;
 // Add Card Popup//
 const addCardPopup = new PopupWithForm(
   "#add-card-modal",
-  (cardData) => {
-    handleFormSubmit(cardData); // Call the form submission handler
-  },
-  "Saving..."
+  handleFormSubmit,
+  "Save"
 );
 
 // Function to handle form submission
@@ -199,7 +197,6 @@ imagePreviewModal.setEventListeners();
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
-
 api
   .getUserInfo()
   .then((currentUser) => {
@@ -208,7 +205,7 @@ api
     api
       .getInitialCards()
       .then((cardData) => {
-        cardData.forEach((cardItem) => {
+        const cardItems = cardData.map((cardItem) => {
           const card = new Card(
             cardItem,
             "#card-template",
@@ -218,9 +215,10 @@ api
             currentUserId
           );
 
-          const cardElement = card.getView();
-          section.addItem(cardElement);
+          return card.getView();
         });
+
+        section.renderItems(cardItems);
       })
       .catch((error) => {
         console.error("Error fetching initial cards:", error);
