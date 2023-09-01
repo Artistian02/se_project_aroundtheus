@@ -53,7 +53,7 @@ const addCardPopup = new PopupWithForm(
 
 // Function to handle form submission
 function handleFormSubmit(cardData) {
-  addCardPopup.showLoading();
+  addNewCardButton.classList.add("showLoading");
 
   api
     .addNewCard(cardData)
@@ -63,6 +63,7 @@ function handleFormSubmit(cardData) {
     })
     .catch((err) => console.error(err))
     .finally(() => {
+      addNewCardButton.classList.remove("showLoading");
       addCardPopup.hideLoading();
     });
 }
@@ -150,11 +151,9 @@ function handleLikeClick(card) {
   }
 }
 
-const section = new Section({}, containerSelector);
-
 // Functions
 
-function renderCard(cardData) {
+function createCardElement(cardData) {
   const card = new Card(
     cardData,
     "#card-template",
@@ -178,7 +177,7 @@ function addCard(data) {
   api
     .addNewCard(cardData)
     .then((newCard) => {
-      const cardElement = renderCard(newCard);
+      const cardElement = createCardElement(newCard);
       section.addItem(cardElement);
       addCardFormPopup.close();
     })
@@ -186,7 +185,7 @@ function addCard(data) {
       console.error("Error adding card:", error);
     })
     .finally(() => {
-      addNewCardButton.classList.remove("hideLoading");
+      addNewCardButton.classList.remove("showLoading");
     });
 }
 const api = new Api(apiURL);
@@ -197,28 +196,35 @@ imagePreviewModal.setEventListeners();
 function handleCardImageClick(cardData) {
   imagePreviewModal.open(cardData);
 }
+
+let section;
+
 api
   .getUserInfo()
   .then((currentUser) => {
     currentUserId = currentUser._id;
 
+    userInfoComponent.setUserInfo(currentUser.name, currentUser.about);
+    userInfoComponent.setAvatar(currentUser.avatar);
+
+    // Set the user info on the profile modal
+    profileTitleInput.value = currentUser.name;
+    profileDescriptionInput.value = currentUser.about;
+
     api
       .getInitialCards()
       .then((cardData) => {
-        const cardItems = cardData.map((cardItem) => {
-          const card = new Card(
-            cardItem,
-            "#card-template",
-            handleCardImageClick,
-            handleDeleteClick,
-            handleLikeClick,
-            currentUserId
-          );
-
-          return card.getView();
-        });
-
-        section.renderItems(cardItems);
+        section = new Section(
+          {
+            items: cardData,
+            renderer: (card) => {
+              const cardElement = createCardElement(card);
+              section.addItem(cardElement);
+            },
+          },
+          containerSelector
+        );
+        section.renderItems();
       })
       .catch((error) => {
         console.error("Error fetching initial cards:", error);
@@ -233,12 +239,10 @@ const addCardModalSelector = "#add-card-modal";
 
 const addCardFormPopup = new PopupWithForm(addCardModalSelector, addCard);
 addCardFormPopup.setEventListeners();
-// addCardFormPopup.close();
 
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.disableButton();
 
-  addCardFormPopup.renderLoading(false);
   addCardFormPopup.open();
 });
 
@@ -251,20 +255,6 @@ const profileModal = new PopupWithForm(selectors.profileModal, (data) => {
 });
 
 profileModal.setEventListeners();
-
-api
-  .getUserInfo({
-    name: profileTitleInput.value,
-    about: profileDescriptionInput.value,
-  })
-  .then((result) => {
-    userInfoComponent.setUserInfo(result.name, result.about);
-    userInfoComponent.setAvatar(result.avatar);
-  })
-  .catch((error) => {
-    // Handle error from getUserInfo
-    console.error("Error updating user info:", error);
-  });
 
 profileEditButton.addEventListener("click", () => {
   const profileInfo = userInfoComponent.getUserInfo();

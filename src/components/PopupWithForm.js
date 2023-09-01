@@ -19,13 +19,6 @@ class PopupWithForm extends Popup {
     return values;
   }
 
-  _submitForm = () => {
-    const inputValues = this._getInputValues();
-    this._loadingState = true;
-    this.showLoading(true);
-    this._handleFormSubmit(inputValues);
-  };
-
   renderLoading(isLoading) {
     if (isLoading) {
       this._submitButton.textContent = "Saving...";
@@ -48,7 +41,6 @@ class PopupWithForm extends Popup {
 
   close() {
     super.close();
-
     this._popupForm.reset();
   }
 }
