@@ -44,29 +44,11 @@ const apiURL = {
 };
 let currentUserId;
 
-// Add Card Popup//
-const addCardPopup = new PopupWithForm(
-  "#add-card-modal",
-  handleFormSubmit,
-  "Save"
-);
-
-// Function to handle form submission
-function handleFormSubmit(cardData) {
-  addNewCardButton.classList.add("showLoading");
-
-  api
-    .addNewCard(cardData)
-    .then((newCardData) => {
-      renderCard(newCardData);
-      addCardPopup.close();
-    })
-    .catch((err) => console.error(err))
-    .finally(() => {
-      addNewCardButton.classList.remove("showLoading");
-      addCardPopup.hideLoading();
-    });
-}
+// // // Add Card Popup//
+// // const addCardPopup = new PopupWithForm(
+// //   "#add-card-modal",
+// //   "Save"
+// );
 
 // Delete Card //
 const deleteCardPopup = new PopupWithConfirmation(
@@ -97,7 +79,7 @@ function handleDeleteClick(card, cardID) {
 const editAvatarPopup = new PopupWithForm(
   "#edit-avatar-modal",
   (inputValues) => {
-    editAvatarPopup.renderLoading();
+    editAvatarPopup.renderLoading(true);
 
     const avatarData = {
       avatar: inputValues.imageURL,
@@ -116,7 +98,7 @@ const editAvatarPopup = new PopupWithForm(
         editAvatarPopup.hideLoading();
       });
   },
-  "Saving..."
+  "Save"
 );
 
 profileAvatarButton.addEventListener("click", () => {
@@ -173,7 +155,8 @@ function addCard(data) {
   };
 
   // Show loading state
-  addNewCardButton.classList.add("showLoading");
+
+  addCardFormPopup.renderLoading(true);
   api
     .addNewCard(cardData)
     .then((newCard) => {
@@ -185,7 +168,7 @@ function addCard(data) {
       console.error("Error adding card:", error);
     })
     .finally(() => {
-      addNewCardButton.classList.remove("showLoading");
+      addCardFormPopup.hideLoading();
     });
 }
 const api = new Api(apiURL);

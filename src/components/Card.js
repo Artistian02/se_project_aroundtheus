@@ -43,10 +43,10 @@ class Card {
       deleteButton.style.display = "block";
       deleteButton.addEventListener("click", () => {
         this._deleteCard(this, this._cardID);
-        deleteButton.parentElement.removeChild(deleteButton);
       });
     } else {
       deleteButton.style.display = "none"; // Hide the trash button
+      deleteButton.remove;
     }
     cardImage.addEventListener("click", () => {
       this._handleCardClick({ name: this._name, link: this._link });
