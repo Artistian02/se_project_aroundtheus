@@ -42,7 +42,7 @@ class Card {
     if (this._owner._id === this._currentUserId) {
       deleteButton.style.display = "block";
       deleteButton.addEventListener("click", () => {
-        this._deleteCard(this, this._cardID);
+        this._deleteCard(this);
       });
     } else {
       deleteButton.style.display = "none"; // Hide the trash button

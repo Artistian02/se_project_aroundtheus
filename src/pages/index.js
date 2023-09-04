@@ -61,7 +61,7 @@ function handleDeleteClick(card, cardID) {
   deleteCardPopup.setSubmitAction(() => {
     deleteCardPopup.showLoading();
     api
-      .deleteCard(cardID)
+      .deleteCard(card._cardID)
       .then(() => {
         card.deleteCard();
         deleteCardPopup.close();
@@ -140,7 +140,7 @@ function createCardElement(cardData) {
     cardData,
     "#card-template",
     handleCardImageClick,
-    (cardID) => handleDeleteClick(card, cardID),
+    handleDeleteClick,
     handleLikeClick,
     currentUserId
   );
