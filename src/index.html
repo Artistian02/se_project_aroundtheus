@@ -20,11 +20,18 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src='<%=require("./image/jacques-cousteau.jpg")%>'
-            alt="avatar"
-            class="profile__image"
-          />
+          <div class="profile__avatar-container">
+            <img
+              src='<%=require("./image/jacques-cousteau.jpg")%>'
+              alt="avatar"
+              class="profile__image"
+            />
+            <button
+              type="button"
+              class="profile__avatar-button"
+              id="avatar-edit-button"
+            ></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -116,6 +123,36 @@
         </form>
       </div>
     </div>
+    <!-- Delete Card Modal ======-->
+    <div class="modal" id="delete-card-modal">
+      <div class="modal__container">
+        <button class="modal__close" type="button"></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button type="submit" class="modal__button">Yes</button>
+      </div>
+    </div>
+    <!-- --------------------------- Edit AVATAR MODAL ---------------------------- -->
+    <div class="modal" id="edit-avatar-modal">
+      <div class="modal__container">
+        <button class="modal__close" type="button"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="edit-avatar-form" name="avatar-edit-form">
+          <input
+            type="url"
+            name="imageURL"
+            id="profile-avatar-url"
+            class="modal__input modal__input_avatar_url"
+            placeholder="Image URL"
+            required
+          />
+          <span class="modal__error" id="profile-avatar-url-error"
+            >Please enter a URL.</span
+          >
+          <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- <--------------- Image Modal ------------------------------->
     <div id="image-preview-modal" class="modal">
       <div class="modal__content">
         <button class="modal__close"></button>
@@ -135,7 +172,10 @@
         <div class="card__description">
           <h2 class="card__title"></h2>
           <p class="card__caption"></p>
-          <button class="card__like-button" type="button"></button>
+          <div>
+            <button class="card__like-button" type="button"></button>
+            <span class="card__likes-count">0</span>
+          </div>
         </div>
         <button class="card__delete-button" type="button"></button>
       </li>

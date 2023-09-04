@@ -11,17 +11,27 @@ export default class FormValidator {
   }
 
   _showInputError(inputElement) {
-    const errorMessageElement = this._formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.add(this._inputErrorClass);
-    errorMessageElement.classList.add(this._errorClass);
-    errorMessageElement.textContent = inputElement.validationMessage;
+    const errorMessage = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
+
+    if (errorMessage) {
+      inputElement.classList.add(this._inputErrorClass);
+      errorMessage.classList.add(this._errorClass);
+      errorMessage.textContent = inputElement.validationMessage;
+    }
   }
 
   _hideInputError(inputElement) {
-    const errorMessageElement = this._formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove(this._inputErrorClass);
-    errorMessageElement.classList.remove(this._errorClass);
-    errorMessageElement.textContent = "";
+    const errorMessage = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
+
+    if (errorMessage) {
+      inputElement.classList.remove(this._inputErrorClass);
+      errorMessage.classList.remove(this._errorClass);
+      errorMessage.textContent = "";
+    }
   }
 
   _checkInputValidity(inputElement) {
@@ -61,8 +71,9 @@ export default class FormValidator {
   }
 
   setEventListeners() {
-    this.inputList = Array.from(this._formElement.querySelectorAll(this._inputElement));
-    this.toggleButtonState(); // Call toggleButtonState() here to disable the button for the first time on start
+    this.inputList = Array.from(
+      this._formElement.querySelectorAll(this._inputElement)
+    );
 
     const inputHandler = (inputElement) => {
       this._checkInputValidity(inputElement);
@@ -74,6 +85,8 @@ export default class FormValidator {
         inputHandler(inputElement);
       });
     });
+
+    this.toggleButtonState();
   }
 
   enableValidation() {

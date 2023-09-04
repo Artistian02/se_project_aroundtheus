@@ -4,16 +4,18 @@ export default class Api {
     this._header = url.headers;
   }
 
-  _checkRequest(res) {
+  async _checkRequest(res) {
     if (res.ok) {
-      return res.json();
+      return await res.json();
     } else {
-      return Promise.reject(`Error: ${res.status}`);
+      const errorData = await res.json(); // Parse the error response
+      return Promise.reject(`Error: ${res.status} - ${errorData.message}`);
     }
   }
 
-  _request(url, options) {
-    return fetch(url, options).then(this._checkRequest);
+  async _request(url, options) {
+    const res = await fetch(url, options);
+    return this._checkRequest(res);
   }
 
   getInitialCards() {
@@ -22,7 +24,7 @@ export default class Api {
     });
   }
 
-  editProfile(data) {
+  editProfileForm(data) {
     return this._request(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._header,
@@ -34,12 +36,15 @@ export default class Api {
   }
 
   editProfileImage(data) {
+    const formData = new FormData();
+    formData.append("avatar", data.avatar);
+
+    console.log(data);
+
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._header,
-      body: JSON.stringify({
-        avatar: data.avatar,
-      }),
+      body: JSON.stringify(data),
     });
   }
 
@@ -49,7 +54,7 @@ export default class Api {
     });
   }
 
-  addCard(data) {
+  addNewCard(data) {
     return this._request(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._header,
@@ -60,34 +65,34 @@ export default class Api {
     });
   }
 
-  deleteCard(id) {
-    return this._request(`${this._baseUrl}/cards/${id}`, {
-      method: "DELETE",
-      headers: this._header,
-    });
-  }
-
-  likeCountAdd(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+  likeCountAdd(cardID) {
+    return this._request(`${this._baseUrl}/cards/likes/${cardID}`, {
       method: "PUT",
       headers: this._header,
     });
   }
 
-  likeCountRemove(cardId) {
-    return this._request(`${this._baseUrl}/cards/likes/${cardId}`, {
+  likeCountRemove(cardID) {
+    return this._request(`${this._baseUrl}/cards/likes/${cardID}`, {
       method: "DELETE",
       headers: this._header,
     });
   }
 
-  likeCount(cardId) {
-    return this._request(`${this._baseUrl}/cards/${cardId}`, {
+  likeCount(cardID) {
+    return this._request(`${this._baseUrl}/cards/${cardID}`, {
       headers: this._header,
     });
   }
 
   loadData() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+  }
+
+  deleteCard(cardID) {
+    return this._request(`${this._baseUrl}/cards/${cardID}`, {
+      method: "DELETE",
+      headers: this._header,
+    });
   }
 }

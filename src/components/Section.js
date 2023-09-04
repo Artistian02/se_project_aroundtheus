@@ -1,14 +1,14 @@
 import { containerSelector } from "../utils/constants";
 
 export default class Section {
-  constructor({ items, renderer }, containerSelector) {
-    this._renderedItems = items;
+  constructor({ items, renderer }) {
+    this._items = items || [];
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
 
   renderItems() {
-    this._renderedItems.forEach((item) => {
+    this._items.forEach((item) => {
       this._renderer(item);
     });
   }
@@ -17,8 +17,3 @@ export default class Section {
     this._container.prepend(element);
   }
 }
-
-const section = new Section(
-  { items: [], renderer: () => {} },
-  containerSelector
-);

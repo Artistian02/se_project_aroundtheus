@@ -30,6 +30,7 @@ export const selectors = {
   profileTitle: ".profile__title",
   profileDescription: ".profile__description",
   profileModal: "#profile-edit-modal",
+  profileAvatar: ".profile__image",
 };
 
 export const cardTemplate = document.querySelector("#card-template");
@@ -42,14 +43,20 @@ export const profileEditCloseButton =
   profileEditModal.querySelector(".modal__close");
 export const addCardModal = document.querySelector("#add-card-modal");
 export const addNewCardButton = document.querySelector(".profile__add-button");
+// addButton.classList.add("loading");
 export const formElement = document.querySelector(".modal__form");
 export const addCardFormElement = document.querySelector("#add-card-form");
 export const containerSelector = ".cards__list";
+export const editAvatarForm = document.querySelector("#edit-avatar-form");
+export const profileAvatarButton = document.querySelector(
+  "#avatar-edit-button"
+);
+export const profileAvatar = document.querySelector(".profile__image");
 
 export const modalForm = document.forms["add-card-form"];
 export const cardForm = document.forms["card-form"];
 export const profileEditForm = profileEditModal.querySelector(".modal__form");
-export const submitButton = document.querySelector(".modal__button");
+export const modalButton = document.querySelector(".modal__button");
 
 export const errorMessage = addCardFormElement.querySelector(".modal__error");
 
@@ -59,6 +66,11 @@ export const imageModalCloseButton = imageModal.querySelector(".modal__close");
 export const addCardModalCloseButton =
   addCardModal.querySelector("#modal-close-image");
 export const profileTitle = document.querySelector(".profile__title");
+// export const deleteCardModalInstance = document.querySelector("#delete-card");
+const deleteCardPopup = document.querySelector("#delete-card-modal");
+export const deleteCardModalButton = deleteCardPopup.querySelector(
+  selectors.modalButton
+);
 export const profileTitleInput = document.querySelector("#profile-title-input");
 export const profileDescription = document.querySelector(
   ".profile__description"
@@ -67,7 +79,7 @@ export const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-export const config = {
+export const formValidatorConfig = {
   formElement: ".modal__form",
   inputElement: ".modal__input",
   submitButton: ".modal__button",
